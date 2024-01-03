@@ -1,1 +1,15 @@
+*.o
+\#*#
+*#
+.#*
+.*~
+*~
 .DS_Store
+tags
+TAGS
+.zshrc.local
+.python-version
+samples
+.bundle
+node_modules
+fishd.*
