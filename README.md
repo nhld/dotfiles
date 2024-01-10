@@ -11,10 +11,8 @@
 - **SauceCodePro**
 - **MesloLGS**
 
-## iterm2
-
-- **gruvbox colorscheme**
-
 ## terminal should look like this after configuration
+
+# using iterm2, moving away soon
 
 [<img src="./images/img.jpg" width="500"/>]()
