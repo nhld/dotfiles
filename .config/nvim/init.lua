@@ -1,11 +1,4 @@
 --[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
 Kickstart.nvim is a template for your own configuration.
   The goal is that you can read every line of code, top-to-bottom, understand
   what your configuration is doing, and modify it to suit your needs.
@@ -32,11 +25,7 @@ These are for you, the reader to help understand what is happening. Feel free to
 them once you know what you're doing, but they should serve as a guide for when you
 are first encountering a few different constructs in your nvim config.
 
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
+]]--
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -73,10 +62,9 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   -- # --
-  'HiPhish/rainbow-delimiters.nvim',
+  --'HiPhish/rainbow-delimiters.nvim',
   'nvim-tree/nvim-web-devicons',
   -- # --
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -195,25 +183,12 @@ require('lazy').setup({
   },
   -- # --
   {
-    'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
-    opts = {},
-  },
-
-  --{
-  --  'nvim-lualine/lualine.nvim',
-  --  dependencies = { 'nvim-tree/nvim-web-devicons' },
-  --  opts = {
-  --    options = {
-  --      theme = "everforest",
-  --    },
-  --  },
-  --},
-
-  {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
     opts = {}
+  },
+  {
+    'windwp/nvim-ts-autotag'
   },
   -- # --
 
@@ -239,6 +214,41 @@ require('lazy').setup({
       },
     },
   },
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    config = function()
+        --[[local colors = {
+          Red = '#EF6D6D',
+          Orange = '#FFA645',
+          Yellow = '#EDEF56',
+          Green = '#6AEF6F',
+          Cyan = '#78E6EF',
+          Blue = '#70A4FF',
+          Violet = '#BDB2EF',
+        }]]--
+        --require('pynappo.theme').set_rainbow_colors('RainbowDelimiter', colors) -- just a helper function that sets the highlights with the given prefix
+        local rainbow_delimiters = require('rainbow-delimiters')
+
+        vim.g.rainbow_delimiters = {
+          strategy = {
+            [''] = rainbow_delimiters.strategy['global'],
+            vim = rainbow_delimiters.strategy['local'],
+          },
+          query = {
+            [''] = 'rainbow-delimiters',
+          },
+          highlight = {
+            'RainbowDelimiterRed',
+            'RainbowDelimiterYellow',
+            'RainbowDelimiterOrange',
+            'RainbowDelimiterGreen',
+            'RainbowDelimiterBlue',
+            'RainbowDelimiterCyan',
+            'RainbowDelimiterViolet',
+          },
+        }
+    end,
+  },
 
   {
     -- Add indentation guides even on blank lines
@@ -247,6 +257,28 @@ require('lazy').setup({
     -- See `:help ibl`
     main = 'ibl',
     opts = {},
+    -- # --
+    config = function()
+      local hl_name_list = {
+        'RainbowDelimiterRed',
+        'RainbowDelimiterYellow',
+        'RainbowDelimiterOrange',
+        'RainbowDelimiterGreen',
+        'RainbowDelimiterBlue',
+        'RainbowDelimiterCyan',
+        'RainbowDelimiterViolet',
+      }
+      require('ibl').setup({
+        scope = {
+          enabled = true,
+          show_start = false,
+          highlight = hl_name_list
+        }
+      })
+      local hooks = require "ibl.hooks"
+      hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    end,
+    -- # --
   },
 
   -- "gc" to comment visual regions/lines
@@ -283,7 +315,6 @@ require('lazy').setup({
   },
   -- # --
 
-
   -- # --
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -301,6 +332,12 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
+require("ibl").setup {
+  enabled = true,
+  scope = { highlight = {"Function", "Label"} , priority = 500, show_start = false },
+  indent = { char = "│" },
+  debounce = 100,
+}
 
 require('lualine').setup {
   options = {
@@ -324,15 +361,23 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_c = { {
+      'filename',
+      file_status = true,
+      path = 0
+    } },
+    lualine_x = {'encoding', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {'filename'},
+    lualine_c = { {
+      'filename',
+      file_status = true,
+      path = 1
+    } },
     lualine_x = {'location'},
     lualine_y = {},
     lualine_z = {}
@@ -349,9 +394,21 @@ require('lualine').setup {
 -- NOTE: You can change these options as you wish!
 -- # --
 vim.o.relativenumber = true
+vim.o.cursorline = true
+vim.o.termguicolors = true
+vim.o.winblend = 0
+vim.o.wildoptions = 'pum'
+vim.o.pumblend = 5
+vim.o.background = 'dark'
+vim.o.autoindent = true
+vim.o.tabstop = 2
+vim.o.autoindent = true
+vim.o.smartindent = true
+vim.o.wrap = false
+vim.o.showcmd = false
+vim.o.cmdheight = 0
 
 -- # --
-
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -397,6 +454,12 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- # --
 vim.keymap.set('i', 'jk', '<Esc>')
+-- not yank with x
+vim.keymap.set('n', 'x', '"_x')
+vim.keymap.set('n', '+', '<C-a>')
+vim.keymap.set('n', '-', '<C-x>')
+vim.keymap.set('n', 'dw', 'vb"_d')
+vim.keymap.set('n', '<C-a>', 'gg<S-v>G')
 
 -- # --
 
@@ -411,7 +474,7 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- # --
-local rainbow_delimiters = require 'rainbow-delimiters'
+--[[local rainbow_delimiters = require 'rainbow-delimiters'
 
 vim.g.rainbow_delimiters = {
     strategy = {
@@ -463,7 +526,7 @@ vim.g.rainbow_delimiters = { highlight = highlight }
 require("ibl").setup { scope = { highlight = highlight } }
 
 hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
-
+]]--
 -- # --
 
 -- [[ Highlight on yank ]]
