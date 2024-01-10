@@ -62,7 +62,6 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   -- # --
-  --'HiPhish/rainbow-delimiters.nvim',
   'nvim-tree/nvim-web-devicons',
   -- # --
   -- Detect tabstop and shiftwidth automatically
@@ -214,19 +213,10 @@ require('lazy').setup({
       },
     },
   },
+  -- # rainbow color for brackets
   {
     'HiPhish/rainbow-delimiters.nvim',
     config = function()
-        --[[local colors = {
-          Red = '#EF6D6D',
-          Orange = '#FFA645',
-          Yellow = '#EDEF56',
-          Green = '#6AEF6F',
-          Cyan = '#78E6EF',
-          Blue = '#70A4FF',
-          Violet = '#BDB2EF',
-        }]]--
-        --require('pynappo.theme').set_rainbow_colors('RainbowDelimiter', colors) -- just a helper function that sets the highlights with the given prefix
         local rainbow_delimiters = require('rainbow-delimiters')
 
         vim.g.rainbow_delimiters = {
@@ -271,9 +261,11 @@ require('lazy').setup({
       require('ibl').setup({
         scope = {
           enabled = true,
-          show_start = false,
-          highlight = hl_name_list
-        }
+          show_start = true,
+          highlight = hl_name_list,
+        },
+        indent = { char = "│" },
+        debounce = 200,
       })
       local hooks = require "ibl.hooks"
       hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
@@ -331,13 +323,6 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 }, {})
-
-require("ibl").setup {
-  enabled = true,
-  scope = { highlight = {"Function", "Label"} , priority = 500, show_start = false },
-  indent = { char = "│" },
-  debounce = 100,
-}
 
 require('lualine').setup {
   options = {
@@ -405,15 +390,21 @@ vim.o.tabstop = 2
 vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.wrap = false
-vim.o.showcmd = false
-vim.o.cmdheight = 0
+vim.o.showcmd = true
+vim.o.cmdheight = 1
+
+if vim.fn.has("nvim-0.8") == 1 then
+  vim.o.cmdheight = 0
+end
+
+vim.o.number = true
 
 -- # --
 -- Set highlight on search
 vim.o.hlsearch = false
 
 -- Make line numbers default
-vim.wo.number = true
+--vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -474,59 +465,6 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- # --
---[[local rainbow_delimiters = require 'rainbow-delimiters'
-
-vim.g.rainbow_delimiters = {
-    strategy = {
-        [''] = rainbow_delimiters.strategy['global'],
-        vim = rainbow_delimiters.strategy['local'],
-    },
-    query = {
-        [''] = 'rainbow-delimiters',
-        lua = 'rainbow-blocks',
-    },
-    priority = {
-        [''] = 110,
-        lua = 210,
-    },
-    highlight = {
-        'RainbowDelimiterRed',
-        'RainbowDelimiterYellow',
-        'RainbowDelimiterBlue',
-        'RainbowDelimiterOrange',
-        'RainbowDelimiterGreen',
-        'RainbowDelimiterViolet',
-        'RainbowDelimiterCyan',
-    },
-}
-
-local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
-}
-local hooks = require "ibl.hooks"
--- create the highlight groups in the highlight setup hook, so they are reset
--- every time the colorscheme changes
-hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-end)
-
-vim.g.rainbow_delimiters = { highlight = highlight }
-require("ibl").setup { scope = { highlight = highlight } }
-
-hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
-]]--
 -- # --
 
 -- [[ Highlight on yank ]]
