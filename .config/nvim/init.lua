@@ -25,7 +25,8 @@ These are for you, the reader to help understand what is happening. Feel free to
 them once you know what you're doing, but they should serve as a guide for when you
 are first encountering a few different constructs in your nvim config.
 
-]]--
+]]
+--
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -79,7 +80,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -104,7 +105,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
 
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -182,13 +183,33 @@ require('lazy').setup({
   },
   -- # --
   {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {}
+    "windwp/nvim-autopairs",
+    -- Optional dependency
+    dependencies = { 'hrsh7th/nvim-cmp' },
+    config = function()
+      require("nvim-autopairs").setup {}
+      -- If you want to automatically add `(` after selecting a function or method
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      local cmp = require('cmp')
+      cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+      )
+    end,
   },
   {
-    'windwp/nvim-ts-autotag'
+    "nvim-neo-tree/neo-tree.nvim",
+    version = "*",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require('neo-tree').setup {}
+    end,
   },
+
   -- # --
 
   {
@@ -217,26 +238,26 @@ require('lazy').setup({
   {
     'HiPhish/rainbow-delimiters.nvim',
     config = function()
-        local rainbow_delimiters = require('rainbow-delimiters')
+      local rainbow_delimiters = require('rainbow-delimiters')
 
-        vim.g.rainbow_delimiters = {
-          strategy = {
-            [''] = rainbow_delimiters.strategy['global'],
-            vim = rainbow_delimiters.strategy['local'],
-          },
-          query = {
-            [''] = 'rainbow-delimiters',
-          },
-          highlight = {
-            'RainbowDelimiterRed',
-            'RainbowDelimiterYellow',
-            'RainbowDelimiterOrange',
-            'RainbowDelimiterGreen',
-            'RainbowDelimiterBlue',
-            'RainbowDelimiterCyan',
-            'RainbowDelimiterViolet',
-          },
-        }
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = rainbow_delimiters.strategy['global'],
+          vim = rainbow_delimiters.strategy['local'],
+        },
+        query = {
+          [''] = 'rainbow-delimiters',
+        },
+        highlight = {
+          'RainbowDelimiterRed',
+          'RainbowDelimiterYellow',
+          'RainbowDelimiterOrange',
+          'RainbowDelimiterGreen',
+          'RainbowDelimiterBlue',
+          'RainbowDelimiterCyan',
+          'RainbowDelimiterViolet',
+        },
+      }
     end,
   },
 
@@ -260,12 +281,15 @@ require('lazy').setup({
       }
       require('ibl').setup({
         scope = {
-          enabled = true,
-          show_start = true,
+          show_start = false,
           highlight = hl_name_list,
         },
         indent = { char = "│" },
         debounce = 200,
+        whitespace = {
+          remove_blankline_trail = true,
+          highlight = { "Whitespace", "Nontext" },
+        }
       })
       local hooks = require "ibl.hooks"
       hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
@@ -306,6 +330,75 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   -- # --
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      -- Switch for controlling whether you want autoformatting.
+      --  Use :KickstartFormatToggle to toggle autoformatting on or off
+      local format_is_enabled = true
+      vim.api.nvim_create_user_command('KickstartFormatToggle', function()
+        format_is_enabled = not format_is_enabled
+        print('Setting autoformatting to: ' .. tostring(format_is_enabled))
+      end, {})
+
+      -- Create an augroup that is used for managing our formatting autocmds.
+      --      We need one augroup per client to make sure that multiple clients
+      --      can attach to the same buffer without interfering with each other.
+      local _augroups = {}
+      local get_augroup = function(client)
+        if not _augroups[client.id] then
+          local group_name = 'kickstart-lsp-format-' .. client.name
+          local id = vim.api.nvim_create_augroup(group_name, { clear = true })
+          _augroups[client.id] = id
+        end
+
+        return _augroups[client.id]
+      end
+
+      -- Whenever an LSP attaches to a buffer, we will run this function.
+      --
+      -- See `:help LspAttach` for more information about this autocmd event.
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('kickstart-lsp-attach-format', { clear = true }),
+        -- This is where we attach the autoformatting for reasonable clients
+        callback = function(args)
+          local client_id = args.data.client_id
+          local client = vim.lsp.get_client_by_id(client_id)
+          local bufnr = args.buf
+
+          -- Only attach to clients that support document formatting
+          if not client.server_capabilities.documentFormattingProvider then
+            return
+          end
+
+          -- Tsserver usually works poorly. Sorry you work with bad languages
+          -- You can remove this line if you know what you're doing :)
+          if client.name == 'tsserver' then
+            return
+          end
+
+          -- Create an autocmd that will run *before* we save the buffer.
+          --  Run the formatting command for the LSP that has just attached.
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            group = get_augroup(client),
+            buffer = bufnr,
+            callback = function()
+              if not format_is_enabled then
+                return
+              end
+
+              vim.lsp.buf.format {
+                async = false,
+                filter = function(c)
+                  return c.id == client.id
+                end,
+              }
+            end,
+          })
+        end,
+      })
+    end,
+  },
 
   -- # --
 
@@ -328,8 +421,8 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -344,16 +437,16 @@ require('lualine').setup {
     }
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
     lualine_c = { {
       'filename',
       file_status = true,
       path = 0
     } },
-    lualine_x = {'encoding', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_x = { 'encoding', 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
   },
   inactive_sections = {
     lualine_a = {},
@@ -363,7 +456,7 @@ require('lualine').setup {
       file_status = true,
       path = 1
     } },
-    lualine_x = {'location'},
+    lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = {}
   },
@@ -380,14 +473,12 @@ require('lualine').setup {
 -- # --
 vim.o.relativenumber = true
 vim.o.cursorline = true
-vim.o.termguicolors = true
 vim.o.winblend = 0
 vim.o.wildoptions = 'pum'
 vim.o.pumblend = 5
 vim.o.background = 'dark'
 vim.o.autoindent = true
 vim.o.tabstop = 2
-vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.wrap = false
 vim.o.showcmd = true
@@ -397,7 +488,8 @@ if vim.fn.has("nvim-0.8") == 1 then
   vim.o.cmdheight = 0
 end
 
-vim.o.number = true
+--vim.o.number = true
+vim.o.nu = true
 
 -- # --
 -- Set highlight on search
