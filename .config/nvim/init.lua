@@ -33,6 +33,7 @@ are first encountering a few different constructs in your nvim config.
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.copilot_assume_mapped = true
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
@@ -119,6 +120,11 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      current_line_blame_opts = {
+        virt_text_pos = 'right_align',
+        delay = 1000,
+      },
+      current_line_blame = true,
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
@@ -197,6 +203,15 @@ require('lazy').setup({
       )
     end,
   },
+
+  {
+    "windwp/nvim-ts-autotag",
+  },
+
+  {
+    "github/copilot.vim",
+  },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     version = "*",
@@ -417,6 +432,22 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
+--[[
+require('nvim-treesitter.configs').setup({
+  autotag = {
+    enable = true,
+  },
+})
+]]
+--
+
+require("nvim-ts-autotag").setup({
+  enable = true,
+  enable_rename = true,
+  enable_close = true,
+  enable_close_on_splash = true,
+})
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -471,6 +502,8 @@ require('lualine').setup {
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 -- # --
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
 vim.o.relativenumber = true
 vim.o.cursorline = true
 vim.o.winblend = 0
@@ -483,10 +516,23 @@ vim.o.smartindent = true
 vim.o.wrap = false
 vim.o.showcmd = true
 vim.o.cmdheight = 1
+vim.o.incsearch = true
+vim.o.updatetime = 50
+vim.o.scrolloff = 10
+vim.o.laststatus = 2
+--vim.o.colorcolumn = '80'
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.expandtab = true
 
+
+--[[
 if vim.fn.has("nvim-0.8") == 1 then
   vim.o.cmdheight = 0
 end
+]]
+--
 
 --vim.o.number = true
 vim.o.nu = true
@@ -520,7 +566,7 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 250
+--vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
@@ -543,6 +589,19 @@ vim.keymap.set('n', '+', '<C-a>')
 vim.keymap.set('n', '-', '<C-x>')
 vim.keymap.set('n', 'dw', 'vb"_d')
 vim.keymap.set('n', '<C-a>', 'gg<S-v>G')
+
+-- like opt move in vscode
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- append line after but cursor at the start of line
+vim.keymap.set('n', 'J', 'mzJ`z')
+
+-- paste without losing previous yank
+vim.keymap.set('x', '<leader>p', "\"_dP")
+
+--replace hovering word
+vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 
 -- # --
 
@@ -656,12 +715,12 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'cpp', 'go', 'lua', 'python', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'html', 'css' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
 
-    highlight = { enable = true },
+    highlight = { enable = true, additional_vim_regex_highlighting = false, },
     indent = { enable = true },
     incremental_selection = {
       enable = true,
@@ -845,6 +904,7 @@ local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
+--[[
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -878,6 +938,44 @@ cmp.setup {
         cmp.select_prev_item()
       elseif luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'path' },
+  },
+}
+]]
+--
+
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  completion = {
+    completeopt = 'menu,menuone,noinsert',
+  },
+  mapping = cmp.mapping.preset.insert {
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
       else
         fallback()
       end
