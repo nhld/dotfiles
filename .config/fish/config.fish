@@ -15,7 +15,7 @@ alias vim nvim
 
 # Eza kinda better ls 
 if type -q eza
-    alias ll "eza -l -g --icons"
+    alias ll "eza -l --icons --total-size --no-user -o"
     alias lla "ll -a"
     alias llt "ll --tree --level=2 -a"
     alias lld "ll -D"
