@@ -20,11 +20,13 @@ use kickstart.nvim as starting point with some plugins.
 - **rainbow-delimiters**
 - **indent-blankline**
 - **lualine**
+- **neotree**
+- **copilot**
+- **nvim-ts-autotag**
 
 ## nerd fonts
 
-- **SauceCodePro**
-- **MesloLGS**
+- **MesloLGS NF**
 
 ## terminal should look like this after configuration (iterm2 terminal)
 
