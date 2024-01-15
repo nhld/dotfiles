@@ -61,27 +61,31 @@ require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
   -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-  -- # --
-  'nvim-tree/nvim-web-devicons',
-  -- # --
+  { 'tpope/vim-fugitive' },
+  { 'tpope/vim-rhubarb' },
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  {
+    'tpope/vim-sleuth',
+    event = "VeryLazy",
+  },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    event = { "BufReadPre", "BufNewFile", },
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
+      { 'williamboman/mason.nvim', config = true, },
+      {
+        'williamboman/mason-lspconfig.nvim',
+        --event = "BufReadPre",
+      },
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {},     event = "VeryLazy" },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -91,6 +95,7 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
+    event = "BufReadPre",
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -106,11 +111,12 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim', opts = {}, },
 
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
+    event = "BufReadPre",
     opts = {
       -- See `:help gitsigns.txt`
       signs = {
@@ -122,7 +128,7 @@ require('lazy').setup({
       },
       current_line_blame_opts = {
         virt_text_pos = 'right_align',
-        delay = 1000,
+        delay = 500,
       },
       current_line_blame = true,
       on_attach = function(bufnr)
@@ -189,8 +195,14 @@ require('lazy').setup({
   },
   -- # --
   {
+    'nvim-tree/nvim-web-devicons',
+    event = "VeryLazy",
+  },
+
+  {
     "windwp/nvim-autopairs",
     -- Optional dependency
+    event = "VeryLazy",
     dependencies = { 'hrsh7th/nvim-cmp' },
     config = function()
       require("nvim-autopairs").setup {}
@@ -206,14 +218,17 @@ require('lazy').setup({
 
   {
     "windwp/nvim-ts-autotag",
+    event = "VeryLazy",
   },
 
   {
     "github/copilot.vim",
+    event = "VeryLazy",
   },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
+    event = "VeryLazy",
     version = "*",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -230,6 +245,7 @@ require('lazy').setup({
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
+    --event = "VeryLazy",
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'onedark'
@@ -240,6 +256,7 @@ require('lazy').setup({
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
+    event = "VeryLazy",
     opts = {
       options = {
         icons_enabled = true,
@@ -252,6 +269,7 @@ require('lazy').setup({
   -- # rainbow color for brackets
   {
     'HiPhish/rainbow-delimiters.nvim',
+    event = "VeryLazy",
     config = function()
       local rainbow_delimiters = require('rainbow-delimiters')
 
@@ -281,6 +299,7 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
+    event = "VeryLazy",
     main = 'ibl',
     opts = {},
     -- # --
@@ -313,11 +332,16 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    event = "VeryLazy",
+    opts = {}
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
+    event = "VeryLazy",
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -339,6 +363,7 @@ require('lazy').setup({
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -347,6 +372,7 @@ require('lazy').setup({
   -- # --
   {
     'neovim/nvim-lspconfig',
+    event = "VeryLazy",
     config = function()
       -- Switch for controlling whether you want autoformatting.
       --  Use :KickstartFormatToggle to toggle autoformatting on or off
@@ -517,7 +543,7 @@ vim.o.wrap = false
 vim.o.showcmd = true
 vim.o.cmdheight = 1
 vim.o.incsearch = true
-vim.o.updatetime = 50
+vim.o.updatetime = 100
 vim.o.scrolloff = 10
 vim.o.laststatus = 2
 --vim.o.colorcolumn = '80'
