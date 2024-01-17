@@ -474,6 +474,7 @@ require("nvim-ts-autotag").setup({
   enable_close_on_splash = true,
 })
 
+--[[
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -522,7 +523,7 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
-
+]]--
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
