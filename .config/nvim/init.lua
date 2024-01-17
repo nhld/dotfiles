@@ -251,6 +251,19 @@ require('lazy').setup({
       vim.cmd.colorscheme 'onedark'
     end,
   },
+  --
+  -- {
+  --   'catppuccino/nvim',
+  --   name = 'catppuccin',
+  --   priority = 1000,
+  --   --colorscheme = 'catppuccin-mocha',
+  --   config = function()
+  --     require('catppuccino').setup({
+  --       colorscheme = 'catppuccino-mocha',
+  --       transparency = false,
+  --     })
+  --   end,
+  -- },
 
   {
     -- Set lualine as statusline
@@ -316,6 +329,7 @@ require('lazy').setup({
       require('ibl').setup({
         scope = {
           show_start = false,
+          show_end = false,
           highlight = hl_name_list,
         },
         indent = { char = "│" },
@@ -466,6 +480,11 @@ require('nvim-treesitter.configs').setup({
 })
 ]]
 --
+require('onedark').setup({
+  style = 'darker',
+})
+require('onedark').load()
+
 
 require("nvim-ts-autotag").setup({
   enable = true,
@@ -523,7 +542,8 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
-]]--
+]]
+--
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -553,7 +573,6 @@ vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.expandtab = true
 
-
 --[[
 if vim.fn.has("nvim-0.8") == 1 then
   vim.o.cmdheight = 0
@@ -566,7 +585,7 @@ vim.o.nu = true
 
 -- # --
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 --vim.wo.number = true
@@ -610,6 +629,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- # --
 vim.keymap.set('i', 'jk', '<Esc>')
+vim.keymap.set('n', '<C-b>', '<Cmd>Neotree toggle<CR>')
 -- not yank with x
 vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('n', '+', '<C-a>')
