@@ -200,6 +200,18 @@ require('lazy').setup({
   },
 
   {
+    'folke/noice.nvim',
+    event = "VeryLazy",
+  },
+
+  {
+    'akinsho/bufferline.nvim',
+    event = "VeryLazy",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    version = '*',
+  },
+
+  {
     "windwp/nvim-autopairs",
     -- Optional dependency
     event = "VeryLazy",
@@ -472,14 +484,18 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
---[[
-require('nvim-treesitter.configs').setup({
-  autotag = {
-    enable = true,
+require('noice').setup({
+  presets = {
+    lsp_doc_border = true,
   },
+  cmdline = {
+    enabled = true,
+    view = 'cmdline',
+  }
 })
-]]
---
+
+require('bufferline').setup {}
+
 require('onedark').setup({
   style = 'darker',
 })
@@ -567,6 +583,7 @@ vim.o.incsearch = true
 vim.o.updatetime = 100
 vim.o.scrolloff = 10
 vim.o.laststatus = 2
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#dbba76' })
 --vim.o.colorcolumn = '80'
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
