@@ -23,6 +23,8 @@ use kickstart.nvim as starting point with some plugins.
 - **neotree**
 - **copilot**
 - **nvim-ts-autotag**
+- **bufferline**
+- **noice**
 
 ## nerd fonts
 
