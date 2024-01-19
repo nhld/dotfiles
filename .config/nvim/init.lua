@@ -199,10 +199,10 @@ require('lazy').setup({
     event = "VeryLazy",
   },
 
-  {
-    'folke/noice.nvim',
-    event = "VeryLazy",
-  },
+  -- {
+  --   'folke/noice.nvim',
+  --   event = "VeryLazy",
+  -- },
 
   {
     'akinsho/bufferline.nvim',
@@ -484,15 +484,15 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
-require('noice').setup({
-  presets = {
-    lsp_doc_border = true,
-  },
-  cmdline = {
-    enabled = true,
-    view = 'cmdline',
-  }
-})
+-- require('noice').setup({
+--   presets = {
+--     lsp_doc_border = true,
+--   },
+--   cmdline = {
+--     enabled = true,
+--     view = 'cmdline',
+--   }
+-- })
 
 require('bufferline').setup {}
 
@@ -1017,6 +1017,10 @@ cmp.setup {
 --
 
 cmp.setup {
+  -- window = {
+  --   completion = cmp.config.window.bordered('rounded'),
+  --   documentation = cmp.config.window.bordered('rounded'),
+  -- },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -1051,6 +1055,44 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+
+--
+-- vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+-- vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+--
+-- local border = {
+--   { "🭽", "FloatBorder" },
+--   { "▔", "FloatBorder" },
+--   { "🭾", "FloatBorder" },
+--   { "▕", "FloatBorder" },
+--   { "🭿", "FloatBorder" },
+--   { "▁", "FloatBorder" },
+--   { "🭼", "FloatBorder" },
+--   { "▏", "FloatBorder" },
+-- }
+--
+-- -- LSP settings (for overriding per client)
+-- local handlers = {
+--   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+--   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+-- }
+--
+-- -- Do not forget to use the on_attach function
+-- require 'lspconfig'.myserver.setup { handlers = handlers }
+--
+-- -- To instead override globally
+-- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+--
+-- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+--   opts = opts or {}
+--   opts.border = opts.border or border
+--   return orig_util_open_floating_preview(contents, syntax, opts, ...)
+-- end
+--
+-- require 'lspconfig'.myservertwo.setup {}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
