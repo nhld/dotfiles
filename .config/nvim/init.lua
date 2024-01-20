@@ -66,7 +66,7 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   {
     'tpope/vim-sleuth',
-    event = "VeryLazy",
+    --event = "VeryLazy",
   },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
@@ -93,9 +93,13 @@ require('lazy').setup({
   },
 
   {
+    'hrsh7th/cmp-cmdline',
+  },
+
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    event = "BufReadPre",
+    event = "InsertEnter",
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -214,7 +218,8 @@ require('lazy').setup({
   {
     "windwp/nvim-autopairs",
     -- Optional dependency
-    event = "VeryLazy",
+    --event = "VeryLazy",
+    event = "InsertEnter",
     dependencies = { 'hrsh7th/nvim-cmp' },
     config = function()
       require("nvim-autopairs").setup {}
@@ -230,12 +235,12 @@ require('lazy').setup({
 
   {
     "windwp/nvim-ts-autotag",
-    event = "VeryLazy",
+    event = "InsertEnter",
   },
 
   {
     "github/copilot.vim",
-    event = "VeryLazy",
+    event = "InsertEnter",
   },
 
   {
@@ -324,7 +329,7 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
-    event = "VeryLazy",
+    event = "BufReadPre",
     main = 'ibl',
     opts = {},
     -- # --
@@ -360,7 +365,7 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   {
     'numToStr/Comment.nvim',
-    event = "VeryLazy",
+    event = "BufReadPre",
     opts = {}
   },
 
@@ -398,7 +403,7 @@ require('lazy').setup({
   -- # --
   {
     'neovim/nvim-lspconfig',
-    event = "VeryLazy",
+    --event = "VeryLazy",
     config = function()
       -- Switch for controlling whether you want autoformatting.
       --  Use :KickstartFormatToggle to toggle autoformatting on or off
@@ -931,7 +936,7 @@ local servers = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
       -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-      -- diagnostics = { disable = { 'missing-fields' } },
+      diagnostics = { disable = { 'missing-fields' } },
     },
   },
 }
@@ -1017,10 +1022,6 @@ cmp.setup {
 --
 
 cmp.setup {
-  -- window = {
-  --   completion = cmp.config.window.bordered('rounded'),
-  --   documentation = cmp.config.window.bordered('rounded'),
-  -- },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -1055,6 +1056,13 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'cmdline' },
+  },
+})
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
