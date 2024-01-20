@@ -99,7 +99,7 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    event = "InsertEnter",
+    --event = "InsertEnter",
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -235,12 +235,12 @@ require('lazy').setup({
 
   {
     "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
+    --event = "InsertEnter",
   },
 
   {
     "github/copilot.vim",
-    event = "InsertEnter",
+    --event = "InsertEnter",
   },
 
   {
@@ -348,6 +348,7 @@ require('lazy').setup({
           show_start = false,
           show_end = false,
           highlight = hl_name_list,
+          --enabled = false,
         },
         indent = { char = "│" },
         debounce = 200,
@@ -570,13 +571,66 @@ require('lualine').setup {
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 -- # --
+vim.g.indent_blankline_show_current_context = true
+-- vim.g.indent_blankline_context_patterns = { 'class', 'function', 'method', '^if', '^while', '^for', '^object', '^table',
+--   'block', 'arguments' }
+vim.g.indent_blankline_context_patterns = {
+  "abstract_class_declaration", "abstract_method_signature",
+  "accessibility_modifier", "ambient_declaration", "arguments", "array",
+  "array_pattern", "array_type", "arrow_function", "as_expression",
+  "asserts", "assignment_expression", "assignment_pattern",
+  "augmented_assignment_expression", "await_expression",
+  "binary_expression", "break_statement", "call_expression",
+  "call_signature", "catch_clause", "class", "class_body",
+  "class_declaration", "class_heritage", "computed_property_name",
+  "conditional_type", "constraint", "construct_signature",
+  "constructor_type", "continue_statement", "debugger_statement",
+  "declaration", "decorator", "default_type", "do_statement",
+  "else_clause", "empty_statement", "enum_assignment", "enum_body",
+  "enum_declaration", "existential_type", "export_clause",
+  "export_specifier", "export_statement", "expression",
+  "expression_statement", "extends_clause", "finally_clause",
+  "flow_maybe_type", "for_in_statement", "for_statement",
+  "formal_parameters", "function", "function_declaration",
+  "function_signature", "function_type", "generator_function",
+  "generator_function_declaration", "generic_type", "if_statement",
+  "implements_clause", "import", "import_alias", "import_clause",
+  "import_require_clause", "import_specifier", "import_statement",
+  "index_signature", "index_type_query", "infer_type",
+  "interface_declaration", "internal_module", "intersection_type",
+  "jsx_attribute", "jsx_closing_element", "jsx_element", "jsx_expression",
+  "jsx_fragment", "jsx_namespace_name", "jsx_opening_element",
+  "jsx_self_closing_element", "labeled_statement", "lexical_declaration",
+  "literal_type", "lookup_type", "mapped_type_clause",
+  "member_expression", "meta_property", "method_definition",
+  "method_signature", "module", "named_imports", "namespace_import",
+  "nested_identifier", "nested_type_identifier", "new_expression",
+  "non_null_expression", "object", "object_assignment_pattern",
+  "object_pattern", "object_type", "omitting_type_annotation",
+  "opting_type_annotation", "optional_parameter", "optional_type", "pair",
+  "pair_pattern", "parenthesized_expression", "parenthesized_type",
+  "pattern", "predefined_type", "primary_expression", "program",
+  "property_signature", "public_field_definition", "readonly_type",
+  "regex", "required_parameter", "rest_pattern", "rest_type",
+  "return_statement", "sequence_expression", "spread_element",
+  "statement", "statement_block", "string", "subscript_expression",
+  "switch_body", "switch_case", "switch_default", "switch_statement",
+  "template_string", "template_substitution", "ternary_expression",
+  "throw_statement", "try_statement", "tuple_type",
+  "type_alias_declaration", "type_annotation", "type_arguments",
+  "type_parameter", "type_parameters", "type_predicate",
+  "type_predicate_annotation", "type_query", "unary_expression",
+  "union_type", "update_expression", "variable_declaration",
+  "variable_declarator", "while_statement", "with_statement",
+  "yield_expression"
+}
 --vim.g.loaded_netrw = 1
 --vim.g.loaded_netrwPlugin = 1
 vim.o.relativenumber = true
 vim.o.cursorline = true
 vim.o.winblend = 0
 vim.o.wildoptions = 'pum'
-vim.o.pumblend = 5
+vim.o.pumblend = 0
 vim.o.background = 'dark'
 vim.o.autoindent = true
 vim.o.tabstop = 2
@@ -767,6 +821,7 @@ local function telescope_live_grep_open_files()
     prompt_title = 'Live Grep in Open Files',
   }
 end
+
 vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/] in Open Files' })
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
@@ -1022,13 +1077,15 @@ cmp.setup {
 --
 
 cmp.setup {
+  enabled = true,
+  preselect = cmp.PreselectMode.None,
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
   },
   completion = {
-    completeopt = 'menu,menuone,noinsert',
+    completeopt = 'menu,menuone,noinsert,noselect',
   },
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -1036,19 +1093,50 @@ cmp.setup {
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+    -- ['<CR>'] = cmp.mapping.confirm {
+    --   behavior = cmp.ConfirmBehavior.Replace,
+    --   select = true,
+    -- },
+    ["<CR>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() and cmp.get_active_entry() then
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+        else
+          fallback()
+        end
+      end,
+      s = cmp.mapping.confirm({ select = true }),
+      c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+    }),
+    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif luasnip.expand_or_locally_jumpable() then
+    --     luasnip.expand_or_jump()
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
+    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_prev_item()
+    --   elseif luasnip.locally_jumpable(-1) then
+    --     luasnip.jump(-1)
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
+    --
+    -- ['<Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif luasnip.expand_or_locally_jumpable() then
+    --     luasnip.expand_or_jump()
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
+
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -1057,50 +1145,37 @@ cmp.setup {
   },
 }
 
+--TO DO: config this to work
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
+  enabled = false,
+  completion = {
+    completeopt = 'menu,menuone,noinsert,noselect',
+  },
+  preselect = cmp.PreselectMode.None,
   sources = {
+    { name = 'nvim_lua' },
     { name = 'cmdline' },
   },
+  mapping = cmp.mapping.preset.cmdline(),
+  -- mapping = cmp.mapping.preset.insert({
+  --   ['<CR>'] = cmp.mapping.confirm({
+  --     behavior = cmp.ConfirmBehavior.Replace,
+  --     select = false,
+  --   }),
+  --   ['<C-c>'] = cmp.mapping.close(),
+  --
+  --})
 })
+
+-- cmp.setup.cmdline('/', {
+--   mapping = cmp.mapping.preset.cmdline(), -- important!
+--   sources = {
+--     { name = 'buffer' },
+--   },
+-- })
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
-
---
--- vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
--- vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
---
--- local border = {
---   { "🭽", "FloatBorder" },
---   { "▔", "FloatBorder" },
---   { "🭾", "FloatBorder" },
---   { "▕", "FloatBorder" },
---   { "🭿", "FloatBorder" },
---   { "▁", "FloatBorder" },
---   { "🭼", "FloatBorder" },
---   { "▏", "FloatBorder" },
--- }
---
--- -- LSP settings (for overriding per client)
--- local handlers = {
---   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
---   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
--- }
---
--- -- Do not forget to use the on_attach function
--- require 'lspconfig'.myserver.setup { handlers = handlers }
---
--- -- To instead override globally
--- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
---
--- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
---   opts = opts or {}
---   opts.border = opts.border or border
---   return orig_util_open_floating_preview(contents, syntax, opts, ...)
--- end
---
--- require 'lspconfig'.myservertwo.setup {}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
