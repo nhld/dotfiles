@@ -27,7 +27,7 @@ use kickstart.nvim as starting point with some plugins.
 
 ## nerd fonts
 
-- **MesloLGS NF**
+- **FiraMono Nerd Font**
 
 ## terminal should look like this after configuration (iterm2 terminal)
 
