@@ -639,7 +639,7 @@ vim.o.wrap = false
 vim.o.showcmd = true
 vim.o.cmdheight = 1
 vim.o.incsearch = true
-vim.o.updatetime = 100
+vim.o.updatetime = 250
 vim.o.scrolloff = 10
 vim.o.laststatus = 2
 vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#dbba76' })
@@ -706,6 +706,8 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- # --
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('n', '<C-b>', '<Cmd>Neotree toggle<CR>')
+-- save file
+vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { desc = 'Save file' })
 -- not yank with x
 vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('n', '+', '<C-a>')
@@ -1076,9 +1078,43 @@ cmp.setup {
 ]]
 --
 
+local cmp_kinds = {
+  Text = '  ',
+  Method = '  ',
+  Function = '  ',
+  Constructor = '  ',
+  Field = '  ',
+  Variable = '  ',
+  Class = '  ',
+  Interface = '  ',
+  Module = '  ',
+  Property = '  ',
+  Unit = '  ',
+  Value = '  ',
+  Enum = '  ',
+  Keyword = '  ',
+  Snippet = '  ',
+  Color = '  ',
+  File = '  ',
+  Reference = '  ',
+  Folder = '  ',
+  EnumMember = '  ',
+  Constant = '  ',
+  Struct = '  ',
+  Event = '  ',
+  Operator = '  ',
+  TypeParameter = '  ',
+}
+
 cmp.setup {
   enabled = true,
   preselect = cmp.PreselectMode.None,
+  window = {
+    documentation = {
+      border = 'rounded',
+      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+    }
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -1143,28 +1179,32 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
   },
+  formatting = {
+    format = function(_, vim_item)
+      vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+      return vim_item
+    end,
+  },
+  -- vscode like formating icon first then text
+  -- formatting = {
+  --   fields = { "kind", "abbr" },
+  --   format = function(_, vim_item)
+  --     vim_item.kind = cmp_kinds[vim_item.kind] or ""
+  --     return vim_item
+  --   end,
+  -- },
 }
 
---TO DO: config this to work
 cmp.setup.cmdline(':', {
-  enabled = false,
+  enabled = true,
   completion = {
     completeopt = 'menu,menuone,noinsert,noselect',
   },
   preselect = cmp.PreselectMode.None,
   sources = {
-    { name = 'nvim_lua' },
     { name = 'cmdline' },
   },
   mapping = cmp.mapping.preset.cmdline(),
-  -- mapping = cmp.mapping.preset.insert({
-  --   ['<CR>'] = cmp.mapping.confirm({
-  --     behavior = cmp.ConfirmBehavior.Replace,
-  --     select = false,
-  --   }),
-  --   ['<C-c>'] = cmp.mapping.close(),
-  --
-  --})
 })
 
 -- cmp.setup.cmdline('/', {
@@ -1173,6 +1213,24 @@ cmp.setup.cmdline(':', {
 --     { name = 'buffer' },
 --   },
 -- })
+
+
+-- gray
+vim.api.nvim_set_hl(0, 'CmpItemAbbrDeprecated', { bg = 'NONE', strikethrough = true, fg = '#808080' })
+-- blue
+vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { bg = 'NONE', fg = '#569CD6' })
+vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { link = 'CmpIntemAbbrMatch' })
+-- light blue
+vim.api.nvim_set_hl(0, 'CmpItemKindVariable', { bg = 'NONE', fg = '#9CDCFE' })
+vim.api.nvim_set_hl(0, 'CmpItemKindInterface', { link = 'CmpItemKindVariable' })
+vim.api.nvim_set_hl(0, 'CmpItemKindText', { link = 'CmpItemKindVariable' })
+-- pink
+vim.api.nvim_set_hl(0, 'CmpItemKindFunction', { bg = 'NONE', fg = '#C586C0' })
+vim.api.nvim_set_hl(0, 'CmpItemKindMethod', { link = 'CmpItemKindFunction' })
+-- front
+vim.api.nvim_set_hl(0, 'CmpItemKindKeyword', { bg = 'NONE', fg = '#D4D4D4' })
+vim.api.nvim_set_hl(0, 'CmpItemKindProperty', { link = 'CmpItemKindKeyword' })
+vim.api.nvim_set_hl(0, 'CmpItemKindUnit', { link = 'CmpItemKindKeyword' })
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
