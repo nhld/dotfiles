@@ -3,32 +3,22 @@
 - **Oh-my-fish:** framework
 - **Fisher:** plugin manager for fish
 - **z:** directory jumping
-- **bobthefish or default:** theme
 - **eza:** replacement for ls command (exa is unmaintained)
 - **fzf:** fuzzy find to find files/folders
-
-## kitty terminal
-
-- migrate from iterm2 because of weird underline highlighting (ibl nvim plugin). If using kitty with tmux, same thing happens. But kitty has built in panes so no need to use tmux.
 
 ## nvim
 
 use kickstart.nvim as starting point with some plugins.
 
-- **nvim-web-devicons**
-- **nvim-autopairs**
-- **rainbow-delimiters**
-- **indent-blankline**
-- **lualine**
-- **neotree**
-- **copilot**
-- **nvim-ts-autotag**
-- **bufferline**
+- **nvim-web-devicons:** icons
+- **nvim-autopairs:** auto close brackets, parentheses
+- **rainbow-delimiters:** add color to brackets, parentheses
+- **indent-blankline:** show indent line
+- **lualine:** show more info on the nvim status line
+- **neotree:** file explorer style file/folder view
+- **nvim-ts-autotag:** auto close and rename html tag
+- **bufferline:** tabs
 
-## nerd fonts
+## kitty terminal
 
-- **FiraMono Nerd Font**
-
-## terminal should look like this after configuration (iterm2 terminal)
-
-[<img src="./images/img.jpg" width="500"/>]()
+- **FiraMono Nerd Font:** font supports icons
