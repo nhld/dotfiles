@@ -268,19 +268,6 @@ require('lazy').setup({
       vim.cmd.colorscheme 'onedark'
     end,
   },
-  --
-  -- {
-  --   'catppuccino/nvim',
-  --   name = 'catppuccin',
-  --   priority = 1000,
-  --   --colorscheme = 'catppuccin-mocha',
-  --   config = function()
-  --     require('catppuccino').setup({
-  --       colorscheme = 'catppuccino-mocha',
-  --       transparency = false,
-  --     })
-  --   end,
-  -- },
 
   {
     -- Set lualine as statusline
@@ -490,16 +477,6 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
--- require('noice').setup({
---   presets = {
---     lsp_doc_border = true,
---   },
---   cmdline = {
---     enabled = true,
---     view = 'cmdline',
---   }
--- })
-
 require('bufferline').setup {}
 
 require('onedark').setup({
@@ -692,7 +669,7 @@ vim.wo.signcolumn = 'yes'
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect,noinsert,menu'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -1106,6 +1083,7 @@ local cmp_kinds = {
   TypeParameter = '  ',
 }
 
+
 cmp.setup {
   enabled = true,
   preselect = cmp.PreselectMode.None,
@@ -1129,10 +1107,6 @@ cmp.setup {
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
-    -- ['<CR>'] = cmp.mapping.confirm {
-    --   behavior = cmp.ConfirmBehavior.Replace,
-    --   select = true,
-    -- },
     ["<CR>"] = cmp.mapping({
       i = function(fallback)
         if cmp.visible() and cmp.get_active_entry() then
@@ -1144,40 +1118,12 @@ cmp.setup {
       s = cmp.mapping.confirm({ select = true }),
       c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
     }),
-    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif luasnip.expand_or_locally_jumpable() then
-    --     luasnip.expand_or_jump()
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
-    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   elseif luasnip.locally_jumpable(-1) then
-    --     luasnip.jump(-1)
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
-    --
-    -- ['<Tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif luasnip.expand_or_locally_jumpable() then
-    --     luasnip.expand_or_jump()
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
-
   },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
+    { name = 'buffer' },
   },
   formatting = {
     format = function(_, vim_item)
@@ -1201,10 +1147,18 @@ cmp.setup.cmdline(':', {
     completeopt = 'menu,menuone,noinsert,noselect',
   },
   preselect = cmp.PreselectMode.None,
-  sources = {
-    { name = 'cmdline' },
+  mapping = {
+    ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = false }), { 'i', 'c' }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
   },
-  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' },
+  }, {
+    { name = 'cmdline' },
+  }),
 })
 
 -- cmp.setup.cmdline('/', {
