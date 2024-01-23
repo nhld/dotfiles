@@ -31,7 +31,7 @@ are first encountering a few different constructs in your nvim config.
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.copilot_assume_mapped = true
+--vim.g.copilot_assume_mapped = true
 require("config")
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
@@ -201,11 +201,6 @@ require('lazy').setup({
     event = "VeryLazy",
   },
 
-  -- {
-  --   'folke/noice.nvim',
-  --   event = "VeryLazy",
-  -- },
-
   {
     'akinsho/bufferline.nvim',
     event = "VeryLazy",
@@ -233,11 +228,6 @@ require('lazy').setup({
 
   {
     "windwp/nvim-ts-autotag",
-    --event = "InsertEnter",
-  },
-
-  {
-    "github/copilot.vim",
     --event = "InsertEnter",
   },
 
