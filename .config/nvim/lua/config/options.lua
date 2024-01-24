@@ -3,7 +3,8 @@ vim.g.maplocalleader = ' '
 
 vim.g.root_spec = { "lsp", { ".git", "lua", }, "cwd" }
 
-vim.o.relativenumber = true
+vim.wo.nu = true
+vim.wo.rnu = true
 vim.o.cursorline = true
 vim.o.winblend = 0
 vim.o.wildoptions = 'pum'
@@ -17,14 +18,13 @@ vim.o.cmdheight = 1
 vim.o.incsearch = true
 vim.o.scrolloff = 10
 vim.o.laststatus = 3
-vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#dbba76' })
+--vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = 'yellow' })
+
+-- Tab
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.expandtab = true
-
---vim.o.number = true
-vim.o.nu = true
 
 -- Set highlight on search
 vim.o.hlsearch = true
