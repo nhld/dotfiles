@@ -1,7 +1,6 @@
-local M = {
-
+return {
   'nvim-treesitter/nvim-treesitter',
-  event = { 'VeryLazy' },
+  event = 'VeryLazy',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
@@ -74,5 +73,3 @@ local M = {
     end, 0)
   end
 }
-
-return M

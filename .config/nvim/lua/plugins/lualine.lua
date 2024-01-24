@@ -2,7 +2,7 @@ return {
   -- Set lualine as statusline
   'nvim-lualine/lualine.nvim',
   -- See `:help lualine.txt`
-  enabled = false,
+  enabled = true,
   event = "VeryLazy",
   opts = {
     options = {
