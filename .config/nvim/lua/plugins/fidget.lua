@@ -1,7 +1,5 @@
-local M  = {
+return {
   'j-hui/fidget.nvim',
   event = 'VeryLazy',
   opts = {}
 }
-
-return M

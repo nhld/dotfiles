@@ -1,7 +1,10 @@
-local M = {
+return {
   "windwp/nvim-autopairs",
   event = "InsertEnter",
   dependencies = { 'hrsh7th/nvim-cmp' },
+  opts = {
+    disable_filetype = { 'TelescopePrompt' },
+  },
   config = function()
     require("nvim-autopairs").setup {}
     --     -- If you want to automatically add `(` after selecting a function or method
@@ -13,5 +16,3 @@ local M = {
     )
   end,
 }
-
-return M
