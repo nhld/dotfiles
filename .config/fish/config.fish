@@ -21,13 +21,3 @@ if type -q eza
     alias lld "ll -D"
     alias llf "ll -f"
 end
-
-# bobthefish theme stuff
-set theme_color_scheme gruvbox
-set -g theme_nerd_fonts yes
-set -g theme_display_git yes
-set -g theme_display_git_default_branch yes
-set -g theme_display_git_dirty yes
-set -g theme_display_git_untracked yes
-set -g theme_display_vi yes
-set -g theme_display_user yes
