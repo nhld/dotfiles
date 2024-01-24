@@ -8,7 +8,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('n', '<C-b>', '<Cmd>Neotree toggle<CR>')
 -- save file
-vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { desc = 'Save file' })
+vim.keymap.set({ 'n', 'i', 'v', 's' }, '<C-s>', '<Esc>:w<CR>', { desc = 'Esc and save file' })
 -- not yank with x
 vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('n', '+', '<C-a>')
@@ -40,3 +40,8 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+--
+vim.keymap.set('n', '<leader>L', '<cmd>Lazy<cr>', { desc = 'Lazy' })
+-- Indent while remaining in visual mode.
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
