@@ -3,11 +3,12 @@ return {
   'nvim-lualine/lualine.nvim',
   -- See `:help lualine.txt`
   enabled = true,
-  event = "VeryLazy",
+  --event = "VeryLazy",
+  lazy = false,
   opts = {
     options = {
       icons_enabled = true,
-      theme = 'onedark',
+      --theme = 'onedark',
       component_separators = '|',
       section_separators = '',
     },
