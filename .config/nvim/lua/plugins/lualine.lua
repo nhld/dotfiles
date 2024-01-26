@@ -3,8 +3,8 @@ return {
   'nvim-lualine/lualine.nvim',
   -- See `:help lualine.txt`
   enabled = true,
-  --event = "VeryLazy",
-  lazy = false,
+  event = "VeryLazy",
+  --lazy = false,
   opts = {
     options = {
       icons_enabled = true,
