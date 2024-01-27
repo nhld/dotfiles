@@ -37,7 +37,7 @@ local config = function()
     window = {
       documentation = {
         border = 'rounded',
-        winhighlight = 'Normal:Normal,FloatBorder:Normal,Search:None',
+        winhighlight = 'Normal:Normal,FloatBorder:NormalFloat,Search:None',
       }
     },
     snippet = {
@@ -104,8 +104,8 @@ local config = function()
       }, {
         { name = 'cmdline' },
       })
-    })
-
+    }),
+    vim.cmd(':set winhighlight=' .. cmp.config.window.bordered().winhighlight)
 
   }
 end
