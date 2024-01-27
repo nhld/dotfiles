@@ -37,7 +37,7 @@ require("lazy").setup("plugins", {
         'tar',
         'netrw',
         'matchit',
-        'matchparen',
+        --'matchparen',
         'tutor'
       }
     }

@@ -11,3 +11,13 @@ return {
     require('onedark').load()
   end,
 }
+
+--return {
+-- 'tjdevries/gruvbuddy.nvim',
+-- dependencies = { 'tjdevries/colorbuddy.vim' },
+-- lazy = false,
+-- priority = 1000,
+-- config = function()
+--   require('colorbuddy').colorscheme('gruvbuddy')
+-- end
+--}
