@@ -1,3 +1,5 @@
+-- navic and barbecue
+
 return {
   {
     "SmiteshP/nvim-navic",

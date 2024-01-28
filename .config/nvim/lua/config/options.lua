@@ -15,7 +15,7 @@ opt.winblend = 0
 opt.wildmenu = true
 opt.wildmode = "longest:full"
 opt.wildoptions = 'pum'
-opt.pumblend = 20
+opt.pumblend = 0
 --opt.background = 'dark'
 
 opt.incsearch = true
@@ -67,7 +67,7 @@ opt.signcolumn = 'yes'
 
 -- Decrease update time
 opt.updatetime = 200
---opt.timeoutlen = 300
+opt.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 opt.completeopt = 'menuone,noselect,noinsert'
@@ -92,4 +92,14 @@ vim.api.nvim_create_autocmd({
   callback = function()
     require("barbecue.ui").update()
   end,
+})
+-- Highlight on yank
+-- :help vim.highlight.on_yank()
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
 })
