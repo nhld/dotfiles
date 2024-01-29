@@ -49,8 +49,10 @@ local config = function()
       lualine_z = {}
     },
     tabline = {},
-    winbar = {},
-    inactive_winbar = {},
+    winbar = {
+    },
+    inactive_winbar = {
+    },
     extensions = {}
   }
 end
@@ -66,7 +68,6 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   event = "VeryLazy",
-  --lazy = false,
   opts = {
     options = {
       icons_enabled = true,

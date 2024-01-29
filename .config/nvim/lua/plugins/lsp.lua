@@ -120,7 +120,6 @@ local config = function()
   require('mason-lspconfig').setup()
   local mason_lspconfig = require 'mason-lspconfig'
 
-
   local servers = {
     -- clangd = {},
     -- gopls = {},
