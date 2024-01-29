@@ -53,7 +53,6 @@ return {
   'lukas-reineke/indent-blankline.nvim',
   config = config,
   event = "VeryLazy",
-  --event = "BufReadPre",
   main = 'ibl',
   enabled = true,
 }
