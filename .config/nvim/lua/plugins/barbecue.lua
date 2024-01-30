@@ -1,5 +1,4 @@
 -- navic and barbecue
-
 local config = function()
   require("barbecue").setup({
     create_autocmd = false, -- prevent barbecue from updating itself automatically
@@ -31,7 +30,6 @@ return {
       "SmiteshP/nvim-navic",
       --"nvim-tree/nvim-web-devicons", -- optional dependency
     },
-    --opts = {},
     config = config,
   },
 
@@ -46,9 +44,6 @@ return {
         separator = " 〉",
         highlight = true,
         depth_limit = 5,
-        -- lsp = {
-        --   auto_attach = true,
-        -- },
         lazy_update_context = false,
         icons = {
           File = " ",

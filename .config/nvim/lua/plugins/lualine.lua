@@ -49,10 +49,8 @@ local config = function()
       lualine_z = {}
     },
     tabline = {},
-    winbar = {
-    },
-    inactive_winbar = {
-    },
+    winbar = {},
+    inactive_winbar = {},
     extensions = {}
   }
 end
@@ -71,7 +69,7 @@ return {
   opts = {
     options = {
       icons_enabled = true,
-      --theme = 'onedark',
+      theme = 'onedark',
       component_separators = '|',
       section_separators = '',
     },

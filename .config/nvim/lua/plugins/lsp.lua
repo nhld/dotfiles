@@ -28,6 +28,9 @@ local on_attach = function(_, bufnr)
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  vim.keymap.set('i', "<C-h>", function()
+    vim.lsp.buf.signature_help()
+  end)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -66,13 +69,6 @@ local config = function()
 
     return _augroups[client.id]
   end
-
-  -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  --   border = "rounded",
-  -- })
-  -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  --   border = "rounded",
-  -- })
 
   -- See `:help LspAttach` for more information about this autocmd event.
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -115,7 +111,7 @@ local config = function()
     end,
   })
 
-  require 'neodev'.setup()
+  require('neodev').setup()
   require('mason').setup()
   require('mason-lspconfig').setup()
   local mason_lspconfig = require 'mason-lspconfig'
@@ -137,8 +133,6 @@ local config = function()
       },
     },
   }
-
-  --require('neodev').setup()
 
   -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -247,9 +241,6 @@ local config = function()
 
   --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
   --vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
-  -- vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover, true)
-  -- vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_signatureHelp] = enhanced_float_handler(
-  -- vim.lsp.handlers.signature_help, false)
   vim.lsp.handlers['textDocument/hover'] = enhanced_float_handler(vim.lsp.handlers.hover, true)
   vim.lsp.handlers['textDocument/signatureHelp'] = enhanced_float_handler(vim.lsp.handlers.signature_help, false)
 end
@@ -259,7 +250,6 @@ return {
   -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   event = { "BufReadPre", "BufNewFile", },
-  --lazy = false,
   dependencies = {
     -- Automatically install LSPs to stdpath for neovim
     { 'williamboman/mason.nvim',          config = true, },
