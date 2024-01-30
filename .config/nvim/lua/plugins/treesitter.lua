@@ -68,7 +68,6 @@ end
 
 return {
   'nvim-treesitter/nvim-treesitter',
-  --lazy = false,
   event = { 'BufReadPost', 'BufNewFile' },
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',

@@ -41,11 +41,9 @@ local config = function()
       documentation = {
         border = 'rounded',
         --winhighlight = 'Normal:NormalFloat,FloatBorder:NormalFloat,Search:None',
-        --winhighlight = cmp.config.window.bordered().winhighlight,
         winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,Search:None"
 
       },
-      --completion = cmp.config.window.bordered()
       completion = {
         border = 'rounded',
         winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,Search:None"
