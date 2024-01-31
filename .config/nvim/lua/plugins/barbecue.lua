@@ -10,7 +10,6 @@ vim.api.nvim_create_autocmd({
   "BufWinEnter",
   "CursorHold",
   "InsertLeave",
-
   -- include this if you have set `show_modified` to `true`
   --"BufModifiedSet",
 }, {
@@ -21,59 +20,12 @@ vim.api.nvim_create_autocmd({
 })
 
 return {
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    event = "VeryLazy",
-    version = "*",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      --"nvim-tree/nvim-web-devicons", -- optional dependency
-    },
-    config = config,
-  },
-
-  {
+  "utilyre/barbecue.nvim",
+  enabled = true,
+  name = "barbecue",
+  version = "*",
+  dependencies = {
     "SmiteshP/nvim-navic",
-    event = "VeryLazy",
-    dependencies = {
-      'neovim/nvim-lspconfig'
-    },
-    opts = function()
-      return {
-        separator = " 〉",
-        highlight = true,
-        depth_limit = 5,
-        lazy_update_context = false,
-        icons = {
-          File = " ",
-          Module = " ",
-          Namespace = " ",
-          Package = " ",
-          Class = " ",
-          Method = " ",
-          Property = " ",
-          Field = " ",
-          Constructor = " ",
-          Enum = " ",
-          Interface = " ",
-          Function = " ",
-          Variable = " ",
-          Constant = " ",
-          String = " ",
-          Number = " ",
-          Boolean = " ",
-          Array = " ",
-          Object = " ",
-          Key = " ",
-          Null = " ",
-          EnumMember = " ",
-          Struct = " ",
-          Event = " ",
-          Operator = " ",
-          TypeParameter = " ",
-        },
-      }
-    end,
   },
+  config = config,
 }
