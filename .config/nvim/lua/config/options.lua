@@ -32,8 +32,6 @@ opt.cmdheight = 1
 opt.scrolloff = 10
 opt.laststatus = 3
 
-vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = 'yellow' })
-
 -- Tab
 opt.tabstop = 2
 opt.shiftwidth = 2
@@ -42,7 +40,6 @@ opt.expandtab = true
 
 -- Set highlight on search
 opt.hlsearch = true
-
 
 -- Enable mouse mode
 opt.mouse = 'a'
@@ -77,15 +74,3 @@ opt.termguicolors = true
 
 opt.splitright = true
 opt.splitbelow = true
---opt.smoothscroll = true
-
--- Highlight on yank
--- :help vim.highlight.on_yank()
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})

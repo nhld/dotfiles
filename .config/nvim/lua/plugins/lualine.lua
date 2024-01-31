@@ -57,12 +57,9 @@ end
 
 
 return {
-  -- Set lualine as statusline
   'nvim-lualine/lualine.nvim',
-  -- See `:help lualine.txt`
   enabled = true,
   dependencies = {
-    'SmiteshP/nvim-navic',
     'nvim-tree/nvim-web-devicons',
   },
   event = "VeryLazy",

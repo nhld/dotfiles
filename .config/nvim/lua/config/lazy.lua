@@ -26,6 +26,7 @@ require("lazy").setup("plugins", {
     colorscheme = { 'onedark' },
   },
   performance = {
+    reset = true,
     rtp = {
       disabled_plugins = {
         'gzip',
@@ -38,7 +39,7 @@ require("lazy").setup("plugins", {
         'netrw',
         'matchit',
         --'matchparen',
-        'tutor'
+        'tutor',
       }
     }
   }
