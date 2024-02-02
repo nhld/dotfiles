@@ -40,7 +40,6 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-
 local config = function()
   -- Switch for controlling whether you want autoformatting.
   --  Use :KickstartFormatToggle to toggle autoformatting on or off
@@ -208,35 +207,44 @@ local config = function()
       add_inline_highlights(bufnr)
 
       -- Add keymaps for opening links.
-      if focusable and not vim.b[bufnr].markdown_keys then
-        vim.keymap.set('n', 'K', function()
-          -- Vim help links.
-          local url = (vim.fn.expand '<cWORD>' --[[@as string]]):match '|(%S-)|'
-          if url then
-            return vim.cmd.help(url)
-          end
-
-          -- Markdown links.
-          local col = vim.api.nvim_win_get_cursor(0)[2] + 1
-          local from, to
-          from, to, url = vim.api.nvim_get_current_line():find '%[.-%]%((%S-)%)'
-          if from and col >= from and col <= to then
-            vim.system({ 'xdg-open', url }, nil, function(res)
-              if res.code ~= 0 then
-                vim.notify('Failed to open URL' .. url, vim.log.levels.ERROR)
-              end
-            end)
-          end
-        end, { buffer = bufnr, silent = true })
-        vim.b[bufnr].markdown_keys = true
-      end
+      -- if focusable and not vim.b[bufnr].markdown_keys then
+      --   vim.keymap.set('n', 'K', function()
+      --     -- Vim help links.
+      --     local url = (vim.fn.expand '<cWORD>' --[[@as string]]):match '|(%S-)|'
+      --     if url then
+      --       return vim.cmd.help(url)
+      --     end
+      --
+      --     -- Markdown links.
+      --     local col = vim.api.nvim_win_get_cursor(0)[2] + 1
+      --     local from, to
+      --     from, to, url = vim.api.nvim_get_current_line():find '%[.-%]%((%S-)%)'
+      --     if from and col >= from and col <= to then
+      --       vim.system({ 'xdg-open', url }, nil, function(res)
+      --         if res.code ~= 0 then
+      --           vim.notify('Failed to open URL' .. url, vim.log.levels.ERROR)
+      --         end
+      --       end)
+      --     end
+      --   end, { buffer = bufnr, silent = true })
+      --   vim.b[bufnr].markdown_keys = true
+      -- end
     end
   end
 
-  --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
-  --vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+  vim.lsp.util.stylize_markdown = function(bufnr, contents)
+    vim.bo[bufnr].filetype = 'markdown'
+    vim.treesitter.start(bufnr)
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, contents)
+    add_inline_highlights(bufnr)
+    return contents
+  end
+
   vim.lsp.handlers['textDocument/hover'] = enhanced_float_handler(vim.lsp.handlers.hover, true)
   vim.lsp.handlers['textDocument/signatureHelp'] = enhanced_float_handler(vim.lsp.handlers.signature_help, false)
+
+  --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+  --vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
 end
 
 return {
@@ -247,10 +255,8 @@ return {
     -- Automatically install LSPs to stdpath for neovim
     { 'williamboman/mason.nvim',          config = true },
     { 'williamboman/mason-lspconfig.nvim' },
-
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-
     -- Additional lua configuration, makes nvim stuff amazing!
     { 'folke/neodev.nvim' },
   },
