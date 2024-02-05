@@ -29,14 +29,13 @@ local on_attach = function(bufnr)
   end, { expr = true, desc = 'Jump to previous hunk' })
 
   -- Actions
-  -- visual mode
   map('v', '<leader>hs', function()
     gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
   end, { desc = 'stage git hunk' })
   map('v', '<leader>hr', function()
     gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
   end, { desc = 'reset git hunk' })
-  -- normal mode
+
   map('n', '<leader>hs', gs.stage_hunk, { desc = 'git stage hunk' })
   map('n', '<leader>hr', gs.reset_hunk, { desc = 'git reset hunk' })
   map('n', '<leader>hS', gs.stage_buffer, { desc = 'git Stage buffer' })
@@ -60,7 +59,6 @@ local on_attach = function(bufnr)
 end
 
 return {
-  -- Adds git related signs to the gutter, as well as utilities for managing changes
   'lewis6991/gitsigns.nvim',
   event = "BufReadPre",
   opts = {

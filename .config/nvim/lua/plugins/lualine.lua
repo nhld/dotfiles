@@ -39,18 +39,19 @@ local config = function()
       lualine_x = { 'encoding', 'filetype', {
         function()
           local lsps = vim.lsp.get_active_clients({ bufnr = vim.fn.bufnr() })
-          local icon = require("nvim-web-devicons").get_icon_by_filetype(
-            vim.api.nvim_buf_get_option(0, "filetype")
-          )
+          -- local icon = require("nvim-web-devicons").get_icon_by_filetype(
+          --   vim.api.nvim_buf_get_option(0, "filetype")
+          -- )
           if lsps and #lsps > 0 then
             local names = {}
             for _, lsp in ipairs(lsps) do
               table.insert(names, lsp.name)
             end
             --return string.format("%s %s", table.concat(names, ", "), icon)
-            return string.format("%s %s", icon, table.concat(names, ", "))
+            return string.format("%s", table.concat(names, ","))
           else
-            return icon or ""
+            --return icon or ""
+            return "[No LSP]"
           end
         end,
         on_click = function()
