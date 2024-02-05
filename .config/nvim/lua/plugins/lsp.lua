@@ -1,5 +1,4 @@
--- [[ Configure LSP ]]
--- --  This function gets run when an LSP connects to a particular buffer.
+--  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
@@ -19,14 +18,12 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
   vim.keymap.set('i', "<C-h>", function()
     vim.lsp.buf.signature_help()
   end)
 
-  -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
@@ -41,7 +38,6 @@ local on_attach = function(_, bufnr)
 end
 
 local config = function()
-  -- Switch for controlling whether you want autoformatting.
   --  Use :KickstartFormatToggle to toggle autoformatting on or off
   local format_is_enabled = true
   vim.api.nvim_create_user_command('KickstartFormatToggle', function()
@@ -248,16 +244,13 @@ local config = function()
 end
 
 return {
-  -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   event = { "BufReadPre", "BufNewFile", },
   dependencies = {
     -- Automatically install LSPs to stdpath for neovim
     { 'williamboman/mason.nvim',          config = true },
     { 'williamboman/mason-lspconfig.nvim' },
-    -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    -- Additional lua configuration, makes nvim stuff amazing!
     { 'folke/neodev.nvim' },
   },
   config = config,
