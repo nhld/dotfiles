@@ -31,6 +31,16 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
+  nmap('<leader>cd', vim.diagnostic.open_float, 'Line diagnostics')
+  nmap('[d', vim.diagnostic.goto_prev, 'Previous diagnostic')
+  nmap(']d', vim.diagnostic.goto_next, 'Next diagnostic')
+  nmap('[e', function()
+    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+  end, 'Previous error')
+  nmap(']e', function()
+    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+  end, 'Next error')
+
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
@@ -241,6 +251,36 @@ local config = function()
 
   --vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
   --vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+  vim.diagnostic.config({
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+    severity_sort = false,
+    float = {
+      border = 'rounded',
+      source = 'if_many',
+    },
+  })
+
+  local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
+
+  -- local show_handler = vim.diagnostic.handlers.virtual_text.show
+  -- assert(show_handler)
+  -- local hide_handler = vim.diagnostic.handlers.virtual_text.hide
+  -- vim.diagnostic.handlers.virtual_text = {
+  --   show = function(ns, bufnr, diagnostics, opts)
+  --     table.sort(diagnostics, function(diag1, diag2)
+  --       return diag1.severity > diag2.severity
+  --     end)
+  --     return show_handler(ns, bufnr, diagnostics, opts)
+  --   end,
+  --   hide = hide_handler,
+  -- }
 end
 
 return {
