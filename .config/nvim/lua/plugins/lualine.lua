@@ -14,15 +14,11 @@ local config = function()
     options = {
       icons_enabled = true,
       theme = 'auto',
-      --component_separators = { left = '', right = '' },
-      --section_separators = { left = '', right = '' },
-      --component_separators = "│",
       component_separators = "",
       section_separators = '',
 
       disabled_filetypes = {
-        --statusline = {},
-        --winbar = {},
+        'neo-tree', 'Trouble'
       },
       ignore_focus = {},
       always_divide_middle = true,
@@ -36,7 +32,7 @@ local config = function()
     sections = {
       lualine_a = { 'mode' },
       lualine_b = {
-        'branch',
+        { 'branch', icon = '', },
         { 'diff',
           source = diff_source,
           symbols = {
@@ -49,7 +45,15 @@ local config = function()
       },
       lualine_c = { { 'filename', path = 3 } },
       lualine_x = {
-        { 'diagnostics', update_in_insert = true },
+        { 'diagnostics',
+          update_in_insert = true,
+          symbols = {
+            error = ' ',
+            warn = ' ',
+            hint = ' ',
+            info = ' ',
+          }
+        },
         'encoding',
         'filetype',
         {
