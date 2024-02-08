@@ -37,7 +37,14 @@ local config = function()
       lualine_a = { 'mode' },
       lualine_b = {
         'branch',
-        { 'diff', source = diff_source },
+        { 'diff',
+          source = diff_source,
+          symbols = {
+            added    = " ",
+            modified = " ",
+            removed  = " ",
+          },
+        },
         --{ 'diagnostics', update_in_insert = true }
       },
       lualine_c = { { 'filename', path = 3 } },
