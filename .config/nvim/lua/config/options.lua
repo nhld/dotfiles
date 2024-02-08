@@ -20,7 +20,7 @@ opt.pumblend = 0
 
 opt.incsearch = true
 
-opt.showmatch = true
+opt.showmatch = false
 opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
 
 opt.autoindent = true
