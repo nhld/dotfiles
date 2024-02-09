@@ -1,8 +1,7 @@
+-- highlight currentline number yellow
 vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = 'yellow' })
-
 --background for popup menu (fix this pls)
 vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1f2329" })
-
 -- vscode like color for cmp popup menu both in editor and command
 -- gray
 vim.api.nvim_set_hl(0, 'CmpItemAbbrDeprecated', { bg = 'NONE', strikethrough = true, fg = '#808080' })
@@ -21,8 +20,7 @@ vim.api.nvim_set_hl(0, 'CmpItemKindKeyword', { bg = 'NONE', fg = '#D4D4D4' })
 vim.api.nvim_set_hl(0, 'CmpItemKindProperty', { link = 'CmpItemKindKeyword' })
 vim.api.nvim_set_hl(0, 'CmpItemKindUnit', { link = 'CmpItemKindKeyword' })
 
---vim.api.nvim_set_hl(0, "MatchParen", { bg = '#FFFF00', fg = 'NONE' })
-
+-- use yanky plugin so disabled this
 -- Highlight on yank
 -- :help vim.highlight.on_yank()
 -- local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -33,3 +31,4 @@ vim.api.nvim_set_hl(0, 'CmpItemKindUnit', { link = 'CmpItemKindKeyword' })
 --   group = highlight_group,
 --   pattern = '*',
 -- })
+--
