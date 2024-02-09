@@ -50,7 +50,8 @@ local config = function()
           symbols = {
             error = ' ',
             warn = ' ',
-            hint = ' ',
+            --hint = ' ',
+            hint = ' ',
             info = ' ',
           }
         },

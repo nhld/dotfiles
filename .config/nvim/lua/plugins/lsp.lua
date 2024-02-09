@@ -47,6 +47,81 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+
+local function show_only_one_sign_in_sign_column() -- func called in line 339
+  ---custom namespace
+  local ns = vim.api.nvim_create_namespace('severe-diagnostics')
+
+  ---reference to the original handler
+  local orig_signs_handler = vim.diagnostic.handlers.signs
+
+  ---Overriden diagnostics signs helper to only show the single most relevant sign
+  --- `:h diagnostic-handlers`
+  vim.diagnostic.handlers.signs = {
+    show = function(_, bufnr, _, opts)
+      -- get all diagnostics from the whole buffer rather
+      -- than just the diagnostics passed to the handler
+      local diagnostics = vim.diagnostic.get(bufnr)
+
+      local filtered_diagnostics = filter_diagnostics(diagnostics)
+
+      -- pass the filtered diagnostics (with the
+      -- custom namespace) to the original handler
+      orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
+    end,
+
+    hide = function(_, bufnr)
+      orig_signs_handler.hide(ns, bufnr)
+    end,
+  }
+
+  filter_diagnostics = function(diagnostics)
+    if not diagnostics then
+      return {}
+    end
+
+    -- -- find the "worst" diagnostic per line
+    -- local most_severe = {}
+    -- for _, cur in pairs(diagnostics) do
+    --   local max = most_severe[cur.lnum]
+    --
+    --   -- higher severity has lower value (`:h diagnostic-severity`)
+    --   if not max or cur.severity < max.severity then
+    --     most_severe[cur.lnum] = cur
+    --   end
+    -- end
+    --
+    -- -- return list of diagnostics
+    -- return vim.tbl_values(most_severe)
+    local most_severe = {}
+    for _, cur in pairs(diagnostics) do
+      -- Find the first most severe diagnostic
+      local max1 = most_severe[cur.lnum]
+
+      if not max1 or cur.severity < max1.severity then
+        most_severe[cur.lnum] = cur
+      else
+        -- Find the second most severe diagnostic
+        local max2 = most_severe[cur.lnum .. '_2']
+        if not max2 or cur.severity < max2.severity then
+          most_severe[cur.lnum .. '_2'] = cur
+        end
+      end
+    end
+
+    -- Concatenate the two tables of diagnostics and return
+    local result = {}
+    for _, diag in pairs(most_severe) do
+      table.insert(result, diag)
+    end
+
+    return result
+  end
+end
+
+-- call
+--show_only_one_sign_in_sign_column()
+
 local config = function()
   --  Use :KickstartFormatToggle to toggle autoformatting on or off
   local format_is_enabled = true
@@ -263,25 +338,28 @@ local config = function()
     },
   })
 
-  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
   --local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
 
-  -- local show_handler = vim.diagnostic.handlers.virtual_text.show
-  -- assert(show_handler)
-  -- local hide_handler = vim.diagnostic.handlers.virtual_text.hide
-  -- vim.diagnostic.handlers.virtual_text = {
-  --   show = function(ns, bufnr, diagnostics, opts)
-  --     table.sort(diagnostics, function(diag1, diag2)
-  --       return diag1.severity > diag2.severity
-  --     end)
-  --     return show_handler(ns, bufnr, diagnostics, opts)
-  --   end,
-  --   hide = hide_handler,
-  -- }
+  local show_handler = vim.diagnostic.handlers.virtual_text.show
+  assert(show_handler)
+  local hide_handler = vim.diagnostic.handlers.virtual_text.hide
+  vim.diagnostic.handlers.virtual_text = {
+    show = function(ns, bufnr, diagnostics, opts)
+      table.sort(diagnostics, function(diag1, diag2)
+        return diag1.severity > diag2.severity
+      end)
+      return show_handler(ns, bufnr, diagnostics, opts)
+    end,
+    hide = hide_handler,
+  }
+
+
+  show_only_one_sign_in_sign_column()
 end
 
 return {
