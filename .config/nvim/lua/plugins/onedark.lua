@@ -1,19 +1,16 @@
 local config = function()
-  require('onedark').setup({
-    style = 'darker'
-  })
-  require('onedark').load()
+	require("onedark").setup({
+		style = "darker",
+	})
 
-  vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
-  vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
-  vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+	require("onedark").load()
 end
 
 return {
-  'navarasu/onedark.nvim',
-  lazy = false,
-  priority = 1000,
-  config = config,
+	"navarasu/onedark.nvim",
+	lazy = false,
+	priority = 1000,
+	config = config,
 }
 
 --return {

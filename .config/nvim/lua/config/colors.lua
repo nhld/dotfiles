@@ -15,6 +15,25 @@ vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
 vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
 vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 
+-- LSP popup menu
+vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
+vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
+vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+
+-- illuminate word highlight
+vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
+--- auto update the highlight style on colorscheme change
+vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+	pattern = { "*" },
+	callback = function()
+		vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+		vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+		vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
+	end,
+})
+
 -- use yanky plugin so disabled this
 -- Highlight on yank
 -- :help vim.highlight.on_yank()
