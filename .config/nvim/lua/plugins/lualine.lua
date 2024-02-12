@@ -30,7 +30,7 @@ local function lsp_info()
 			table.insert(names, lsp.name)
 		end
 		--return string.format("%s %s", table.concat(names, ", "), icon)
-		return string.format("󰌘 %s", table.concat(names, " "))
+		return string.format(" %s", table.concat(names, " "))
 	else
 		--return icon or ""
 		return "󰌘 ? lsp"
@@ -54,13 +54,13 @@ local function get_formatters()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local formatters = require("conform").list_formatters(bufnr)
 	if #formatters == 0 then
-		return "[lsp]"
+		return " lsp"
 	else
 		local formatter_names = {}
 		for _, formatter_info in ipairs(formatters) do
 			table.insert(formatter_names, formatter_info.name)
 		end
-		return table.concat(formatter_names, " ")
+		return string.format(" %s", table.concat(formatter_names, " ")) --if dont like icon just return table.concat
 	end
 end
 
@@ -77,8 +77,11 @@ local config = function()
 			component_separators = "",
 			section_separators = "",
 			disabled_filetypes = {
-				--'neo-tree',
-				"Trouble",
+				statusline = {},
+				winbar = {
+					"neo-tree",
+					"Trouble",
+				},
 			},
 			ignore_focus = {},
 			always_divide_middle = true,
@@ -104,26 +107,22 @@ local config = function()
 				},
 			},
 			lualine_c = {
-				{ "filename", path = 1 },
-				{
-					function()
-						return require("nvim-navic").get_location()
-					end,
-					cond = function()
-						return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-					end,
-				},
+				{ "filename", path = 3 },
 			},
 			lualine_x = {
 				{
 					"diagnostics",
 					update_in_insert = true,
 					symbols = {
-						error = " ",
-						warn = " ",
+						--error = " ",
+						error = " ",
+						--warn = " ",
+						warn = " ",
 						--hint = ' ',
-						hint = " ",
-						info = " ",
+						--hint = " ",
+						hint = " ",
+						--info = " ",
+						info = " ",
 					},
 				},
 				{ space_and_tab_size },
@@ -152,7 +151,20 @@ local config = function()
 			lualine_z = {},
 		},
 		tabline = {},
-		winbar = {},
+		winbar = {
+			lualine_c = {
+				{ "filename", path = 1, color = { bg = "NONE" } },
+				{
+					function()
+						return require("nvim-navic").get_location()
+					end,
+					cond = function()
+						return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+					end,
+					color = { bg = "NONE" },
+				},
+			},
+		},
 		inactive_winbar = {},
 		extensions = {},
 	})
