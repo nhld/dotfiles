@@ -58,31 +58,33 @@ local on_attach = function(bufnr)
   map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
 end
 
+local opts = {
+  -- See `:help gitsigns.txt`
+  -- signs = {
+  --   add = { text = '+' },
+  --   change = { text = '~' },
+  --   delete = { text = '_' },
+  --   topdelete = { text = '‾' },
+  --   changedelete = { text = '~' },
+  -- },
+  signs = {
+    add = { text = "▎" },
+    change = { text = "▎" },
+    delete = { text = "" },
+    topdelete = { text = "" },
+    changedelete = { text = "▎" },
+    untracked = { text = "▎" },
+  },
+  current_line_blame_opts = {
+    virt_text_pos = 'right_align',
+    delay = 300,
+  },
+  current_line_blame = true,
+  on_attach = on_attach,
+}
+
 return {
   'lewis6991/gitsigns.nvim',
   event = "BufReadPre",
-  opts = {
-    -- See `:help gitsigns.txt`
-    -- signs = {
-    --   add = { text = '+' },
-    --   change = { text = '~' },
-    --   delete = { text = '_' },
-    --   topdelete = { text = '‾' },
-    --   changedelete = { text = '~' },
-    -- },
-    signs = {
-      add = { text = "▎" },
-      change = { text = "▎" },
-      delete = { text = "" },
-      topdelete = { text = "" },
-      changedelete = { text = "▎" },
-      untracked = { text = "▎" },
-    },
-    current_line_blame_opts = {
-      virt_text_pos = 'right_align',
-      delay = 300,
-    },
-    current_line_blame = true,
-    on_attach = on_attach,
-  },
+  opts = opts,
 }

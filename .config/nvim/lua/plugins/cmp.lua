@@ -87,7 +87,7 @@ local config = function()
         return vim_item
       end,
     },
-    -- vscode like formating icon first then text
+    -- vscode like formatting icon first then text
     -- formatting = {
     --   fields = { "kind", "abbr" },
     --   format = function(_, vim_item)
