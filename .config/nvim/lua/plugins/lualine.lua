@@ -25,15 +25,16 @@ local function lsp_info()
 	--   vim.api.nvim_buf_get_option(0, "filetype")
 	-- )
 	if lsps and #lsps > 0 then
-		local names = {}
-		for _, lsp in ipairs(lsps) do
-			table.insert(names, lsp.name)
-		end
-		--return string.format("%s %s", table.concat(names, ", "), icon)
-		return string.format(" %s", table.concat(names, " "))
+		-- local names = {}
+		-- for _, lsp in ipairs(lsps) do
+		-- 	table.insert(names, lsp.name)
+		-- end
+		-- --return string.format("%s %s", table.concat(names, ", "), icon)
+		--return string.format(" %s", table.concat(names, " "))
+		return " "
 	else
-		--return icon or ""
-		return "󰌘 ? lsp"
+		--return "󰌘 ? lsp"
+		return " ?"
 	end
 end
 
@@ -49,18 +50,25 @@ local function lsp_info_color()
 	return { fg = color }
 end
 
+local function lsp_info_color_no_bg()
+	local _, color =
+		require("nvim-web-devicons").get_icon_cterm_color_by_filetype(vim.api.nvim_buf_get_option(0, "filetype"))
+	return { fg = color, bg = "NONE" }
+end
+
 -- Show available formatter
 local function get_formatters()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local formatters = require("conform").list_formatters(bufnr)
 	if #formatters == 0 then
-		return " lsp"
+		return " ?"
 	else
-		local formatter_names = {}
-		for _, formatter_info in ipairs(formatters) do
-			table.insert(formatter_names, formatter_info.name)
-		end
-		return string.format(" %s", table.concat(formatter_names, " ")) --if dont like icon just return table.concat
+		-- local formatter_names = {}
+		-- for _, formatter_info in ipairs(formatters) do
+		-- 	table.insert(formatter_names, formatter_info.name)
+		-- end
+		-- return string.format(" %s", table.concat(formatter_names, " ")) --if dont like icon just return table.concat
+		return " "
 	end
 end
 
@@ -69,6 +77,15 @@ local function on_click_conform()
 	vim.api.nvim_command("ConformInfo")
 end
 
+-- get filetype icon
+local function get_icon()
+	-- local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.bo.filetype)
+	-- return icon ~= nil and icon .. " " or ""
+	local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.api.nvim_buf_get_option(0, "filetype"))
+	return icon and " " .. icon
+end
+
+-- Config for the plugin
 local config = function()
 	require("lualine").setup({
 		options = {
@@ -81,6 +98,7 @@ local config = function()
 				winbar = {
 					"neo-tree",
 					"Trouble",
+					"Outline",
 				},
 			},
 			ignore_focus = {},
@@ -100,9 +118,12 @@ local config = function()
 					"diff",
 					source = diff_source,
 					symbols = {
-						added = " ",
-						modified = " ",
-						removed = " ",
+						-- added = " ",
+						-- modified = " ",
+						-- removed = " ",
+						added = "+",
+						modified = "~",
+						removed = "-",
 					},
 				},
 			},
@@ -153,6 +174,7 @@ local config = function()
 		tabline = {},
 		winbar = {
 			lualine_c = {
+				{ get_icon, padding = 0, margin = 0, color = lsp_info_color_no_bg },
 				{ "filename", path = 1, color = { bg = "NONE" } },
 				{
 					function()
@@ -165,7 +187,12 @@ local config = function()
 				},
 			},
 		},
-		inactive_winbar = {},
+		inactive_winbar = {
+			lualine_c = {
+				{ get_icon, padding = 0, margin = 0, color = lsp_info_color_no_bg },
+				{ "filename", path = 1, color = { bg = "NONE" } },
+			},
+		},
 		extensions = {},
 	})
 end
