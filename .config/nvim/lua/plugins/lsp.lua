@@ -1,3 +1,4 @@
+-- Keymaps and navic on attach
 local on_attach = function(client, bufnr)
 	local nmap = function(keys, func, desc)
 		if desc then
@@ -41,9 +42,9 @@ local on_attach = function(client, bufnr)
 	end, "Next error")
 
 	-- Create a command `:Format` local to the LSP buffer
-	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-		vim.lsp.buf.format()
-	end, { desc = "Format current buffer with LSP" })
+	-- vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
+	-- 	vim.lsp.buf.format()
+	-- end, { desc = "Format current buffer with LSP" })
 
 	-- Navic stuff attach, if remove this, remove client param of on_attach func
 	local navic = require("nvim-navic")
@@ -52,6 +53,7 @@ local on_attach = function(client, bufnr)
 	end
 end
 
+-- Show 1 LSP diagnostic
 local function show_only_one_sign_in_sign_column() -- func called at the end of config function
 	---custom namespace
 	local ns = vim.api.nvim_create_namespace("severe-diagnostics")
@@ -66,9 +68,7 @@ local function show_only_one_sign_in_sign_column() -- func called at the end of 
 			-- get all diagnostics from the whole buffer rather
 			-- than just the diagnostics passed to the handler
 			local diagnostics = vim.diagnostic.get(bufnr)
-
 			local filtered_diagnostics = filter_diagnostics(diagnostics)
-
 			-- pass the filtered diagnostics (with the
 			-- custom namespace) to the original handler
 			orig_signs_handler.show(ns, bufnr, filtered_diagnostics, opts)
@@ -124,9 +124,6 @@ local function show_only_one_sign_in_sign_column() -- func called at the end of 
 		-- return result
 	end
 end
-
--- call
---show_only_one_sign_in_sign_column()
 
 local config = function()
 	require("neodev").setup()
@@ -270,6 +267,7 @@ local config = function()
 
 	--vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 	--vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+
 	vim.diagnostic.config({
 		virtual_text = true,
 		signs = true,
@@ -302,7 +300,6 @@ local config = function()
 		end,
 		hide = hide_handler,
 	}
-
 	show_only_one_sign_in_sign_column()
 end
 
