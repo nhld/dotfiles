@@ -6,7 +6,7 @@ opt.nu = true
 opt.rnu = true
 
 opt.conceallevel = 0
--- Highlight current line that cursor's on
+-- Highlight current line
 opt.cursorline = true
 
 opt.winblend = 0
@@ -14,9 +14,6 @@ opt.winblend = 0
 opt.wildmenu = true
 opt.wildmode = "longest:full"
 opt.wildoptions = "pum"
-opt.pumblend = 0
---opt.background = 'dark'
-
 opt.incsearch = true
 
 -- disable vim match paren jump
@@ -38,7 +35,7 @@ opt.laststatus = 3
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.softtabstop = 2
-opt.expandtab = true
+opt.expandtab = true -- use space instead of tab
 -- Set highlight on search
 opt.hlsearch = true
 -- Enable mouse mode
@@ -53,7 +50,7 @@ opt.undofile = true
 opt.ignorecase = true
 opt.smartcase = true
 -- Keep signcolumn on by default
-opt.signcolumn = "yes:2"
+opt.signcolumn = "yes"
 -- Decrease update time
 opt.updatetime = 200
 opt.timeoutlen = 300
@@ -64,7 +61,13 @@ opt.termguicolors = true
 -- Split screens
 opt.splitright = true
 opt.splitbelow = true
+-- Popup menu
+opt.pumheight = 10
+opt.pumblend = 0
 -- Spell check
 opt.spelllang = "en_us"
 opt.spell = true
 opt.spelloptions = "camel"
+--Status column
+--opt.statuscolumn = " "
+opt.statuscolumn = [[%!v:lua.require'config.statuscol'.statuscolumn()]]
