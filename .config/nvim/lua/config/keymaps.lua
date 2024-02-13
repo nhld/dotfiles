@@ -48,3 +48,21 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll downwards" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll upwards" })
 --vim.keymap.set("n", "n", "nzzzv", { desc = "Next result" })
 --vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous result" })
+-- New tab
+vim.keymap.set("n", "te", ":tabedit")
+vim.keymap.set("n", "<tab>", ":tabnext<Return>", { noremap = true, silent = true })
+vim.keymap.set("n", "<s-tab>", ":tabprev<Return>", { noremap = true, silent = true })
+-- Split window
+vim.keymap.set("n", "ss", ":split<Return>", { noremap = true, silent = true })
+vim.keymap.set("n", "sv", ":vsplit<Return>", { noremap = true, silent = true })
+-- Move window
+vim.keymap.set("n", "sh", "<C-w>h")
+vim.keymap.set("n", "sk", "<C-w>k")
+vim.keymap.set("n", "sj", "<C-w>j")
+vim.keymap.set("n", "sl", "<C-w>l")
+
+-- Resize window
+vim.keymap.set("n", "<C-w><left>", "<C-w><")
+vim.keymap.set("n", "<C-w><right>", "<C-w>>")
+vim.keymap.set("n", "<C-w><up>", "<C-w>+")
+vim.keymap.set("n", "<C-w><down>", "<C-w>-")

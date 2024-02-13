@@ -84,44 +84,44 @@ local function show_only_one_sign_in_sign_column() -- func called at the end of 
 			return {}
 		end
 
-		-- -- find the "worst" diagnostic per line
-		-- local most_severe = {}
-		-- for _, cur in pairs(diagnostics) do
-		--   local max = most_severe[cur.lnum]
-		--
-		--   -- higher severity has lower value (`:h diagnostic-severity`)
-		--   if not max or cur.severity < max.severity then
-		--     most_severe[cur.lnum] = cur
-		--   end
-		-- end
-		--
-		-- -- return list of diagnostics
-		-- return vim.tbl_values(most_severe)
-
-		-- this return 2 worst signs
+		-- find the "worst" diagnostic per line
 		local most_severe = {}
 		for _, cur in pairs(diagnostics) do
-			-- Find the first most severe diagnostic
-			local max1 = most_severe[cur.lnum]
+			local max = most_severe[cur.lnum]
 
-			if not max1 or cur.severity < max1.severity then
+			-- higher severity has lower value (`:h diagnostic-severity`)
+			if not max or cur.severity < max.severity then
 				most_severe[cur.lnum] = cur
-			else
-				-- Find the second most severe diagnostic
-				local max2 = most_severe[cur.lnum .. "_2"]
-				if not max2 or cur.severity < max2.severity then
-					most_severe[cur.lnum .. "_2"] = cur
-				end
 			end
 		end
 
-		-- Concatenate the two tables of diagnostics and return
-		local result = {}
-		for _, diag in pairs(most_severe) do
-			table.insert(result, diag)
-		end
+		-- return list of diagnostics
+		return vim.tbl_values(most_severe)
 
-		return result
+		-- this return 2 worst signs
+		-- local most_severe = {}
+		-- for _, cur in pairs(diagnostics) do
+		-- 	-- Find the first most severe diagnostic
+		-- 	local max1 = most_severe[cur.lnum]
+		--
+		-- 	if not max1 or cur.severity < max1.severity then
+		-- 		most_severe[cur.lnum] = cur
+		-- 	else
+		-- 		-- Find the second most severe diagnostic
+		-- 		local max2 = most_severe[cur.lnum .. "_2"]
+		-- 		if not max2 or cur.severity < max2.severity then
+		-- 			most_severe[cur.lnum .. "_2"] = cur
+		-- 		end
+		-- 	end
+		-- end
+		--
+		-- -- Concatenate the two tables of diagnostics and return
+		-- local result = {}
+		-- for _, diag in pairs(most_severe) do
+		-- 	table.insert(result, diag)
+		-- end
+		--
+		-- return result
 	end
 end
 
@@ -273,6 +273,7 @@ local config = function()
 	vim.diagnostic.config({
 		virtual_text = true,
 		signs = true,
+		--signs = false,
 		underline = true,
 		update_in_insert = true,
 		severity_sort = true,
