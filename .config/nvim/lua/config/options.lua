@@ -26,7 +26,7 @@ opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 opt.autoindent = true
 opt.smartindent = true
 
-opt.linebreak = true
+--opt.linebreak = true
 opt.wrap = false
 opt.showcmd = true
 opt.cmdheight = 1
@@ -53,7 +53,7 @@ opt.undofile = true
 opt.ignorecase = true
 opt.smartcase = true
 -- Keep signcolumn on by default
-opt.signcolumn = "yes:3"
+opt.signcolumn = "yes:2"
 -- Decrease update time
 opt.updatetime = 200
 opt.timeoutlen = 300
