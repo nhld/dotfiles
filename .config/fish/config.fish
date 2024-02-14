@@ -13,6 +13,18 @@ alias c clear
 alias vi nvim
 alias vim nvim
 
+# Git
+alias g 'git'
+alias ga 'git add'
+alias gb 'git branch'
+alias gc 'git commit --verbose'
+alias gco 'git checkout'
+alias gf 'git fetch'
+alias gl 'git log'
+alias gm 'git merge'
+alias gp 'git push'
+alias gst 'git status'
+
 # Eza kinda better ls 
 if type -q eza
     alias ll "eza -l --icons --total-size --no-user -o"
