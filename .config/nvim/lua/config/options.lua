@@ -4,25 +4,18 @@ opt.showmode = true
 -- Show line number and relative number
 opt.nu = true
 opt.rnu = true
-
 opt.conceallevel = 0
 -- Highlight current line
 opt.cursorline = true
-
 opt.winblend = 0
-
-opt.wildmenu = true
-opt.wildmode = "longest:full"
-opt.wildoptions = "pum"
+opt.wildmode = "longest:full,full"
 opt.incsearch = true
-
 -- disable vim match paren jump
 opt.showmatch = false
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
-
+-- Auto add indent
 opt.autoindent = true
 opt.smartindent = true
-
 --opt.linebreak = true
 opt.wrap = false
 opt.showcmd = true
@@ -68,6 +61,17 @@ opt.pumblend = 0
 opt.spelllang = "en_us"
 opt.spell = true
 opt.spelloptions = "camel"
---Status column
---opt.statuscolumn = " "
+-- Status column
 opt.statuscolumn = [[%!v:lua.require'config.statuscol'.statuscolumn()]]
+-- Fold
+opt.foldlevel = 99
+opt.foldtext = "v:lua.require'config.statuscol'.foldtext()"
+opt.fillchars = {
+	foldopen = "",
+	foldclose = "",
+	-- fold = "⸱",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
+}
