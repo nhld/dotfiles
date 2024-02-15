@@ -94,11 +94,12 @@ local config = function()
 			component_separators = "",
 			section_separators = "",
 			disabled_filetypes = {
-				statusline = {},
+				statusline = {
+					"Trouble",
+				},
 				winbar = {
 					"neo-tree",
 					"Trouble",
-					"Outline",
 				},
 			},
 			ignore_focus = {},

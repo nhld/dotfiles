@@ -1,5 +1,10 @@
 local config = function()
-	require("illuminate").configure({})
+	require("illuminate").configure({
+		filetypes_denylist = {
+			"neo-tree",
+			"help",
+		},
+	})
 end
 
 return {
