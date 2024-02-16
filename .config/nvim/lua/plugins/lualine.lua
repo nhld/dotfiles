@@ -38,7 +38,6 @@ local function lsp_info()
 	end
 end
 
--- Onlick to show more info
 local function on_click()
 	vim.api.nvim_command("LspInfo")
 end
@@ -176,7 +175,11 @@ local config = function()
 		winbar = {
 			lualine_c = {
 				{ get_icon, padding = 0, margin = 0, color = lsp_info_color_no_bg },
-				{ "filename", path = 1, color = { bg = "NONE" } },
+				{
+					"filename",
+					path = 1,
+					color = { bg = "NONE" },
+				},
 				{
 					function()
 						return require("nvim-navic").get_location()
