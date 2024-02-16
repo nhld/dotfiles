@@ -1,16 +1,17 @@
 return {
 	"zbirenbaum/copilot.lua",
-	enabled = false,
+	--enabled = false,
 	event = "InsertEnter",
 	cmd = "Copilot",
 	opts = {
 		panel = { enabled = false },
 		suggestion = {
 			auto_trigger = true,
-			-- Use alt to interact with Copilot.
+			-- Use alt/opt to interact with Copilot.
+			-- M = meta = opt key
 			keymap = {
-				-- Disable the built-in mapping, we'll configure it in nvim-cmp.
-				accept = false,
+				-- configure it in nvim-cmp.
+				accept = "<M-a>",
 				accept_word = "<M-w>",
 				accept_line = "<M-l>",
 				next = "<M-]>",
@@ -21,10 +22,9 @@ return {
 		filetypes = { markdown = true },
 	},
 	config = function(_, opts)
-		local cmp = require("cmp")
-		local copilot = require("copilot.suggestion")
-		local luasnip = require("luasnip")
-
+		-- local cmp = require("cmp")
+		-- local copilot = require("copilot.suggestion")
+		-- local luasnip = require("luasnip")
 		require("copilot").setup(opts)
 
 		---@param trigger boolean
@@ -35,8 +35,8 @@ return {
 		-- 	vim.b.copilot_suggestion_auto_trigger = trigger
 		-- 	vim.b.copilot_suggestion_hidden = not trigger
 		-- end
-
-		-- Hide suggestions when the completion menu is open.
+		--
+		-- -- Hide suggestions when the completion menu is open.
 		-- cmp.event:on("menu_opened", function()
 		-- 	set_trigger(false)
 		-- end)
@@ -44,12 +44,12 @@ return {
 		-- 	set_trigger(not luasnip.expand_or_locally_jumpable())
 		-- end)
 
-		vim.api.nvim_create_autocmd("User", {
-			desc = "Disable Copilot inside snippets",
-			pattern = { "LuasnipInsertNodeEnter", "LuasnipInsertNodeLeave" },
-			callback = function()
-				set_trigger(not luasnip.expand_or_locally_jumpable())
-			end,
-		})
+		-- vim.api.nvim_create_autocmd("User", {
+		-- 	desc = "Disable Copilot inside snippets",
+		-- 	pattern = { "LuasnipInsertNodeEnter", "LuasnipInsertNodeLeave" },
+		-- 	callback = function()
+		-- 		set_trigger(not luasnip.expand_or_locally_jumpable())
+		-- 	end,
+		-- })
 	end,
 }

@@ -64,8 +64,6 @@ local config = function()
 			max_view_entries = 10,
 		},
 
-		-- TODO: test more of these
-
 		mapping = cmp.mapping.preset.insert({
 			["<C-n>"] = cmp.mapping.select_next_item(),
 			["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -117,9 +115,8 @@ local config = function()
 
 			-- TODO: Make this work
 
-			-- Explicitly request completions.
-			--["<C-Space>"] = cmp.mapping.complete(),
-			-- Overload tab to accept Copilot suggestions.
+			--Explicitly request completions.
+			--Overload tab to accept Copilot suggestions.
 			-- ["<Tab>"] = cmp.mapping(function(fallback)
 			-- 	local copilot = require("copilot.suggestion")
 			--
