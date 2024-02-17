@@ -1,3 +1,4 @@
+-- code formatter
 local keys = {
 	{
 		"<leader>f",
@@ -26,12 +27,24 @@ local opts = {
 		["markdown.mdx"] = { "prettierd" },
 		json = { "prettierd" },
 		lua = { "stylua" },
+		--cpp = { "clang-format" },
+		--c = { "clang-format" },
 		--python = { "isort" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
 		lsp_fallback = true,
 	},
+	-- format_on_save = function(bufnr)
+	-- 	if vim.b[bufnr].format_on_save then
+	-- 		return {
+	-- 			timeout_ms = 500,
+	-- 			-- Filetypes to use LSP formatting for.
+	-- 			lsp_fallback = vim.tbl_contains({ "c", "cpp", "json", "jsonc" }, vim.bo[bufnr].filetype),
+	-- 		}
+	-- 	end
+	-- end,
+	notify_on_error = true,
 }
 
 return {

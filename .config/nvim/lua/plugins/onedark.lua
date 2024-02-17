@@ -1,3 +1,4 @@
+-- Theme
 local config = function()
 	require("onedark").setup({
 		style = "darker",
@@ -60,13 +61,3 @@ return {
 	priority = 1000,
 	config = config,
 }
-
---return {
--- 'tjdevries/gruvbuddy.nvim',
--- dependencies = { 'tjdevries/colorbuddy.vim' },
--- lazy = false,
--- priority = 1000,
--- config = function()
---   require('colorbuddy').colorscheme('gruvbuddy')
--- end
---}

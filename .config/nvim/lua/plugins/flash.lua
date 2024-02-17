@@ -1,4 +1,4 @@
--- Navigation with jump motions.
+-- Navigation with jump motions
 local opts = {
 	jump = { nohlsearch = true },
 	search = {

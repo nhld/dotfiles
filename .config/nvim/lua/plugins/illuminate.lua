@@ -1,3 +1,4 @@
+-- highlight words under the cursor, opt-n,p to jump between
 local config = function()
 	require("illuminate").configure({
 		filetypes_denylist = {
