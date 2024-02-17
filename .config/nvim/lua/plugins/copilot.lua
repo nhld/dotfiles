@@ -1,6 +1,5 @@
 return {
 	"zbirenbaum/copilot.lua",
-	--enabled = false,
 	event = "InsertEnter",
 	cmd = "Copilot",
 	opts = {
@@ -11,15 +10,15 @@ return {
 			-- M = meta = opt key
 			keymap = {
 				-- configure it in nvim-cmp.
-				accept = "<M-a>",
+				accept = "<M-l>",
 				accept_word = "<M-w>",
-				accept_line = "<M-l>",
+				accept_line = "<M-o>",
 				next = "<M-]>",
 				prev = "<M-[>",
 				dismiss = "/",
 			},
 		},
-		filetypes = { markdown = true },
+		--filetypes = { markdown = true },
 	},
 	config = function(_, opts)
 		-- local cmp = require("cmp")

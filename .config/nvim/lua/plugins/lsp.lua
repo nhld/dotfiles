@@ -41,11 +41,6 @@ local on_attach = function(client, bufnr)
 		vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
 	end, "Next error")
 
-	-- Create a command `:Format` local to the LSP buffer
-	-- vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-	-- 	vim.lsp.buf.format()
-	-- end, { desc = "Format current buffer with LSP" })
-
 	-- Navic stuff attach, if remove this, remove client param of on_attach func
 	local navic = require("nvim-navic")
 	if client.server_capabilities.documentSymbolProvider then
@@ -53,9 +48,7 @@ local on_attach = function(client, bufnr)
 	end
 end
 
--- Show 1 LSP diagnostic
 local function show_only_one_sign_in_sign_column() -- func called at the end of config function
-	---custom namespace
 	local ns = vim.api.nvim_create_namespace("severe-diagnostics")
 
 	---reference to the original handler
@@ -94,34 +87,7 @@ local function show_only_one_sign_in_sign_column() -- func called at the end of 
 				most_severe[cur.lnum] = cur
 			end
 		end
-
-		-- return list of diagnostics
 		return vim.tbl_values(most_severe)
-
-		-- this return 2 worst signs
-		-- local most_severe = {}
-		-- for _, cur in pairs(diagnostics) do
-		-- 	-- Find the first most severe diagnostic
-		-- 	local max1 = most_severe[cur.lnum]
-		--
-		-- 	if not max1 or cur.severity < max1.severity then
-		-- 		most_severe[cur.lnum] = cur
-		-- 	else
-		-- 		-- Find the second most severe diagnostic
-		-- 		local max2 = most_severe[cur.lnum .. "_2"]
-		-- 		if not max2 or cur.severity < max2.severity then
-		-- 			most_severe[cur.lnum .. "_2"] = cur
-		-- 		end
-		-- 	end
-		-- end
-		--
-		-- -- Concatenate the two tables of diagnostics and return
-		-- local result = {}
-		-- for _, diag in pairs(most_severe) do
-		-- 	table.insert(result, diag)
-		-- end
-		--
-		-- return result
 	end
 end
 
@@ -151,6 +117,8 @@ local config = function()
 
 	-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	-- add this line to remove the offset warning
+	capabilities.offsetEncoding = { "utf-16" }
 	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 	mason_lspconfig.setup({
@@ -229,28 +197,28 @@ local config = function()
 			add_inline_highlights(bufnr)
 
 			-- Add keymaps for opening links.
-			-- if focusable and not vim.b[bufnr].markdown_keys then
-			--   vim.keymap.set('n', 'K', function()
-			--     -- Vim help links.
-			--     local url = (vim.fn.expand '<cWORD>' --[[@as string]]):match '|(%S-)|'
-			--     if url then
-			--       return vim.cmd.help(url)
-			--     end
-			--
-			--     -- Markdown links.
-			--     local col = vim.api.nvim_win_get_cursor(0)[2] + 1
-			--     local from, to
-			--     from, to, url = vim.api.nvim_get_current_line():find '%[.-%]%((%S-)%)'
-			--     if from and col >= from and col <= to then
-			--       vim.system({ 'xdg-open', url }, nil, function(res)
-			--         if res.code ~= 0 then
-			--           vim.notify('Failed to open URL' .. url, vim.log.levels.ERROR)
-			--         end
-			--       end)
-			--     end
-			--   end, { buffer = bufnr, silent = true })
-			--   vim.b[bufnr].markdown_keys = true
-			-- end
+			if focusable and not vim.b[bufnr].markdown_keys then
+				vim.keymap.set("n", "K", function()
+					-- Vim help links.
+					local url = (vim.fn.expand("<cWORD>") --[[@as string]]):match("|(%S-)|")
+					if url then
+						return vim.cmd.help(url)
+					end
+
+					-- Markdown links.
+					local col = vim.api.nvim_win_get_cursor(0)[2] + 1
+					local from, to
+					from, to, url = vim.api.nvim_get_current_line():find("%[.-%]%((%S-)%)")
+					if from and col >= from and col <= to then
+						vim.system({ "xdg-open", url }, nil, function(res)
+							if res.code ~= 0 then
+								vim.notify("Failed to open URL" .. url, vim.log.levels.ERROR)
+							end
+						end)
+					end
+				end, { buffer = bufnr, silent = true })
+				vim.b[bufnr].markdown_keys = true
+			end
 		end
 	end
 
@@ -308,7 +276,6 @@ return {
 	dependencies = {
 		{ "williamboman/mason.nvim", config = true },
 		{ "williamboman/mason-lspconfig.nvim" },
-		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 		{ "folke/neodev.nvim" },
 	},
 	config = config,
