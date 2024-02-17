@@ -1,5 +1,5 @@
+-- show context of code, use for breadcrumbs at the top
 local opts = {
-	--separator = " ",
 	depth_limit = 0,
 	--depth_limit_indicator = "..",
 	lazy_update_context = false,

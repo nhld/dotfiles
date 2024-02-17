@@ -1,3 +1,4 @@
+-- edit directory in a buffer
 return {
 	"stevearc/oil.nvim",
 	event = "VeryLazy",

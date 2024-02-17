@@ -73,7 +73,6 @@ local opts = {
 	},
 	current_line_blame = true,
 	on_attach = on_attach,
-	--signcolumn = false,
 }
 
 return {

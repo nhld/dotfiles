@@ -4,10 +4,11 @@ opt.showmode = true
 -- Show line number and relative number
 opt.nu = true
 opt.rnu = true
+
 opt.conceallevel = 0
 -- Highlight current line
 opt.cursorline = true
-opt.winblend = 0
+opt.winblend = 15
 opt.wildmode = "longest:full,full"
 opt.incsearch = true
 -- disable vim match paren jump
@@ -56,7 +57,7 @@ opt.splitright = true
 opt.splitbelow = true
 -- Popup menu
 opt.pumheight = 10
-opt.pumblend = 0
+opt.pumblend = 15
 -- Spell check
 opt.spelllang = "en_us"
 opt.spell = true

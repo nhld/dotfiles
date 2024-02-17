@@ -1,3 +1,4 @@
+-- show indent lines guide
 local opts = {
 	indent = { char = "│" },
 	scope = {
@@ -49,6 +50,7 @@ end
 
 return {
 	"lukas-reineke/indent-blankline.nvim",
+	dependencies = { "tpope/vim-sleuth" },
 	config = config,
 	event = "VeryLazy",
 	main = "ibl",
