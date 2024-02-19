@@ -8,8 +8,13 @@ opt.rnu = true
 opt.conceallevel = 0
 -- Highlight current line
 opt.cursorline = true
-opt.winblend = 15
+opt.winblend = 0
+opt.wildmenu = true
+opt.wildoptions = "pum"
 opt.wildmode = "longest:full,full"
+-- Popup menu
+opt.pumheight = 10
+opt.pumblend = 0
 opt.incsearch = true
 -- disable vim match paren jump
 opt.showmatch = false
@@ -55,9 +60,6 @@ opt.termguicolors = true
 -- Split screens
 opt.splitright = true
 opt.splitbelow = true
--- Popup menu
-opt.pumheight = 10
-opt.pumblend = 15
 -- Spell check
 opt.spelllang = "en_us"
 opt.spell = true

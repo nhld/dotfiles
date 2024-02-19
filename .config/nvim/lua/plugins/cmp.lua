@@ -13,15 +13,16 @@ local config = function()
 
 	cmp.setup({
 		preselect = cmp.PreselectMode.None,
+		-- uncomment to enable rounded borders
 		window = {
-			documentation = {
-				border = "rounded",
-				winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,Search:None",
-			},
-			completion = {
-				border = "rounded",
-				winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,Search:None",
-			},
+			-- documentation = {
+			-- 	border = "rounded",
+			-- 	winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,Search:None",
+			-- },
+			-- completion = {
+			-- 	border = "rounded",
+			-- 	winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,Search:None",
+			-- },
 		},
 		snippet = {
 			expand = function(args)

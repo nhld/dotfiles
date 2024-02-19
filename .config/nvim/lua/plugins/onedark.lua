@@ -8,8 +8,6 @@ local config = function()
 
 	-- highlight currentline number
 	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
-	--background for popup menu (fix this pls)
-	vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1f2329" })
 	-- vscode like color for cmp popup menu both in editor and command
 	vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
 	vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bg = "NONE", fg = "#569CD6" })
@@ -23,10 +21,12 @@ local config = function()
 	vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
 	vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 
+	--background for popup menu (fix this pls)
+	--vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1f2329" })
 	-- LSP popup menu
-	vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
-	vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+	--vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
+	--vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
+	--vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
 
 	-- illuminate word highlight
 	vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
