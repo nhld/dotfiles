@@ -9,28 +9,7 @@ local config = function()
 				highlight = "NeoTreeModified",
 			},
 			git_status = {
-				symbols = {
-					-- Change type
-					--added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-					--modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-					added = "A", -- or "✚", but this is redundant info if you use git_status_colors on the name
-					modified = "M", -- or "", but this is redundant info if you use git_status_colors on the name
-					deleted = "D", -- this can only be used in the git_status source
-					renamed = "R", -- this can only be used in the git_status source
-					--deleted   = "✖", -- this can only be used in the git_status source
-					--renamed   = "󰁕", -- this can only be used in the git_status source
-					-- Status type
-					-- untracked = "",
-					-- ignored   = "",
-					-- unstaged  = "󰄱",
-					-- staged    = "",
-					-- conflict  = "",
-					untracked = "",
-					ignored = "I",
-					unstaged = "U",
-					staged = "S",
-					conflict = "C",
-				},
+				symbols = require("config.icons").neo_tree,
 			},
 		},
 		window = {

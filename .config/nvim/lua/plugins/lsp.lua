@@ -23,7 +23,6 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("i", "<C-h>", function()
 		vim.lsp.buf.signature_help()
 	end)
-
 	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
 	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
@@ -248,7 +247,8 @@ local config = function()
 		},
 	})
 
-	local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+	local signs = require("config.icons").lsp_signs
+	--local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 	--local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type

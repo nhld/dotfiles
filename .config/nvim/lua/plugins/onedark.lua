@@ -6,7 +6,7 @@ local config = function()
 
 	require("onedark").load()
 
-	-- highlight currentline number yellow
+	-- highlight currentline number
 	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
 	--background for popup menu (fix this pls)
 	vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1f2329" })

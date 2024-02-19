@@ -1,31 +1,3 @@
-local cmp_kinds = {
-	Text = "  ",
-	Method = "  ",
-	Function = "  ",
-	Constructor = "  ",
-	Field = "  ",
-	Variable = "  ",
-	Class = "  ",
-	Interface = "  ",
-	Module = "  ",
-	Property = "  ",
-	Unit = "  ",
-	Value = "  ",
-	Enum = "  ",
-	Keyword = "  ",
-	Snippet = "  ",
-	Color = "  ",
-	File = "  ",
-	Reference = "  ",
-	Folder = "  ",
-	EnumMember = "  ",
-	Constant = "  ",
-	Struct = "  ",
-	Event = "  ",
-	Operator = "  ",
-	TypeParameter = "  ",
-}
-
 local has_words_before = function()
 	unpack = unpack or table.unpack
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -35,6 +7,7 @@ end
 local config = function()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
+	local icons = require("config.icons").symbol_kinds
 	require("luasnip.loaders.from_vscode").lazy_load()
 	luasnip.config.setup({})
 
@@ -150,7 +123,7 @@ local config = function()
 		},
 		formatting = {
 			format = function(entry, vim_item)
-				vim_item.kind = string.format("%s %s", cmp_kinds[vim_item.kind], vim_item.kind)
+				vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 				vim_item.menu = ({
 					buffer = "[Buffer]",
 					nvim_lsp = "[LSP]",
@@ -197,6 +170,13 @@ local config = function()
 				{ name = "cmdline" },
 			}),
 		}),
+
+		cmp.setup.cmdline({ "/", "?" }, {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = {
+				{ name = "buffer" },
+			},
+		}),
 	})
 end
 
@@ -211,5 +191,6 @@ return {
 		"hrsh7th/cmp-path",
 		"rafamadriz/friendly-snippets",
 		"hrsh7th/cmp-cmdline",
+		"hrsh7th/cmp-buffer",
 	},
 }
