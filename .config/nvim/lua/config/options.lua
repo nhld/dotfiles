@@ -67,12 +67,31 @@ opt.statuscolumn = [[%!v:lua.require'config.statuscol'.statuscolumn()]]
 -- Fold
 opt.foldlevel = 99
 opt.foldtext = "v:lua.require'config.statuscol'.foldtext()"
-opt.fillchars = {
-	foldopen = "",
-	foldclose = "",
-	-- fold = "⸱",
-	fold = " ",
-	foldsep = " ",
-	diff = "╱",
-	eob = " ",
-}
+opt.fillchars = require("config.icons").folds
+
+opt.path:append({ "**" }) -- search in subfolders
+opt.wildignore:append({
+	".git",
+	"node_modules",
+	"vendor",
+	"build",
+	"dist",
+	"target",
+	"tmp",
+	".*.swp",
+	"*.pyc",
+	"*.class",
+	"*.DS_Store",
+	"*.gitignore",
+	"*.gitmodules",
+	"*.gitkeep",
+	"*.hgignore",
+	"*.hgsub",
+	"*.hgsubstate",
+	"*.hgtags",
+	"*.svn",
+	"*.svnignore",
+	"*.cvsignore",
+	"*.cvswrappers",
+	"*.bzrignore",
+})

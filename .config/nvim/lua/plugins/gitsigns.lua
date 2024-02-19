@@ -59,14 +59,7 @@ local on_attach = function(bufnr)
 end
 
 local opts = {
-	signs = {
-		add = { text = "▎" },
-		change = { text = "▎" },
-		delete = { text = "" },
-		topdelete = { text = "" },
-		changedelete = { text = "▎" },
-		untracked = { text = "▎" },
-	},
+	signs = require("config.icons").git_signs,
 	current_line_blame_opts = {
 		virt_text_pos = "right_align",
 		delay = 300,

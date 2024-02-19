@@ -84,7 +84,6 @@ local function get_icon()
 	return icon and " " .. icon
 end
 
--- Config for the plugin
 local config = function()
 	require("lualine").setup({
 		options = {
@@ -117,14 +116,7 @@ local config = function()
 				{
 					"diff",
 					source = diff_source,
-					symbols = {
-						-- added = " ",
-						-- modified = " ",
-						-- removed = " ",
-						added = "+",
-						modified = "~",
-						removed = "-",
-					},
+					symbols = require("config.icons").git_diffs,
 				},
 			},
 			lualine_c = {
@@ -134,17 +126,7 @@ local config = function()
 				{
 					"diagnostics",
 					update_in_insert = true,
-					symbols = {
-						--error = " ",
-						error = " ",
-						--warn = " ",
-						warn = " ",
-						--hint = ' ',
-						--hint = " ",
-						hint = " ",
-						--info = " ",
-						info = " ",
-					},
+					symbols = require("config.icons").lsp_signs,
 				},
 				{ space_and_tab_size },
 				"encoding",
@@ -176,13 +158,13 @@ local config = function()
 			lualine_c = {
 				{ get_icon, padding = 0, margin = 0, color = lsp_info_color_no_bg },
 				{
-					"filename",
-					path = 1,
-					color = { bg = "NONE" },
-				},
-				{
 					function()
-						return require("nvim-navic").get_location()
+						local location = require("nvim-navic").get_location()
+						if location and location ~= "" then
+							return vim.fn.expand("%:t") .. " > " .. location --TODO: fix the color
+						else
+							return vim.fn.expand("%:t")
+						end
 					end,
 					cond = function()
 						return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
