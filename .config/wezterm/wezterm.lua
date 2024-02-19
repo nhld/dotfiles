@@ -4,7 +4,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 config.term = "wezterm"
-config.front_end = "WebGPU"
+config.front_end = "WebGpu"
 config.colors = {}
 config.colors.background = "#111111"
 config.scrollback_lines = 2000
