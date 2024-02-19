@@ -178,7 +178,7 @@ local config = function()
 				result,
 				ctx,
 				vim.tbl_deep_extend("force", config or {}, {
-					border = "rounded",
+					--border = "rounded",
 					focusable = focusable,
 					--max_height = math.floor(vim.o.lines * 0.5),
 					--max_width = math.floor(vim.o.columns * 0.4),
@@ -242,14 +242,12 @@ local config = function()
 		update_in_insert = true,
 		severity_sort = true,
 		float = {
-			border = "rounded",
+			--border = "rounded",
 			source = "if_many",
 		},
 	})
 
 	local signs = require("config.icons").lsp_signs
-	--local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-	--local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
