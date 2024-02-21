@@ -128,7 +128,7 @@ local config = function()
 					update_in_insert = true,
 					symbols = require("config.icons").lsp_signs,
 				},
-				{ space_and_tab_size },
+				--{ space_and_tab_size },
 				"encoding",
 				"filetype",
 				{
