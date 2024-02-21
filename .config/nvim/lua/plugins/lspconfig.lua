@@ -4,10 +4,14 @@ local config = function()
 	require("neodev").setup()
 	require("mason").setup()
 	local mason_lspconfig = require("mason-lspconfig")
-
-	mason_lspconfig.setup({})
+	mason_lspconfig.setup()
+	local lspconfig = require("lspconfig")
 
 	local servers = {
+		clangd = {},
+		eslint = {},
+		tsserver = {},
+		html = { filetypes = { "html", "twig", "hbs" } },
 		lua_ls = {
 			Lua = {
 				workspace = { checkThirdParty = false },
@@ -18,7 +22,6 @@ local config = function()
 	}
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.offsetEncoding = { "utf-16" }
 	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 	mason_lspconfig.setup({
@@ -34,6 +37,12 @@ local config = function()
 				filetypes = (servers[server_name] or {}).filetypes,
 			})
 		end,
+	})
+
+	lspconfig.clangd.setup({
+		capabilities = {
+			offsetEncoding = { "utf-16" }, -- prevent the offset encoding warning
+		},
 	})
 end
 
