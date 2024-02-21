@@ -42,6 +42,7 @@ local function on_attach(client, bufnr)
 	end
 end
 
+-- from here are extra highlights for lsp doc hover
 local md_namespace = vim.api.nvim_create_namespace("n/lsp_float")
 
 --- Adds extra inline highlights to the given buffer.
