@@ -13,7 +13,6 @@ local config = function()
 
 	cmp.setup({
 		preselect = cmp.PreselectMode.None,
-		-- uncomment to enable rounded borders
 		window = {
 			-- documentation = {
 			-- 	border = "rounded",
