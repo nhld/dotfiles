@@ -3,6 +3,7 @@ local on_attach = require("config.lsp").on_attach
 local config = function()
 	local servers = {
 		clangd = {},
+		gopls = {},
 		eslint = {},
 		tsserver = {},
 		html = { filetypes = { "html", "twig", "hbs" } },
@@ -31,9 +32,26 @@ local config = function()
 		},
 	})
 
-	require("lspconfig").clangd.setup({
+	local lspconfig = require("lspconfig")
+
+	lspconfig.clangd.setup({
 		capabilities = {
 			offsetEncoding = { "utf-16" }, -- prevent the offset encoding warning
+		},
+	})
+
+	lspconfig.gopls.setup({
+		root_dir = function(fname)
+			return require("lspconfig/util").root_pattern("go.work", "go.mod", ".git")(fname) or vim.fn.getcwd()
+		end,
+		settings = {
+			gopls = {
+				completeUnimported = true,
+				usePlaceholders = true,
+				analyses = {
+					unusedparams = true,
+				},
+			},
 		},
 	})
 end

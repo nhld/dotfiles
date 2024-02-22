@@ -27,6 +27,7 @@ local opts = {
 		["markdown.mdx"] = { "prettierd", "prettier" },
 		json = { "prettierd", "prettier" },
 		lua = { "stylua" },
+		go = { "gofumpt", "goimports-reviser" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
@@ -37,11 +38,7 @@ local opts = {
 
 return {
 	"stevearc/conform.nvim",
-	event = {
-		-- "LspAttach",
-		-- "BufWritePre",
-		"VeryLazy",
-	},
+	event = "VeryLazy",
 	cmd = { "ConformInfo" },
 	keys = keys,
 	opts = opts,
