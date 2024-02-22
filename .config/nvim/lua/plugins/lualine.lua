@@ -1,4 +1,3 @@
--- Show counted diff info
 local function diff_source()
 	local gitsigns = vim.b.gitsigns_status_dict
 	if gitsigns then
@@ -10,7 +9,6 @@ local function diff_source()
 	end
 end
 
--- Show space and tab size
 local function space_and_tab_size()
 	--local space_size = vim.api.nvim_buf_get_option(0, 'shiftwidth')
 	local tab_size = vim.api.nvim_buf_get_option(0, "tabstop")
@@ -18,7 +16,6 @@ local function space_and_tab_size()
 	return string.format("tab:%d", tab_size)
 end
 
--- Show connected LSP server
 local function lsp_info()
 	local lsps = vim.lsp.get_active_clients({ bufnr = vim.fn.bufnr() })
 	-- local icon = require("nvim-web-devicons").get_icon_by_filetype(

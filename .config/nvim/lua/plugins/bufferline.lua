@@ -3,13 +3,12 @@ local opts = {
 		offsets = {
 			{
 				filetype = "neo-tree",
-				text = "File Explorer",
+				text = "Neo-Tree",
 				highlight = "Directory",
 				separator = true, -- use a "true" to enable the default, or set your own character
 			},
 		},
 		truncate_names = false,
-		-- indicator = { style = "underline" },
 		diagnostics = "nvim_lsp",
 	},
 }

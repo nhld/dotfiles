@@ -1,12 +1,6 @@
 local on_attach = require("config.lsp").on_attach
 
 local config = function()
-	require("neodev").setup()
-	require("mason").setup()
-	local mason_lspconfig = require("mason-lspconfig")
-	mason_lspconfig.setup()
-	local lspconfig = require("lspconfig")
-
 	local servers = {
 		clangd = {},
 		eslint = {},
@@ -21,25 +15,23 @@ local config = function()
 		},
 	}
 
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+	local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-	mason_lspconfig.setup({
+	require("mason-lspconfig").setup({
 		ensure_installed = vim.tbl_keys(servers),
+		handlers = {
+			function(server_name)
+				require("lspconfig")[server_name].setup({
+					capabilities = capabilities,
+					on_attach = on_attach,
+					settings = servers[server_name],
+					filetypes = (servers[server_name] or {}).filetypes,
+				})
+			end,
+		},
 	})
 
-	mason_lspconfig.setup_handlers({
-		function(server_name)
-			require("lspconfig")[server_name].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-				settings = servers[server_name],
-				filetypes = (servers[server_name] or {}).filetypes,
-			})
-		end,
-	})
-
-	lspconfig.clangd.setup({
+	require("lspconfig").clangd.setup({
 		capabilities = {
 			offsetEncoding = { "utf-16" }, -- prevent the offset encoding warning
 		},
@@ -50,9 +42,9 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		{ "williamboman/mason.nvim", config = true },
+		{ "williamboman/mason.nvim", opts = {} },
 		{ "williamboman/mason-lspconfig.nvim" },
-		{ "folke/neodev.nvim" },
+		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = config,
 }
