@@ -1,6 +1,5 @@
 local M = {}
 
---- Diagnostic severities.
 M.lsp_signs = {
 	--error = " ",
 	Error = " ",
@@ -22,7 +21,6 @@ M.git_diffs = {
 	-- removed = " ",
 }
 
--- git signs on status col
 M.git_signs = {
 	add = { text = "▎" },
 	change = { text = "▎" },
@@ -32,7 +30,6 @@ M.git_signs = {
 	untracked = { text = "▎" },
 }
 
--- Folding
 M.folds = {
 	foldopen = "",
 	foldclose = "",

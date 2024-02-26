@@ -29,7 +29,7 @@ local config = function()
 			end,
 		},
 		completion = {
-			completeopt = "menuone,noinsert,noselect",
+			completeopt = "menu,menuone,noinsert,noselect",
 		},
 		performance = {
 			max_view_entries = 10,
@@ -143,8 +143,6 @@ local config = function()
 			preselect = cmp.PreselectMode.None,
 			mapping = {
 				["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
-				--["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-				["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 				["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 				["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 				["<Tab>"] = {

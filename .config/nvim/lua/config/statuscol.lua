@@ -1,3 +1,5 @@
+-- yoink from lazyvim distribution
+-- This config the sign column in order of diagnostic, line number, gitsigns
 local M = {}
 
 -- Returns a list of regular and extmark signs sorted by priority (low to high)

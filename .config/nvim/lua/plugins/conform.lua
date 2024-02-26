@@ -1,4 +1,3 @@
--- code formatter
 local keys = {
 	{
 		"<leader>f",
@@ -11,6 +10,17 @@ local keys = {
 }
 
 local opts = {
+	formatters = {
+		prettier = {
+			args = function(self, ctx) -- gotta pass self as the first arg, see :help Conform-self-args
+				if vim.endswith(ctx.filename, ".ejs") then
+					return { "--stdin-filepath", "$FILENAME", "--parser", "html" }
+				end
+				return { "--stdin-filepath", "$FILENAME" }
+			end,
+		},
+	},
+
 	formatters_by_ft = {
 		javascript = { "prettierd", "prettier" },
 		javascriptreact = { "prettierd", "prettier" },
@@ -20,7 +30,7 @@ local opts = {
 		css = { "prettierd", "prettier" },
 		scss = { "prettierd", "prettier" },
 		less = { "prettierd", "prettier" },
-		html = { "prettierd", "prettier" },
+		html = { "prettier" }, -- FIX: this is sketchy
 		jsonc = { "prettierd", "prettier" },
 		yaml = { "prettierd", "prettier" },
 		markdown = { "prettierd", "prettier" },
@@ -29,10 +39,12 @@ local opts = {
 		lua = { "stylua" },
 		go = { "gofumpt", "goimports-reviser" },
 	},
+
 	format_on_save = {
 		timeout_ms = 500,
 		lsp_fallback = true,
 	},
+
 	notify_on_error = true,
 }
 
