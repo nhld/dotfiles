@@ -44,6 +44,8 @@ opt.spell = false
 opt.spelloptions = "camel"
 opt.statuscolumn = [[%!v:lua.require'config.statuscol'.statuscolumn()]]
 opt.foldlevel = 99
+opt.foldmethod = "expr" -- treesiter
+opt.foldexpr = "nvim_treesitter#foldexpr()" -- treesiter
 opt.foldtext = "v:lua.require'config.statuscol'.foldtext()"
 opt.fillchars = require("config.icons").folds
 opt.path:append({ "**" }) -- search in subfolders
@@ -73,3 +75,4 @@ opt.wildignore:append({
 	"*.bzrignore",
 })
 opt.inccommand = "split"
+opt.showbreak = "↳"
