@@ -19,8 +19,8 @@ local keys = {
 	},
 	{ "=p", "<Plug>(YankyPutAfterLinewise)", desc = "Put yanked text in line below" },
 	{ "=P", "<Plug>(YankyPutBeforeLinewise)", desc = "Put yanked text in line above" },
-	{ "[y", "<Plug>(YankyCycleForward)", desc = "Cycle forward through yank history" },
-	{ "]y", "<Plug>(YankyCycleBackward)", desc = "Cycle backward through yank history" },
+	--{ "[y", "<Plug>(YankyCycleForward)", desc = "Cycle forward through yank history" },
+	--{ "]y", "<Plug>(YankyCycleBackward)", desc = "Cycle backward through yank history" },
 	{ "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yanky Yank" },
 }
 

@@ -60,8 +60,6 @@ local config = function()
 					else
 						cmp.select_next_item()
 					end
-				-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-				-- that way you will only jump inside the snippet region
 				elseif luasnip.expand_or_jumpable() then
 					luasnip.expand_or_jump()
 				elseif has_words_before() then
@@ -83,37 +81,6 @@ local config = function()
 					fallback()
 				end
 			end, { "i", "s" }),
-
-			-- TODO: Make this work
-
-			--Explicitly request completions.
-			--Overload tab to accept Copilot suggestions.
-			-- ["<Tab>"] = cmp.mapping(function(fallback)
-			-- 	local copilot = require("copilot.suggestion")
-			--
-			-- 	if copilot.is_visible() then
-			-- 		copilot.accept()
-			-- 	elseif cmp.visible() then
-			-- 		cmp.select_next_item()
-			-- 	elseif vim.env.SNIPPET and vim.snippet.jumpable(1) then
-			-- 		vim.snippet.jump(1)
-			-- 	elseif not vim.env.SNIPPET and luasnip.expand_or_locally_jumpable() then
-			-- 		luasnip.expand_or_jump()
-			-- 	else
-			-- 		fallback()
-			-- 	end
-			-- end, { "i", "s" }),
-			-- ["<S-Tab>"] = cmp.mapping(function(fallback)
-			-- 	if cmp.visible() then
-			-- 		cmp.select_prev_item()
-			-- 	elseif vim.env.SNIPPET and vim.snippet.jumpable(-1) then
-			-- 		vim.snippet.jump(-1)
-			-- 	elseif not vim.env.SNIPPET and luasnip.expand_or_locally_jumpable(-1) then
-			-- 		luasnip.jump(-1)
-			-- 	else
-			-- 		fallback()
-			-- 	end
-			-- end, { "i", "s" }),
 		}),
 		sources = {
 			{ name = "nvim_lsp" },
