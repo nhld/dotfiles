@@ -4,8 +4,7 @@ local config = function()
 		style = "moon",
 		lualine_bold = true,
 	})
-	vim.cmd([[colorscheme tokyonight]])
-	-- highlight currentline number
+	require("tokyonight").load()
 	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
 	-- LSP popup menu
 	--vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
@@ -15,7 +14,6 @@ local config = function()
 	vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#4fd6be" })
 	vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#ffc777" })
 	vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#ff757f" })
-
 	-- illuminate word highlight
 	vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
 	vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })

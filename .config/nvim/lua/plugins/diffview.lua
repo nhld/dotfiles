@@ -1,4 +1,4 @@
-local opts = function()
+local config = function()
 	local actions = require("diffview.actions")
 	require("diffview.ui.panel").Panel.default_config_float.border = "rounded"
 
@@ -78,5 +78,5 @@ local keys = {
 return {
 	"sindrets/diffview.nvim",
 	keys = keys,
-	opts = opts,
+	config = config,
 }

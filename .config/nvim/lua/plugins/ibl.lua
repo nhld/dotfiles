@@ -1,4 +1,3 @@
--- show indent lines guide
 local opts = {
 	indent = { char = "│" },
 	scope = {
