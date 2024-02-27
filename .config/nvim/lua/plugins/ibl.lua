@@ -49,6 +49,7 @@ end
 
 return {
 	"lukas-reineke/indent-blankline.nvim",
+	enabled = false,
 	dependencies = { "tpope/vim-sleuth" },
 	config = config,
 	event = "VeryLazy",

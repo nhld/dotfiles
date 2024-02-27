@@ -45,9 +45,13 @@ opt.spelloptions = "camel"
 opt.statuscolumn = [[%!v:lua.require'config.statuscol'.statuscolumn()]]
 opt.foldlevel = 99
 opt.foldmethod = "expr" -- treesiter
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- treesiter
+--opt.foldexpr = "nvim_treesitter#foldexpr()" -- treesiter
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldtext = "v:lua.require'config.statuscol'.foldtext()"
 opt.fillchars = require("config.icons").folds
+opt.list = true
+opt.listchars = { trail = "⋅", tab = "  ↦", nbsp = "␣", eol = "↲" }
+opt.showbreak = "↳"
 opt.path:append({ "**" }) -- search in subfolders
 opt.wildignore:append({
 	".git",
@@ -75,4 +79,3 @@ opt.wildignore:append({
 	"*.bzrignore",
 })
 opt.inccommand = "split"
-opt.showbreak = "↳"
