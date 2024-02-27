@@ -1,12 +1,10 @@
-### screenshot
+### Neovim
 
-![img0.jpg](./img/img0.jpg)
+![img0.jpg](./img/img1.jpg)
 
-shot on wezterm, fira mono font, tokyonight-moon theme
+(Shot on [Wezterm](https://github.com/wez/wezterm), FiraMono Nerd Font, tokyonight-moon theme.)
 
-### nvim
-
-use [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) with additional plugins.
+[kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) with additional plugins.
 
 - [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)
 - [conform.nvim](https://github.com/stevearc/conform.nvim)
@@ -24,7 +22,7 @@ use [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) with additional
 - [vim-illuminate](https://github.com/RRethy/vim-illuminate)
 - [yanky.nvim](https://github.com/gbprod/yanky.nvim)
 
-### fish shell
+### Fish
 
 - [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) (alt [Tide](https://github.com/IlanCosman/tide))
 - [fisher](https://github.com/jorgebucaran/fisher)
