@@ -16,18 +16,26 @@ local function space_and_tab_size()
 	return string.format("tab:%d", tab_size)
 end
 
+--TODO: get_active_clients is deprecated, change it to get_clients
 local function lsp_info()
 	local lsps = vim.lsp.get_active_clients({ bufnr = vim.fn.bufnr() })
-	-- local icon = require("nvim-web-devicons").get_icon_by_filetype(
-	--   vim.api.nvim_buf_get_option(0, "filetype")
-	-- )
-	if lsps and #lsps > 0 then
+	--[[ if lsps and #lsps > 0 then
 		-- local names = {}
 		-- for _, lsp in ipairs(lsps) do
 		-- 	table.insert(names, lsp.name)
 		-- end
 		-- --return string.format("%s %s", table.concat(names, ", "), icon)
 		--return string.format(" %s", table.concat(names, " "))
+		return " "
+	else
+		return " ?"
+	end ]]
+	if lsps and #lsps > 0 then
+		for _, lsp in ipairs(lsps) do
+			if lsp.name == "copilot" then
+				return "    "
+			end
+		end
 		return " "
 	else
 		return " ?"
