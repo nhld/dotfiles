@@ -28,6 +28,7 @@ local keys = {
 	{ "<leader>bl", "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffers to the left" },
 	{ "<leader>bo", "<cmd>BufferLinePick<cr>", desc = "Select a buffer to open" },
 	{ "<leader>br", "<cmd>BufferLineCloseRight<cr>", desc = "Close buffers to the right" },
+	{ "<leader>bq", "<cmd>BufferLineCloseOthers<cr>", desc = "Close all buffers except the current" },
 	{ "<A-1>", "<cmd>BufferLineGoToBuffer 1<CR>" },
 	{ "<A-2>", "<cmd>BufferLineGoToBuffer 2<CR>" },
 	{ "<A-3>", "<cmd>BufferLineGoToBuffer 3<CR>" },

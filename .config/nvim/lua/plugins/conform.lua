@@ -12,6 +12,7 @@ local keys = {
 local opts = {
 	formatters = {
 		prettier = {
+			---@diagnostic disable-next-line: unused-local
 			args = function(self, ctx) -- gotta pass self as the first arg, see :help Conform-self-args
 				if vim.endswith(ctx.filename, ".ejs") then
 					return { "--stdin-filepath", "$FILENAME", "--parser", "html" }
