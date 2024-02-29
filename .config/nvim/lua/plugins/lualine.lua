@@ -1,4 +1,5 @@
 local function diff_source()
+	---@diagnostic disable-next-line: undefined-field
 	local gitsigns = vim.b.gitsigns_status_dict
 	if gitsigns then
 		return {
@@ -9,12 +10,12 @@ local function diff_source()
 	end
 end
 
-local function space_and_tab_size()
+--[[ local function space_and_tab_size()
 	--local space_size = vim.api.nvim_buf_get_option(0, 'shiftwidth')
 	local tab_size = vim.api.nvim_buf_get_option(0, "tabstop")
 	--return string.format("space:%d tab:%d", space_size, tab_size)
 	return string.format("tab:%d", tab_size)
-end
+end ]]
 
 --TODO: get_active_clients is deprecated, change it to get_clients
 local function lsp_info()

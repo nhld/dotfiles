@@ -1,21 +1,18 @@
 -- yoink from lazyvim distribution
+-- removed a bunch of comments due to diagnostic warnings
+
 -- This config the sign column in order of diagnostic, line number, gitsigns
 local M = {}
 
 -- Returns a list of regular and extmark signs sorted by priority (low to high)
----@return Sign[]
----@param buf number
----@param lnum number
 function M.get_signs(buf, lnum)
-	-- Get regular signs
-	---@type Sign[]
 	local signs = {}
 
 	if vim.fn.has("nvim-0.10") == 0 then
 		-- Only needed for Neovim <0.10
 		-- Newer versions include legacy signs in nvim_buf_get_extmarks
 		for _, sign in ipairs(vim.fn.sign_getplaced(buf, { group = "*", lnum = lnum })[1].signs) do
-			local ret = vim.fn.sign_getdefined(sign.name)[1] --[[@as Sign]]
+			local ret = vim.fn.sign_getdefined(sign.name)[1]
 			if ret then
 				ret.priority = sign.priority
 				signs[#signs + 1] = ret
@@ -48,9 +45,6 @@ function M.get_signs(buf, lnum)
 	return signs
 end
 
----@return Sign?
----@param buf number
----@param lnum number
 function M.get_mark(buf, lnum)
 	local marks = vim.fn.getmarklist(buf)
 	vim.list_extend(marks, vim.fn.getmarklist())
@@ -61,8 +55,6 @@ function M.get_mark(buf, lnum)
 	end
 end
 
----@param sign? Sign
----@param len? number
 function M.icon(sign, len)
 	sign = sign or {}
 	len = len or 2
@@ -73,12 +65,15 @@ end
 
 function M.foldtext()
 	local ok = pcall(vim.treesitter.get_parser, vim.api.nvim_get_current_buf())
+	---@diagnostic disable-next-line: undefined-field
 	local ret = ok and vim.treesitter.foldtext and vim.treesitter.foldtext()
 	if not ret or type(ret) == "string" then
+		---@diagnostic disable-next-line: cast-local-type
 		ret = { { vim.api.nvim_buf_get_lines(0, vim.v.lnum - 1, vim.v.lnum, false)[1], {} } }
 	end
 	table.insert(ret, { " " .. "󰇘" })
 
+	---@diagnostic disable-next-line: undefined-field
 	if not vim.treesitter.foldtext then
 		return table.concat(
 			vim.tbl_map(function(line)
@@ -99,7 +94,6 @@ function M.statuscolumn()
 	local components = { "", "", "" } -- left, middle, right
 
 	if show_signs then
-		---@type Sign?,Sign?,Sign?
 		local left, right, fold
 		for _, s in ipairs(M.get_signs(buf, vim.v.lnum)) do
 			if s.name and s.name:find("GitSign") then
