@@ -38,7 +38,8 @@ local function lsp_info()
 		end
 		return " "
 	else
-		return " ?"
+		--return " ?"
+		return ""
 	end
 end
 
@@ -62,7 +63,8 @@ local function get_formatters()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local formatters = require("conform").list_formatters(bufnr)
 	if #formatters == 0 then
-		return " ?"
+		--return " ?"
+		return ""
 	else
 		-- local formatter_names = {}
 		-- for _, formatter_info in ipairs(formatters) do
@@ -126,7 +128,7 @@ local config = function()
 					update_in_insert = true,
 					symbols = require("config.icons").lsp_signs,
 				},
-				{ space_and_tab_size },
+				-- { space_and_tab_size },
 				"encoding",
 				"filetype",
 				{
