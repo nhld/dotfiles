@@ -11,6 +11,11 @@ local opts = {
 		truncate_names = false,
 		diagnostics = "nvim_lsp",
 		numbers = "ordinal",
+		close_command = function(bufnr)
+			require("mini.bufremove").delete(bufnr, false)
+		end,
+		show_close_icon = false,
+		show_buffer_close_icons = false,
 	},
 }
 
