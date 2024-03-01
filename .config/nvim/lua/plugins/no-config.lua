@@ -1,7 +1,7 @@
 return {
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb" },
-	--{ "tpope/vim-sleuth" },
+	{ "tpope/vim-sleuth" },
 	{
 		"j-hui/fidget.nvim",
 		event = "VeryLazy",
