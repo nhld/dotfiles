@@ -66,8 +66,6 @@ keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
 keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
---keymap.set("v", "J", ":m '>+1<CR>gv=gv")
---keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- Terminal in bottom split
 keymap.set("n", "<C-`>", ":new<CR>:term<CR>", { noremap = true })
 -- Plugins keymaps

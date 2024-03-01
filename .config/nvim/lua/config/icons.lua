@@ -1,24 +1,16 @@
 local M = {}
 
 M.lsp_signs = {
-	--error = " ",
-	Error = " ",
-	--warn = " ",
-	Warn = " ",
-	--hint = ' ',
-	Hint = " ",
-	--hint = " ",
-	--info = " ",
-	Info = " ",
+	Error = " ", -- " "
+	Warn = " ", -- " "
+	Hint = " ", -- " ",
+	Info = " ", -- " ",
 }
 
 M.git_diffs = {
-	added = " ",
-	modified = " ",
-	removed = " ",
-	-- added = " ",
-	-- modified = " ",
-	-- removed = " ",
+	added = " ", -- " ",
+	modified = " ", -- " ",
+	removed = " ", -- " ",
 }
 
 M.git_signs = {
@@ -33,29 +25,17 @@ M.git_signs = {
 M.folds = {
 	foldopen = "",
 	foldclose = "",
-	-- fold = "⸱",
-	fold = " ",
+	fold = " ", -- = "⸱",
 	foldsep = " ",
 	diff = "╱",
 	eob = " ",
 }
 
 M.neo_tree = {
-	--added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-	--modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-	--deleted   = "✖", -- this can only be used in the git_status source
-	--renamed   = "󰁕", -- this can only be used in the git_status source
-	added = "A", -- or "✚", but this is redundant info if you use git_status_colors on the name
-	modified = "M", -- or "", but this is redundant info if you use git_status_colors on the name
-	deleted = "D", -- this can only be used in the git_status source
-	renamed = "R", -- this can only be used in the git_status source
-
-	-- Status type
-	-- untracked = "",
-	-- ignored   = "",
-	-- unstaged  = "󰄱",
-	-- staged    = "",
-	-- conflict  = "",
+	added = "A",
+	modified = "M",
+	deleted = "D",
+	renamed = "R",
 	untracked = "",
 	ignored = "I",
 	unstaged = "U",

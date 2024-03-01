@@ -1,3 +1,5 @@
+require("util.lsp")
+
 local config = function()
 	local servers = {
 		clangd = {},
