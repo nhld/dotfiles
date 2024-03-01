@@ -2,7 +2,7 @@
 local config = function()
 	require("tokyonight").setup({
 		style = "moon",
-		lualine_bold = true,
+		--lualine_bold = true,
 	})
 	require("tokyonight").load()
 	vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
