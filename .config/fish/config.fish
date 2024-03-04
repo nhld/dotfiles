@@ -1,19 +1,21 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
+# do nothing if not in interactive shell
+if not status is-interactive
+  return 0
 end
 
-# Activate vim key bindings
+# activate vim key bindings
 fish_vi_key_bindings
 
-# Use <j><k> to <Esc>
-bind --mode insert --sets-mode default jk repaint
+# remove the greeting message
+set -U fish_greeting
 
-# Aliases
 alias c clear
 alias vi nvim
 alias vim nvim
+alias nv nvim
 
-# Git
+alias nvks 'NVIM_APPNAME="nvim-kickstart" nvim'
+
 alias g 'git'
 alias ga 'git add'
 alias gb 'git branch'
@@ -25,11 +27,14 @@ alias gm 'git merge'
 alias gp 'git push'
 alias gst 'git status'
 
-# Eza kinda better ls 
 if type -q eza
-    alias ll "eza -l --icons --total-size --no-user -o"
-    alias lla "ll -a"
-    alias llt "ll --tree --level=2 -a"
-    alias lld "ll -D"
-    alias llf "ll -f"
+  alias ll "eza -l --icons --total-size --no-user -o"
+  alias lla "ll -a"
+  alias llt "ll --tree --level=2 -a"
+  alias lld "ll -D"
+  alias llf "ll -f"
 end
+
+# cargo path
+# set PATH $HOME/.cargo/bin $PATH
+fish_add_path $HOME/.cargo/bin
