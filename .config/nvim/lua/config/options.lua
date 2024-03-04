@@ -22,13 +22,13 @@ opt.smartcase = true -- ignore case if search pattern is all lowercase
 
 -- highlight matching brackets
 opt.showmatch = false
-opt.matchpairs = { '(:)', '{:}', '[:]', '<:>' }
+opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 
 opt.scrolloff = 10 -- vertical scroll offset of 10 lines
 opt.laststatus = 3 -- 1 global status line
 
-opt.mouse = 'a' -- enable mouse
-opt.clipboard = 'unnamedplus' -- sync with os clipboard
+opt.mouse = "a" -- enable mouse
+opt.clipboard = "unnamedplus" -- sync with os clipboard
 opt.undofile = true -- save undo history
 
 opt.updatetime = 200
@@ -41,64 +41,64 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- spelling
-opt.spelllang = 'en_us'
+opt.spelllang = "en_us"
 opt.spell = false
-opt.spelloptions = 'camel'
+opt.spelloptions = "camel"
 
 -- order of diagnostics -> line numbers -> gitsigns on the left column
-opt.signcolumn = 'yes'
+opt.signcolumn = "yes"
 opt.statuscolumn = [[%!v:lua.require'util.statuscol'.statuscolumn()]]
 
 -- fold settings
-opt.foldcolumn = '1'
+opt.foldcolumn = "1"
 opt.foldlevel = 99
-opt.foldmethod = 'expr' -- treesitter
-opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-opt.foldtext = "v:lua.require'util.statuscol'.foldtext()"
-opt.fillchars = require('config.icons').folds
+opt.foldmethod = "expr" -- treesitter
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- opt.foldtext = "v:lua.require'util.statuscol'.foldtext()"
+opt.fillchars = require("config.icons").folds
 
 -- show whitespaces
 opt.list = true
-opt.listchars = { trail = '⋅', nbsp = '␣', eol = '↲', tab = '  ↦' }
-opt.showbreak = '↳'
+opt.listchars = { trail = "⋅", nbsp = "␣", eol = "↲", tab = "  ↦" }
+opt.showbreak = "↳"
 
-opt.path:append { '**' } -- search in subfolders
+opt.path:append { "**" } -- search in subfolders
 
 -- window, popup menu, and completion settings
 opt.winblend = 0
 opt.pumheight = 10
 opt.pumblend = 0
-opt.completeopt = 'menuone,noselect,noinsert'
+opt.completeopt = "menuone,noselect,noinsert"
 opt.wildmenu = true
-opt.wildoptions = 'pum'
-opt.wildmode = 'longest:full,full'
+opt.wildoptions = "pum"
+opt.wildmode = "longest:full,full"
 opt.wildignore:append {
-  '.git',
-  'node_modules',
-  'vendor',
-  'build',
-  'dist',
-  'target',
-  'tmp',
-  '.*.swp',
-  '*.pyc',
-  '*.class',
-  '*.DS_Store',
-  '*.gitignore',
-  '*.gitmodules',
-  '*.gitkeep',
-  '*.hgignore',
-  '*.hgsub',
-  '*.hgsubstate',
-  '*.hgtags',
-  '*.svn',
-  '*.svnignore',
-  '*.cvsignore',
-  '*.cvswrappers',
-  '*.bzrignore',
+  ".git",
+  "node_modules",
+  "vendor",
+  "build",
+  "dist",
+  "target",
+  "tmp",
+  ".*.swp",
+  "*.pyc",
+  "*.class",
+  "*.DS_Store",
+  "*.gitignore",
+  "*.gitmodules",
+  "*.gitkeep",
+  "*.hgignore",
+  "*.hgsub",
+  "*.hgsubstate",
+  "*.hgtags",
+  "*.svn",
+  "*.svnignore",
+  "*.cvsignore",
+  "*.cvswrappers",
+  "*.bzrignore",
 }
 
-opt.inccommand = 'split' -- show live preview of substitution
+opt.inccommand = "split" -- show live preview of substitution
 -- indentation
 opt.tabstop = 2
 opt.shiftwidth = 2
