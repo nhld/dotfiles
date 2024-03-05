@@ -3,7 +3,7 @@
 ![img0.jpg](./img/img1.jpg)
 (Shot on [Wezterm](https://github.com/wez/wezterm), FiraMono Nerd Font, [Tokyo Night - Moon](https://github.com/folke/tokyonight.nvim) colorscheme)
 
-**Requirements:** `brew`, `git`, `neovim`, `luajit`, `luarocks`, `cmake`, `luv`, a nerd font (to display some icons).
+**Requirements:** `brew`, `git`, `neovim`, `luarocks`, `cmake`, `luv`, a nerd font.
 Most of them can be installed using `brew`.
 
 ```
@@ -14,17 +14,17 @@ luarocks install luv
 ...
 ```
 
-Neovim configs are based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) using [lazy.nvim](https://github.com/folke/lazy.nvim) plugins manager.<br>Check out `.config/nvim/lazy-lock.json` for plugins used.
+Configs are based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) using [lazy.nvim](https://github.com/folke/lazy.nvim) plugins manager.<br>Check out `.config/nvim/lazy-lock.json` for plugins used.
 
 ### Shell
 
-#### - fish shell:
+#### - Fish shell:
 
 ```
 brew install fish
 ```
 
-- [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) (alternative [Tide](https://github.com/IlanCosman/tide):) fish framework.
+- [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) (alternative [Tide](https://github.com/IlanCosman/tide)): fish framework.
 
 ```
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
@@ -42,7 +42,7 @@ brew install fisher
 fisher install z
 ```
 
-##### Shell tools
+#### - Shell tools:
 
 Install using `brew`
 
