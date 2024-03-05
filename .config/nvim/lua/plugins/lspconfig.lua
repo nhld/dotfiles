@@ -6,7 +6,7 @@ local config = function()
     gopls = {},
     eslint = {},
     tsserver = {},
-    html = { filetypes = { "html", "twig", "hbs" } },
+    html = { filetypes = { "html", "twig", "hbs", "ejs" } },
     lua_ls = {
       Lua = {
         runtime = { version = "LUAJIT" },
