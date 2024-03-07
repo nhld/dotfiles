@@ -10,13 +10,6 @@ local function diff_source()
   end
 end
 
---[[ local function space_and_tab_size()
-	--local space_size = vim.api.nvim_buf_get_option(0, 'shiftwidth')
-	local tab_size = vim.api.nvim_buf_get_option(0, "tabstop")
-	--return string.format("space:%d tab:%d", space_size, tab_size)
-	return string.format("tab:%d", tab_size)
-end ]]
-
 --TODO: get_active_clients is deprecated, change it to get_clients
 local function lsp_info()
   local lsps = vim.lsp.get_active_clients { bufnr = vim.fn.bufnr() }
@@ -45,11 +38,6 @@ end
 
 local function on_click()
   vim.api.nvim_command "LspInfo"
-end
-
-local function lsp_info_color()
-  local _, color = require("nvim-web-devicons").get_icon_cterm_color_by_filetype(vim.api.nvim_buf_get_option(0, "filetype"))
-  return { fg = color }
 end
 
 local function lsp_info_color_no_bg()
@@ -126,18 +114,15 @@ local config = function()
           update_in_insert = true,
           symbols = require("config.icons").lsp_signs,
         },
-        -- { space_and_tab_size },
         "encoding",
         "filetype",
         {
           lsp_info,
           on_click = on_click,
-          --color = lsp_info_color,
         },
         {
           get_formatters,
           on_click = on_click_conform,
-          --color = lsp_info_color,
         },
         { "progress" },
         { "location" },
@@ -145,7 +130,11 @@ local config = function()
       -- lualine_y = { "progress" },
       -- lualine_z = { "location" },
       lualine_y = {},
-      lualine_z = {},
+      lualine_z = {
+        function()
+          return " " .. os.date "%R"
+        end,
+      },
     },
     inactive_sections = {
       lualine_a = {},
@@ -163,7 +152,7 @@ local config = function()
           function()
             local location = require("nvim-navic").get_location()
             if location and location ~= "" then
-              return vim.fn.expand "%:t" .. " > " .. location --TODO: fix the color
+              return vim.fn.expand "%:t" .. " > " .. location
             else
               return vim.fn.expand "%:t"
             end
@@ -171,7 +160,7 @@ local config = function()
           cond = function()
             return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
           end,
-          color = { bg = "NONE" },
+          color = { bg = "NONE", fg = "fff" },
         },
       },
     },

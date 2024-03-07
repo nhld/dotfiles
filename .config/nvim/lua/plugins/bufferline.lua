@@ -8,6 +8,7 @@ local opts = {
         separator = true,
       },
     },
+    always_show_bufferline = false,
     truncate_names = false,
     diagnostics = "nvim_lsp",
     numbers = "ordinal",
