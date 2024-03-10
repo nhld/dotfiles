@@ -22,7 +22,7 @@ opt.smartcase = true -- ignore case if search pattern is all lowercase
 
 -- highlight matching brackets
 opt.showmatch = false
-opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
+--opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 
 opt.scrolloff = 10 -- vertical scroll offset of 10 lines
 opt.laststatus = 3 -- 1 global status line
