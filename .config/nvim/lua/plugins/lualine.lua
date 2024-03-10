@@ -84,6 +84,7 @@ local config = function()
         winbar = {
           "neo-tree",
           "Trouble",
+          "trouble",
         },
       },
       ignore_focus = {},
@@ -127,14 +128,8 @@ local config = function()
         { "progress" },
         { "location" },
       },
-      -- lualine_y = { "progress" },
-      -- lualine_z = { "location" },
       lualine_y = {},
-      lualine_z = {
-        function()
-          return " " .. os.date "%R"
-        end,
-      },
+      lualine_z = {},
     },
     inactive_sections = {
       lualine_a = {},
@@ -163,6 +158,7 @@ local config = function()
           color = { bg = "NONE", fg = "fff" },
         },
       },
+      lualine_x = {},
     },
     inactive_winbar = {
       lualine_c = {
