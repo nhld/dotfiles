@@ -7,6 +7,8 @@ local config = function()
     eslint = {},
     tsserver = {},
     html = { filetypes = { "html", "twig", "hbs", "ejs" } },
+    cssls = {},
+    jsonls = {},
     lua_ls = {
       Lua = {
         runtime = { version = "LUAJIT" },

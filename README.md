@@ -1,20 +1,11 @@
 ### Neovim
 
 ![img0.jpg](./img/img1.jpg)
-(Shot on [Wezterm](https://github.com/wez/wezterm), FiraMono Nerd Font, [Tokyo Night - Moon](https://github.com/folke/tokyonight.nvim) colorscheme)
 
-**Requirements:** `brew`, `git`, `neovim`, `luarocks`, `cmake`, `luv`, a nerd font.
-Most of them can be installed using `brew`.
+**Requirements:** `brew`, `git`, `neovim`, `luarocks`, `cmake`, `luv`, `stylua`
+Fonts used: FiraCode, MapleMono (for italic), Codicon (for icons).
 
-```
-...
-brew install luarocks
-brew install cmake
-luarocks install luv
-...
-```
-
-Configs are based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) using [lazy.nvim](https://github.com/folke/lazy.nvim) plugins manager.<br>Check out `.config/nvim/lazy-lock.json` for plugins used.
+Configs are based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).<br>Check out `.config/nvim/lazy-lock.json` for plugins used.
 
 ### Shell
 
@@ -49,3 +40,4 @@ Install using `brew`
 - [eza:](https://github.com/eza-community/eza) better `ls`.
 - [fzf:](https://github.com/junegunn/fzf) fuzzy find files.
 - fd, rg.
+- lazygit.
