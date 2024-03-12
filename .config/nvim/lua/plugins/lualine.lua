@@ -99,7 +99,7 @@ local config = function()
     sections = {
       lualine_a = { "mode" },
       lualine_b = {
-        { "branch", icon = " " },
+        { "branch", icon = "" },
         {
           "diff",
           source = diff_source,
@@ -142,7 +142,15 @@ local config = function()
     tabline = {},
     winbar = {
       lualine_c = {
-        { get_icon, padding = 0, margin = 0, color = lsp_info_color_no_bg },
+        {
+          get_icon,
+          padding = 0,
+          margin = 0,
+          color = lsp_info_color_no_bg,
+          cond = function()
+            return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+          end,
+        },
         {
           function()
             local location = require("nvim-navic").get_location()
