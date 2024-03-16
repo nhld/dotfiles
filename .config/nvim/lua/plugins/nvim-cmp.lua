@@ -8,7 +8,6 @@ local config = function()
   local cmp = require "cmp"
   local luasnip = require "luasnip"
   local icons = require("config.icons").symbol_kinds
-  require("luasnip.loaders.from_vscode").lazy_load()
   luasnip.config.setup {}
 
   cmp.setup {
@@ -40,7 +39,6 @@ local config = function()
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete {},
       ["/"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping {
         i = function(fallback)
