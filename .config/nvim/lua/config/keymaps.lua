@@ -40,8 +40,8 @@ keymap.set({ "i", "c" }, "<C-l>", "<C-Right>", { desc = "Move word(s) forwards" 
 -- Keeping the cursor centered while jumping up down
 keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll downwards" })
 keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll upwards" })
---keymap.set("n", "n", "nzzzv", { desc = "Next result" })
---keymap.set("n", "N", "Nzzzv", { desc = "Previous result" })
+keymap.set("n", "n", "nzzzv", { desc = "Next result" })
+keymap.set("n", "N", "Nzzzv", { desc = "Previous result" })
 -- New tab
 keymap.set("n", "te", ":tabedit")
 keymap.set("n", "<tab>", ":tabnext<Return>", { noremap = true, silent = true })
