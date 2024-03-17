@@ -15,7 +15,6 @@ local function on_attach(client, bufnr)
   map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
   map("K", vim.lsp.buf.hover, "Hover Documentation")
   map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-  -- TODO: fix this keymap to always show
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Documentation" })
   map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
   map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")

@@ -10,7 +10,6 @@ local config = function()
     },
   }
 
-  -- Enable telescope fzf native, if installed
   pcall(require("telescope").load_extension, "fzf")
 
   -- Telescope live_grep in git root
@@ -53,7 +52,6 @@ local config = function()
 
   vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 
-  -- See `:help telescope.builtin`
   map("<leader>?", require("telescope.builtin").oldfiles, "[?] Find recently opened files")
   map("<leader><space>", require("telescope.builtin").buffers, "[ ] Find existing buffers")
   map("<leader>/", function()

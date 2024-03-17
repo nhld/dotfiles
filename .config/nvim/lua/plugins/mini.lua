@@ -28,7 +28,6 @@ return {
         custom_textobjects = {
           f = miniai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
         },
-        -- Disable error feedback.
         silent = true,
         -- Don't use the previous or next text object.
         search_method = "cover",
