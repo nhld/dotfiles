@@ -8,9 +8,9 @@ M.lsp_signs = {
 }
 
 M.git_diffs = {
-  added = " ", -- " ",
-  modified = " ", -- " ",
-  removed = " ", -- " ",
+  added = "+", -- " ", -- " ",
+  modified = "~", -- " ", -- " ",
+  removed = "-", -- " ", -- " ",
 }
 
 M.git_signs = {

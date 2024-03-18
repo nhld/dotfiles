@@ -100,13 +100,13 @@ local config = function()
       lualine_a = { "mode" },
       lualine_b = {
         { "branch", icon = "" },
+      },
+      lualine_c = {
         {
           "diff",
           source = diff_source,
           symbols = require("config.icons").git_diffs,
         },
-      },
-      lualine_c = {
         { "filename", path = 3 },
       },
       lualine_x = {
