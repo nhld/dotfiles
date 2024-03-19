@@ -27,10 +27,10 @@ local function lsp_info()
   if lsps and #lsps > 0 then
     for _, lsp in ipairs(lsps) do
       if lsp.name == "copilot" then
-        return "    "
+        return "  lsp"
       end
     end
-    return " "
+    return "lsp"
   else
     return ""
   end
@@ -49,7 +49,6 @@ local function get_formatters()
   local bufnr = vim.api.nvim_get_current_buf()
   local formatters = require("conform").list_formatters(bufnr)
   if #formatters == 0 then
-    --return " ?"
     return ""
   else
     -- local formatter_names = {}
@@ -57,7 +56,7 @@ local function get_formatters()
     -- 	table.insert(formatter_names, formatter_info.name)
     -- end
     -- return string.format(" %s", table.concat(formatter_names, " ")) --if dont like icon just return table.concat
-    return " "
+    return "fmt"
   end
 end
 
@@ -99,7 +98,7 @@ local config = function()
     sections = {
       lualine_a = { "mode" },
       lualine_b = {
-        { "branch", icon = "" },
+        { "branch", icon = "" },
       },
       lualine_c = {
         {
