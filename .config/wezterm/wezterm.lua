@@ -4,16 +4,12 @@ local config = wezterm.config_builder()
 config.term = "wezterm"
 config.front_end = "WebGpu"
 config.webgpu_power_preference = "HighPerformance"
+config.check_for_updates = false
 
-config.colors = {}
-config.colors.background = "#111111"
-config.colors.tab_bar = {
-  background = "#1f2329",
-}
+config.colors = { background = "#111111" }
 
 config.font_size = 12
 config.font = wezterm.font { family = "FiraCode Nerd Font" }
-config.bold_brightens_ansi_colors = true
 config.font_rules = {
   {
     intensity = "Bold",
@@ -32,12 +28,7 @@ config.font_rules = {
   },
 }
 
-config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 0,
-}
+config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
 config.inactive_pane_hsb = {
   saturation = 0.6,
@@ -52,5 +43,7 @@ config.underline_position = -6
 config.underline_thickness = "250%"
 
 config.native_macos_fullscreen_mode = true
+
+config.color_scheme = "Catppuccin Mocha"
 
 return config
