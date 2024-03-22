@@ -6,7 +6,7 @@ return {
     depth_limit_indicator = "..",
     lazy_update_context = false,
     icons = require("config.icons").symbol_kinds,
-    highlight = false,
+    highlight = true,
     click = true,
   },
 }
