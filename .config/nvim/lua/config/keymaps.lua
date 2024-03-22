@@ -7,7 +7,7 @@ keymap.set("t", "<Esc><Esc>", "<C-\\><C-n><C-w>h", { silent = true })
 keymap.set("n", "x", '"_x')
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
-keymap.set("n", "dw", 'vb"_d')
+-- keymap.set("n", "dw", 'vb"_d')
 keymap.set("n", "<C-a>", "gg<S-v>G")
 -- Append line after but cursor at the start of line
 keymap.set("n", "J", "mzJ`z")
