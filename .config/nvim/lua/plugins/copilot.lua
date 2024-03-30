@@ -6,12 +6,12 @@ return {
     panel = { enabled = false },
     suggestion = {
       auto_trigger = true,
-      keymap = { -- M = meta (can also be A = alt) = opt key
-        accept = "<M-y>",
+      keymap = {
+        accept = "<A-y>",
         accept_word = false,
-        accept_line = "<M-l>",
-        next = "<M-]>",
-        prev = "<M-[>",
+        accept_line = "<A-l>",
+        next = "<A-]>",
+        prev = "<A-[>",
         dismiss = "<C-/>",
       },
     },

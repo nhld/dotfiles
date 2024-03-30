@@ -39,7 +39,7 @@ local config = function()
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["/"] = cmp.mapping.close(),
+      -- ["/"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping {
         i = function(fallback)
           if cmp.visible() and cmp.get_active_entry() then
