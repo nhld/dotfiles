@@ -1,4 +1,8 @@
 local opt = vim.opt
+local g = vim.g
+
+g.mapleader = " "
+g.maplocalleader = " "
 
 opt.showmode = true -- show mode in cmdline
 
@@ -115,7 +119,7 @@ opt.shortmess:append {
 }
 
 -- disable these providers' healthcheck
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_node_provider = 0
+g.loaded_python3_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_ruby_provider = 0
+g.loaded_node_provider = 0
