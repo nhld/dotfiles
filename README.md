@@ -1,38 +1,58 @@
-### Neovim
+#### Command line tools
 
-**Requirements:** `brew`, `git`, `neovim`, `luarocks`, `cmake`, `luv`, `stylua`<br>Fonts used: `FiraCode`, `MapleMono` (for italic), `Codicon` (for icons).
-
-Configs are based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).<br>Check out `.config/nvim/lazy-lock.json` for plugins used.
-
-### Shell
-
-#### - Fish shell:
-
-```
-brew install fish
+```sh
+xcode-select --install
 ```
 
-- [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) (alternative [Tide](https://github.com/IlanCosman/tide)): fish framework.
+#### Homebrew
 
+##### Install Homebrew
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
+
+##### Install Bundle
+
+```sh
+brew bundle --file ~/.config/Brewfile
+```
+
+#### Fish
+
+##### Oh-my-fish
+
+```sh
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 ```
 
-- [fisher:](https://github.com/jorgebucaran/fisher) fish package manager.
+##### Fisher
 
-```
-brew install fisher
-```
-
-- [z:](https://github.com/jethrokuan/z) z for the fish shell directory jumping.
-
-```
-fisher install z
+```sh
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 ```
 
-#### - Shell tools:
+```sh
+fisher install jethrokuan/z
+```
 
-- [eza](https://github.com/eza-community/eza).
-- [fzf](https://github.com/junegunn/fzf).
-- [fd](https://github.com/sharkdp/fd), [ripgrep](https://github.com/BurntSushi/ripgrep).
-- [lazygit](https://github.com/jesseduffield/lazygit).
+#### Neovim
+
+Install `rust` and `cargo`
+
+```sh
+curl https://sh.rustup.rs -sSf | sh
+
+```
+
+```sh
+luaorocks install luv
+```
+
+```sh
+cargo install stylua
+```
+
+#### Fonts
+
+`FiraCode`, `MapleMono`, `Codicon`
