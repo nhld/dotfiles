@@ -1,10 +1,8 @@
-#### Command line tools
+##### Install command line tools
 
 ```sh
 xcode-select --install
 ```
-
-#### Homebrew
 
 ##### Install Homebrew
 
@@ -12,13 +10,13 @@ xcode-select --install
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-##### Install Bundle
+##### Install Homebrew Bundle
 
 ```sh
 brew bundle --file ~/.config/Brewfile
 ```
 
-#### Fish
+#### Fish shell
 
 ##### Oh-my-fish
 
@@ -46,7 +44,7 @@ curl https://sh.rustup.rs -sSf | sh
 ```
 
 ```sh
-luaorocks install luv
+luarocks install luv
 ```
 
 ```sh
