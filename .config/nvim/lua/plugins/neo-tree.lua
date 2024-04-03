@@ -19,6 +19,11 @@ local config = function()
         symbols = require("config.icons").neo_tree,
       },
     },
+    filesystem = {
+      filtered_items = {
+        visible = true,
+      },
+    },
     window = {
       width = 45,
       mappings = {
