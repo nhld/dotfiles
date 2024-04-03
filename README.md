@@ -10,10 +10,16 @@ xcode-select --install
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-##### Install Homebrew Bundle
+##### Install Homebrew Bundle from Brewfile
 
 ```sh
 brew bundle --file ~/.config/Brewfile
+```
+
+To generate the Brewfile:
+
+```sh
+brew bundle dump --describe
 ```
 
 #### Fish shell
