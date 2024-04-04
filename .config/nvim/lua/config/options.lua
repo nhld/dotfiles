@@ -6,11 +6,9 @@ g.maplocalleader = " "
 
 opt.showmode = true -- show mode in cmdline
 
--- showcmd with height = 1
 opt.showcmd = true
 opt.cmdheight = 1
 
--- show line numbers and relative line numbers
 opt.nu = true
 opt.rnu = true
 
@@ -24,9 +22,7 @@ opt.hlsearch = true -- highlight search results
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- ignore case if search pattern is all lowercase
 
--- highlight matching brackets
 opt.showmatch = false
---opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 
 opt.scrolloff = 10 -- vertical scroll offset of 10 lines
 opt.laststatus = 3 -- 1 global status line
@@ -40,11 +36,9 @@ opt.timeoutlen = 300
 
 opt.termguicolors = true -- show true colors
 
--- split windows below and to the right
 opt.splitright = true
 opt.splitbelow = true
 
--- spelling
 opt.spelllang = "en_us"
 opt.spell = false
 opt.spelloptions = "camel"
@@ -61,7 +55,6 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- opt.foldtext = "v:lua.require'util.statuscol'.foldtext()"
 opt.fillchars = require("config.icons").folds
 
--- show whitespaces
 opt.list = true
 opt.listchars = { trail = "⋅", nbsp = "␣", eol = "↲", tab = "  ↦" }
 opt.showbreak = "↳"
