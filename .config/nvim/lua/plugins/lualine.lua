@@ -27,7 +27,7 @@ local function lsp_info()
   if lsps and #lsps > 0 then
     for _, lsp in ipairs(lsps) do
       if lsp.name == "copilot" then
-        return "  lsp"
+        return "copilot  lsp"
       end
     end
     return "lsp"
