@@ -21,7 +21,7 @@ require("lazy").setup("plugins", {
   defaults = { lazy = true },
   ui = { border = "rounded" },
   install = {
-    missing = false,
+    missing = true,
   },
   performance = {
     rtp = {
