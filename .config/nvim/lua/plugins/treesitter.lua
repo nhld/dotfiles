@@ -19,6 +19,8 @@ local config = function()
       "fish",
       "gitcommit",
       "toml",
+      "bash",
+      "yaml",
     },
     auto_install = true,
     highlight = {

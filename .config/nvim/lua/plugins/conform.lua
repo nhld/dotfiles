@@ -50,7 +50,7 @@ end
 
 return {
   "stevearc/conform.nvim",
-  event = "VeryLazy",
+  event = { "BufReadPre", "BufNewFile" },
   cmd = { "ConformInfo" },
   keys = keys,
   config = config,
