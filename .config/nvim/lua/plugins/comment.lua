@@ -1,3 +1,4 @@
+-- TODO: remove this plugin when new update is released
 local keys = {
   { "gcc", desc = "Toggle line comment" },
   { "gc", mode = { "n", "x" }, desc = "Toggle comment" },
