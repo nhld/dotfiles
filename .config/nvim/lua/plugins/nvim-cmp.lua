@@ -80,6 +80,11 @@ local config = function()
         end
       end, { "i", "s" }),
     },
+    view = {
+      entries = {
+        follow_cursor = true,
+      },
+    },
     sources = {
       { name = "nvim_lsp" },
       { name = "luasnip" },
