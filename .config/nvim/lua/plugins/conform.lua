@@ -38,7 +38,9 @@ local config = function()
       ["markdown.mdx"] = { "prettierd", "prettier" },
       json = { "prettierd", "prettier" },
       lua = { "stylua" },
-      go = { "gofumpt", "goimports-reviser" },
+      go = { "gofumpt", "goimports-reviser", "goimports" },
+      sh = { "shfmt" },
+      python = { "black" },
     },
     format_on_save = {
       timeout_ms = 500,
