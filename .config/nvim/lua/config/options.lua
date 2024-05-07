@@ -4,7 +4,7 @@ local g = vim.g
 g.mapleader = " "
 g.maplocalleader = " "
 
-opt.showmode = true -- show mode in cmdline
+opt.showmode = true
 
 opt.showcmd = true
 opt.cmdheight = 1
@@ -12,29 +12,29 @@ opt.cmdheight = 1
 opt.nu = true
 opt.rnu = true
 
-opt.conceallevel = 0 -- show the `` etc
+opt.conceallevel = 0
 
-opt.cursorline = true -- highlight current line
+opt.cursorline = true
 
-opt.incsearch = true -- search as you type
-opt.hlsearch = true -- highlight search results
+opt.incsearch = true
+opt.hlsearch = true
 
-opt.ignorecase = true -- ignore case when searching
-opt.smartcase = true -- ignore case if search pattern is all lowercase
+opt.ignorecase = true
+opt.smartcase = true
 
 opt.showmatch = false
 
-opt.scrolloff = 10 -- vertical scroll offset of 10 lines
-opt.laststatus = 3 -- 1 global status line
+opt.scrolloff = 10
+opt.laststatus = 3
 
-opt.mouse = "a" -- enable mouse
-opt.clipboard = "unnamedplus" -- sync with os clipboard
-opt.undofile = true -- save undo history
+opt.mouse = "a"
+opt.clipboard = "unnamedplus"
+opt.undofile = true
 
 opt.updatetime = 200
 opt.timeoutlen = 300
 
-opt.termguicolors = true -- show true colors
+opt.termguicolors = true
 
 opt.splitright = true
 opt.splitbelow = true
@@ -47,10 +47,9 @@ opt.spelloptions = "camel"
 opt.signcolumn = "yes"
 opt.statuscolumn = [[%!v:lua.require'util.statuscol'.statuscolumn()]]
 
--- fold settings
 opt.foldcolumn = "1"
 opt.foldlevel = 99
-opt.foldmethod = "expr" -- treesitter
+opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- opt.foldtext = "v:lua.require'util.statuscol'.foldtext()"
 opt.fillchars = require("config.icons").folds
@@ -61,7 +60,6 @@ opt.showbreak = "↳"
 
 opt.path:append { "**" } -- search in subfolders
 
--- window, popup menu, and completion settings
 opt.winblend = 0
 opt.pumheight = 10
 opt.pumblend = 0
@@ -96,7 +94,7 @@ opt.wildignore:append {
 }
 
 opt.inccommand = "split" -- show live preview of substitution
--- indentation
+
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
@@ -104,14 +102,13 @@ opt.softtabstop = 2
 opt.autoindent = true
 opt.smartindent = true
 opt.breakindent = true
-opt.wrap = true -- wrap lines
-opt.linebreak = true -- wrap at word boundaries
+opt.wrap = true
+opt.linebreak = true
 
 opt.shortmess:append {
   I = true, -- disable the vim intro
 }
 
--- disable these providers' healthcheck
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0

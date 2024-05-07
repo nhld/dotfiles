@@ -2,7 +2,6 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("" .. name, { clear = true })
 end
 
--- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup "close_with_q",
   pattern = {
@@ -48,7 +47,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   group = augroup "resize_splits",
   callback = function()
