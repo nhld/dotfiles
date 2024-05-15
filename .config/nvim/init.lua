@@ -19,6 +19,9 @@ require "config.autocmds"
 
 require("lazy").setup("plugins", {
   defaults = { lazy = true },
+  change_detection = {
+    notify = false,
+  },
   ui = { border = "rounded" },
   install = {
     missing = true,
