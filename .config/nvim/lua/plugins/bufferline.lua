@@ -43,7 +43,6 @@ local keys = {
 
 return {
   "akinsho/bufferline.nvim",
-  version = "*",
   event = "VeryLazy",
   opts = opts,
   keys = keys,
