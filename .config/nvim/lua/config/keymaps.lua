@@ -63,6 +63,5 @@ keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move down" })
 keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move up" })
 keymap.set("n", "<C-`>", ":new<CR>:term<CR>", { noremap = true, desc = "Open terminal in bottom split" })
 -- Plugins keymaps
-keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory with Oil" })
 keymap.set("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "Open Lazy plugin manager" })
 keymap.set("n", "<C-b>", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neotree" })
