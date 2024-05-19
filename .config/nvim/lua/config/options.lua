@@ -4,15 +4,8 @@ local g = vim.g
 g.mapleader = " "
 g.maplocalleader = " "
 
-opt.showmode = true
-
-opt.showcmd = true
-opt.cmdheight = 1
-
 opt.nu = true
 opt.rnu = true
-
-opt.conceallevel = 0
 
 opt.cursorline = true
 
@@ -33,8 +26,6 @@ opt.undofile = true
 
 opt.updatetime = 200
 opt.timeoutlen = 300
-
-opt.termguicolors = true
 
 opt.splitright = true
 opt.splitbelow = true
@@ -61,7 +52,7 @@ opt.showbreak = "↳"
 opt.path:append { "**" } -- search in subfolders
 
 opt.winblend = 0
-opt.pumheight = 10
+opt.pumheight = 15
 opt.pumblend = 0
 opt.completeopt = "menuone,noselect,noinsert"
 opt.wildmenu = true
