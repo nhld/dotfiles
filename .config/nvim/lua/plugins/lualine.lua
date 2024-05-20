@@ -10,9 +10,8 @@ local function diff_source()
   end
 end
 
---TODO: get_active_clients is deprecated, change it to get_clients
 local function lsp_info()
-  local lsps = vim.lsp.get_active_clients { bufnr = vim.fn.bufnr() }
+  local lsps = vim.lsp.get_clients { bufnr = vim.fn.bufnr() }
   --[[ if lsps and #lsps > 0 then
 		-- local names = {}
 		-- for _, lsp in ipairs(lsps) do
@@ -41,7 +40,7 @@ local function on_click()
 end
 
 local function lsp_info_color_no_bg()
-  local _, color = require("nvim-web-devicons").get_icon_cterm_color_by_filetype(vim.api.nvim_buf_get_option(0, "filetype"))
+  local _, color = require("nvim-web-devicons").get_icon_cterm_color_by_filetype(vim.api.nvim_get_option_value("filetype", {}))
   return { fg = color, bg = "NONE" }
 end
 
@@ -65,7 +64,7 @@ local function on_click_conform()
 end
 
 local function get_icon()
-  local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.api.nvim_buf_get_option(0, "filetype"))
+  local icon = require("nvim-web-devicons").get_icon_by_filetype(vim.api.nvim_get_option_value("filetype", {}))
   return icon and " " .. icon or ""
 end
 

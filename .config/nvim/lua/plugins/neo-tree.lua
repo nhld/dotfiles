@@ -48,6 +48,8 @@ local config = function()
       },
     },
   }
+
+  vim.keymap.set("n", "<C-b>", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neotree" })
 end
 
 return {
@@ -57,5 +59,6 @@ return {
   dependencies = {
     "MunifTanjim/nui.nvim",
   },
+  keys = { "<C-b>" },
   config = config,
 }
