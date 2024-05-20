@@ -17,6 +17,7 @@ local opts = {
     end,
     show_close_icon = false,
     show_buffer_close_icons = false,
+    diagnostics_update_in_insert = false,
   },
 }
 

@@ -16,6 +16,7 @@ vim.opt.rtp = vim.opt.rtp ^ lazypath
 require "config.options"
 require "config.keymaps"
 require "config.autocmds"
+require "util.term"
 
 require("lazy").setup("plugins", {
   defaults = { lazy = true },
@@ -24,7 +25,7 @@ require("lazy").setup("plugins", {
   },
   ui = { border = "rounded" },
   install = {
-    missing = true,
+    missing = false,
   },
   performance = {
     rtp = {
