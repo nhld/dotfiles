@@ -1,34 +1,28 @@
 local M = {}
 
 local function on_attach(client, bufnr)
-  local map = function(keys, func, desc)
-    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
+  local function keymap(keys, func, desc, mode)
+    mode = mode or "n"
+    vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
   end
 
-  map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-  map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-  map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-  map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-  map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-  map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-  map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-  vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Documentation" })
-  map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-  map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-  map("<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, "[W]orkspace [L]ist Folders")
-  map("<leader>cd", vim.diagnostic.open_float, "Line diagnostics")
+  keymap("<C-h>", vim.lsp.buf.signature_help, "Signature Documentation", "i")
+  keymap("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
+  keymap("gr", require("telescope.builtin").lsp_references, "Goto References")
+  keymap("gI", require("telescope.builtin").lsp_implementations, "Goto Implementation")
+  keymap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type Definition")
+  keymap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+  keymap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+  keymap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+  keymap("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
-  map("[e", function()
+  keymap("[e", function()
     vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
   end, "Previous error")
-  map("]e", function()
+  keymap("]e", function()
     vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
   end, "Next error")
 
-  -- local client = vim.lsp.get_client_by_id(event.data.client_id)
   if client and client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       buffer = bufnr,
@@ -40,7 +34,6 @@ local function on_attach(client, bufnr)
       callback = vim.lsp.buf.clear_references,
     })
   end
-
   local navic = require "nvim-navic"
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
@@ -83,7 +76,6 @@ end
 ---@param handler fun(err: any, result: any, ctx: any, config: any): integer?, integer?
 ---@param focusable boolean
 ---@return fun(err: any, result: any, ctx: any, config: any)
---
 local function enhanced_float_handler(handler, focusable)
   return function(err, result, ctx, config)
     local bufnr, winnr = handler(
@@ -145,9 +137,6 @@ end
 
 vim.lsp.handlers["textDocument/hover"] = enhanced_float_handler(vim.lsp.handlers.hover, true)
 vim.lsp.handlers["textDocument/signatureHelp"] = enhanced_float_handler(vim.lsp.handlers.signature_help, false)
-
---vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
---vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
 
 ---@diagnostic disable-next-line: unused-function, unused-local
 local function format_diagnostic(diagnostic)
