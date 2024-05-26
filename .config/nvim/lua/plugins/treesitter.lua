@@ -96,14 +96,6 @@ return {
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     {
-      "windwp/nvim-ts-autotag",
-      opts = {
-        enable_rename = true,
-        enable_close = true,
-        enable_close_on_splash = true,
-      },
-    },
-    {
       "nvim-treesitter/nvim-treesitter-context",
       opts = {
         -- Avoid the sticky context from growing a lot.
