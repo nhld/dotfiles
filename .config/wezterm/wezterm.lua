@@ -19,7 +19,7 @@ config.font_rules = {
   {
     italic = true,
     intensity = "Half",
-    font = wezterm.font { family = "Maple Mono NF", weight = "DemiBold", style = "Italic" },
+    font = wezterm.font { family = "Maple Mono NF", weight = "SemiBold", style = "Italic" },
   },
   {
     italic = true,
