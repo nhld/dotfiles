@@ -3,7 +3,7 @@ require "util.lsp"
 local config = function()
   local servers = {
     clangd = {},
-    gopls = {},
+    -- gopls = {},
     eslint = {},
     tsserver = {},
     html = { filetypes = { "html", "twig", "hbs", "ejs" } },
@@ -76,9 +76,9 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    { "williamboman/mason.nvim", opts = {} },
+    { "williamboman/mason.nvim",          opts = {} },
     { "williamboman/mason-lspconfig.nvim" },
-    { "j-hui/fidget.nvim", opts = {} },
+    { "j-hui/fidget.nvim",                opts = {} },
   },
   config = config,
 }
