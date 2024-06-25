@@ -1,35 +1,26 @@
 tap "homebrew/bundle"
-tap "jesseduffield/lazygit"
-# Cross-platform make
-brew "cmake"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Modern, maintained replacement for ls
 brew "eza"
-# Simple, fast and user-friendly alternative to find
-brew "fd"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Distributed revision control system
 brew "git"
-# Open source programming language to build simple/reliable/efficient software
-brew "go"
-# Package manager for the Lua programming language
-brew "luarocks"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
 brew "node"
-# Modern shell for the GitHub era
-brew "nushell"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
 # Terminal multiplexer
 brew "tmux"
 # JavaScript package manager
 brew "yarn"
-# A simple terminal UI for git commands, written in Go
-brew "jesseduffield/lazygit/lazygit"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# Application uninstaller
+cask "appcleaner"
 # Desktop password and login vault
 cask "bitwarden"
 # App to build and share containerised applications and microservices
@@ -38,5 +29,7 @@ cask "docker"
 cask "git-credential-manager"
 # GPU-based terminal emulator
 cask "kitty"
+# Text editor for code, markup and prose
+cask "sublime-text"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
