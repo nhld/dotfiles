@@ -20,6 +20,7 @@ alias g 'git'
 alias ga 'git add'
 alias gb 'git branch'
 alias gc 'git commit --verbose'
+alias gcm 'git commit -m'
 alias gco 'git checkout'
 alias gf 'git fetch'
 alias gl 'git log'
@@ -35,6 +36,12 @@ if type -q eza
   alias llf "ll -f"
 end
 
+if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+    set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+end
+
 # cargo path
 # set PATH $HOME/.cargo/bin $PATH
-fish_add_path $HOME/.cargo/bin
+#fish_add_path $HOME/.cargo/bin
+
+zoxide init fish | source
