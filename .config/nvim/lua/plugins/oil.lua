@@ -6,6 +6,7 @@ return {
       view_options = {
         show_hidden = true,
       },
+      delete_to_trash = true,
     }
 
     vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
