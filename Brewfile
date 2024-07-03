@@ -1,6 +1,8 @@
 tap "homebrew/bundle"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
 # Modern, maintained replacement for ls
 brew "eza"
 # User-friendly command-line shell for UNIX-like operating systems
@@ -9,10 +11,16 @@ brew "fish"
 brew "fzf"
 # Distributed revision control system
 brew "git"
+# Simple terminal UI for git commands
+brew "lazygit"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Platform built on V8 to build network applications
 brew "node"
+# Manage multiple Node.js versions
+brew "nvm"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
 # Terminal multiplexer
 brew "tmux"
 # JavaScript package manager
