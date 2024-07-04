@@ -40,6 +40,7 @@ local config = function()
       lua = { "stylua" },
       go = { "gofumpt", "goimports-reviser", "goimports" },
       sh = { "shfmt" },
+      zsh = { "shfmt" },
       python = { "black" },
     },
     format_on_save = {
