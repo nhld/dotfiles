@@ -13,3 +13,7 @@ samples
 .bundle
 node_modules
 fishd.*
+.zsh_history
+.zcompdump*
+.zcompcache/*
+*zcompdump*
