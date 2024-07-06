@@ -5,6 +5,18 @@
 # Close any open system settings panels
 osascript -e 'tell application "System Settings" to quit'
 
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
+
+## General
+
 # Disable sound on boot
 sudo nvram SystemAudioVolume=" "
 
@@ -19,9 +31,14 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 # Disable auto correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectEnabled -bool false
 
+# Disable automatic period substitution as it’s annoying when typing code
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
 # Require password immediately after sleep or screen saver
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+## Screenshots
 
 # Set screenshots to jpg and no shadow
 defaults write com.apple.screencapture type -string "jpg"
@@ -43,7 +60,7 @@ defaults write com.apple.finder FinderOpenInTabs -bool false
 # Show hidden files
 defaults write com.apple.finder AppleShowAllFiles -bool true
 
-# Show filename ext
+# Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Show path bar and status bar
@@ -68,8 +85,47 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 ## Dock
 
-# Scale effect
+# Use scale effect
 defaults write com.apple.dock mineffect -string "scale"
 
 # Don't show recent app in dock
 defaults write com.apple.dock show-recents -bool false
+
+## Don’t group windows by application in Mission Control
+# (i.e. use the old Exposé behavior instead)
+defaults write com.apple.dock expose-group-by-app -bool false
+
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false
+
+# Remove the auto-hiding Dock delay
+defaults write com.apple.dock autohide-delay -float 0
+# Remove the animation when hiding/showing the Dock
+defaults write com.apple.dock autohide-time-modifier -float 0
+
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
+# Make Dock icons of hidden applications translucent
+defaults write com.apple.dock showhidden -bool true
+
+# Don’t show recent applications in Dock
+defaults write com.apple.dock show-recents -bool false
+
+## TextEdit
+
+# Use plain text mode for new TextEdit documents
+defaults write com.apple.TextEdit RichText -int 0
+# Open and save files as UTF-8 in TextEdit
+defaults write com.apple.TextEdit PlainTextEncoding -int 4
+defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+
+## Kill apps to take effect
+
+for app in "Activity Monitor" \
+  "Dock" \
+  "Finder"; do
+  killall "${app}" &>/dev/null
+done
+
+echo "Done. Some changes require a restart to take effect."
