@@ -28,6 +28,8 @@ alias gm 'git merge'
 alias gp 'git push'
 alias gst 'git status'
 
+alias lg "lazygit"
+
 if type -q eza
   alias ll "eza -l --icons --total-size --no-user -o"
   alias lla "ll -a"
