@@ -1,0 +1,11 @@
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+notARepository: "quit"
+gui:
+  sidePanelWidth: 0.2
+os:
+  editPreset: nvim
+border: rounded
+nerdFontsVersion: "3"
