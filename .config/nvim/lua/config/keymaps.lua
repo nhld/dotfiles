@@ -1,18 +1,15 @@
 local keymap = vim.keymap.set
 
-keymap("i", "jk", "<Esc>", { desc = "Escape with jk" })
+keymap("i", "jk", "<Esc>", { desc = "Escape with <jk>" })
 keymap("t", "<Esc><Esc>", "<C-\\><C-n><C-w>h", { silent = true, desc = "Escape in terminal" })
 
 keymap("n", "x", '"_x', { desc = "Delete character without yanking" })
-keymap("n", "<leader>+", "<C-a>", { desc = "Increment number under cursor" })
-keymap("n", "<leader>-", "<C-x>", { desc = "Decrement number under cursor" })
-
 keymap("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
 
 keymap("n", "<leader>rp", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "Replace" })
 -- Remap for dealing with word wrap
-keymap("n", "k", "v:count == 3 ? 'gk' : 'k'", { expr = true, silent = true })
-keymap("n", "j", "v:count == 3 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 keymap("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 -- Indent while remaining in visual mode
