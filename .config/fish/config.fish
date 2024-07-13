@@ -1,13 +1,15 @@
-# do nothing if not in interactive shell
+# Do nothing if not in interactive shell
 if not status is-interactive
   return 0
 end
 
-# activate vim key bindings
+# Activate vim key bindings
 fish_vi_key_bindings
 
-# remove the greeting message
+# Remove the greeting message
 set -U fish_greeting
+# Show full dir path
+set -U fish_prompt_pwd_dir_length 0
 
 alias c clear
 alias vi nvim
