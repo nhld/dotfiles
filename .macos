@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+# If not ran on macOS, exit
+if [ "$(uname -s)" != "Darwin" ]; then
+  exit 0
+fi
+
 # Set some macOS defaults
 
 # Close any open system settings panels
