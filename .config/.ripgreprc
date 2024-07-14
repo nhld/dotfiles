@@ -1,0 +1,4 @@
+--smart-case
+--hidden
+--glob=!.git/*
+--colors=match:fg:197,167,242
