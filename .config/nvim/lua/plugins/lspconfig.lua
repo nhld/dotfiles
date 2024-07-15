@@ -9,7 +9,7 @@ local config = function()
     html = { filetypes = { "html", "twig", "hbs", "ejs" } },
     cssls = {},
     jsonls = {},
-    bashls = {},
+    bashls = { filetypes = { "sh", "zsh", "bash" } },
     lua_ls = {
       Lua = {
         runtime = { version = "LUAJIT" },
@@ -76,9 +76,9 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    { "williamboman/mason.nvim",          opts = {} },
+    { "williamboman/mason.nvim", opts = {} },
     { "williamboman/mason-lspconfig.nvim" },
-    { "j-hui/fidget.nvim",                opts = {} },
+    { "j-hui/fidget.nvim", opts = {} },
   },
   config = config,
 }
