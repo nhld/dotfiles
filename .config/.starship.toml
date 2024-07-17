@@ -15,3 +15,11 @@ error_symbol = "[!](bold red)"
 disabled = false
 style = "dimmed white"
 format = "[$time]($style)"
+
+[git_status]
+diverged = '↑$ahead_count↓$behind_count'
+conflicted = '$count'
+ahead = "[⇡${count}](yellow)"
+behind = "[⇣${count}](blue)"
+modified = "[!](yellow)"
+untracked = "[?](bold cyan)"
