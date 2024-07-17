@@ -4,6 +4,7 @@ if type -q nvim
   alias vi "nvim"
   alias nv "nvim"
   alias vim "nvim"
+  alias nn "nvim $NOTES_DIR/$(date +"%Y%m%d%H%M.md")"
 end
 
 alias g 'git'
@@ -19,10 +20,13 @@ alias gp 'git push'
 alias gst 'git status'
 
 alias .. 'cd ..'
-alias dl 'cd $HOME/Downloads'
-
-alias nn 'nvim $NOTES_DIR/$(date +"%Y%m%d%H%M.md")'
+alias rr "rm -rf"
 alias sf "source $XDG_CONFIG_HOME/fish/config.fish"
+
+if type -q z
+  alias dl 'z $HOME/Downloads'
+  alias dt 'z $HOME/Desktop'
+end
 
 if type -q lazygit
   alias lg "lazygit"
