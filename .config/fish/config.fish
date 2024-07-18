@@ -1,6 +1,6 @@
 # Do nothing if not in interactive shell
 if not status is-interactive
-  return 0
+    return 0
 end
 
 fish_vi_key_bindings
