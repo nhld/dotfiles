@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+echo "Installing Homebrew"
+
+if test ! "$(which brew)"; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  ZPROFILE="$DOTFILES/zsh/.zprofile"
+  [ ! -f "$ZPROFILE" ] && echo "eval $(/opt/homebrew/bin/brew shellenv)" >>"$ZPROFILE"
+
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  echo "Homebrew is already installed"
+fi
+
+brew update
+brew upgrade
+
+BREWFILE="$HOME/dotfiles/.brewfile"
+if [ -f "$BREWFILE" ]; then
+  echo "Installing formulae and casks"
+  brew bundle --file="$BREWFILE"
+else
+  echo "Brewfile not found"
+fi
+
+brew cleanup
+
+echo "Done."
