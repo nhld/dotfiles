@@ -6,7 +6,7 @@ local config = function()
       "git_status",
       "document_symbols",
     },
-    open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf" },
+    open_files_do_not_replace_types = { "terminal", "qf" },
     default_component_configs = {
       container = {
         enable_character_fade = false,

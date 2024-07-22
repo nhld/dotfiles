@@ -76,13 +76,8 @@ local config = function()
       component_separators = "",
       section_separators = "",
       disabled_filetypes = {
-        statusline = {
-          "Trouble",
-        },
         winbar = {
           "neo-tree",
-          "Trouble",
-          "trouble",
         },
       },
       ignore_focus = {},
