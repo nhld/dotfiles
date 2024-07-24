@@ -4,7 +4,6 @@ local config = function()
   local servers = {
     clangd = {},
     eslint = {},
-    tsserver = {},
     html = { filetypes = { "html", "twig", "hbs", "ejs" } },
     cssls = {},
     jsonls = {},
@@ -24,6 +23,7 @@ local config = function()
         completion = { callSnippet = "Replace" },
       },
     },
+    vtsls = {},
   }
 
   --local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -55,7 +55,31 @@ local config = function()
     },
   }
 
+  lspconfig.vtsls.setup {
     settings = {
+      complete_function_calls = true,
+      vtsls = {
+        enableMoveToFileCodeAction = true,
+        autoUseWorkspaceTsdk = true,
+        experimental = {
+          maxInlayHintLength = 30,
+          completion = {
+            enableServerSideFuzzyMatch = true,
+          },
+        },
+      },
+      typescript = {
+        updateImportsOnFileMove = { enabled = "always" },
+        suggest = {
+          completeFunctionCalls = true,
+        },
+        inlayHints = {
+          enumMemberValues = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          parameterNames = { enabled = "all" },
+          parameterTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          variableTypes = { enabled = false },
         },
       },
     },
