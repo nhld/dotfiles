@@ -3,7 +3,6 @@ require "util.lsp"
 local config = function()
   local servers = {
     clangd = {},
-    -- gopls = {},
     eslint = {},
     tsserver = {},
     html = { filetypes = { "html", "twig", "hbs", "ejs" } },
@@ -56,16 +55,7 @@ local config = function()
     },
   }
 
-  lspconfig.gopls.setup {
-    root_dir = function(fname)
-      return require("lspconfig/util").root_pattern("go.work", "go.mod", ".git")(fname) or vim.fn.getcwd()
-    end,
     settings = {
-      gopls = {
-        completeUnimported = true,
-        usePlaceholders = true,
-        analyses = {
-          unusedparams = true,
         },
       },
     },
