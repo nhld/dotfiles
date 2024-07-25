@@ -38,9 +38,13 @@ local function on_attach(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
   end
+
+  if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
 end
 
--- from here are extra highlights for lsp doc hover
+-- From here are extra highlights for lsp doc hover
 local md_namespace = vim.api.nvim_create_namespace "n/lsp_float"
 
 --- Adds extra inline highlights to the given buffer.
