@@ -6,25 +6,23 @@ config.front_end = "WebGpu"
 config.webgpu_power_preference = "HighPerformance"
 config.check_for_updates = false
 
-config.colors = { background = "#111111" }
-
 config.font_size = 12
-config.font = wezterm.font { family = "FiraCode Nerd Font" }
+config.font = wezterm.font { family = "FiraCode Nerd Font", weight = "Regular" }
 config.font_rules = {
   {
-    intensity = "Bold",
     italic = true,
+    intensity = "Bold",
     font = wezterm.font { family = "Maple Mono NF", weight = "Bold", style = "Italic" },
   },
   {
     italic = true,
     intensity = "Half",
-    font = wezterm.font { family = "Maple Mono NF", weight = "DemiBold", style = "Italic" },
+    font = wezterm.font { family = "Maple Mono NF", weight = "Bold", style = "Italic" },
   },
   {
     italic = true,
     intensity = "Normal",
-    font = wezterm.font { family = "Maple Mono NF", style = "Italic" },
+    font = wezterm.font { family = "Maple Mono NF", weight = "Bold", style = "Italic" },
   },
 }
 
@@ -45,5 +43,7 @@ config.underline_thickness = "250%"
 config.native_macos_fullscreen_mode = true
 
 config.color_scheme = "Catppuccin Mocha"
+
+config.audible_bell = "Disabled"
 
 return config
