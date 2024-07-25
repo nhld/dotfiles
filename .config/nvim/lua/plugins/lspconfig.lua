@@ -26,8 +26,6 @@ local config = function()
     vtsls = {},
   }
 
-  --local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
@@ -39,7 +37,6 @@ local config = function()
         require("lspconfig")[server_name].setup {
           cmd = server.cmd,
           capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
-          --capabilities = capabilities,
           settings = servers[server_name],
           filetypes = (servers[server_name] or {}).filetypes,
         }
