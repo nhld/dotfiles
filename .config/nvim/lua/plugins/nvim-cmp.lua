@@ -11,24 +11,14 @@ local config = function()
   luasnip.config.setup {}
 
   cmp.setup {
-    preselect = cmp.PreselectMode.None,
-    window = {
-      -- documentation = {
-      -- 	border = "rounded",
-      -- 	winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,Search:None",
-      -- },
-      -- completion = {
-      -- 	border = "rounded",
-      -- 	winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,Search:None",
-      -- },
-    },
+    preselect = true and cmp.PreselectMode.Item or cmp.PreselectMode.None,
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
       end,
     },
     completion = {
-      completeopt = "menu,menuone,noinsert,noselect",
+      completeopt = "menu,menuone,noinsert" .. (true and "" or ",noselect"),
     },
     performance = {
       max_view_entries = 10,
@@ -40,17 +30,7 @@ local config = function()
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       -- ["/"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping {
-        i = function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
-          else
-            fallback()
-          end
-        end,
-        s = cmp.mapping.confirm { select = true },
-        c = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
-      },
+      ["<CR>"] = cmp.mapping.confirm { select = true },
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           if #cmp.get_entries() == 1 then
@@ -91,6 +71,7 @@ local config = function()
       { name = "path" },
       { name = "buffer" },
     },
+    sorting = require "cmp.config.default"().sorting,
     formatting = {
       format = function(entry, vim_item)
         vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
