@@ -23,7 +23,7 @@ require("lazy").setup("plugins", {
   change_detection = {
     notify = false,
   },
-  ui = { border = "rounded" },
+  -- ui = { border = "rounded" },
   install = {
     missing = false,
   },
