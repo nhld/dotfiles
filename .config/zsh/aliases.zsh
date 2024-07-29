@@ -1,4 +1,5 @@
 alias c='clear'
 alias ..='cd ..'
 alias dl='cd $HOME/Downloads'
+alias dt='cd $HOME/Desktop'
 alias brewu='brew update && brew upgrade && brew cleanup'
