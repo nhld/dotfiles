@@ -9,6 +9,7 @@ local config = function()
   local luasnip = require "luasnip"
   local icons = require("config.icons").symbol_kinds
   luasnip.config.setup {}
+  require("luasnip.loaders.from_vscode").lazy_load()
 
   cmp.setup {
     preselect = true and cmp.PreselectMode.Item or cmp.PreselectMode.None,
