@@ -64,35 +64,21 @@ local catppuccin_config = function()
   vim.cmd.colorscheme "catppuccin-mocha"
 
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
-  -- LSP popup menu
-  --vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
-  --vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
-  --vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
 
-  -- vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#4fd6be" })
-  -- vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#ffc777" })
-  -- vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#ff757f" })
-  --
-  -- illuminate word highlight instead of underline
   vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
   vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
   vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
 end
 
--- TODO: change the DiagnosticUnnecessary highlight, current is bad
 local tokyonight_config = function()
   require("tokyonight").setup {
     style = "moon",
-    --lualine_bold = true,
+    lualine_bold = true,
   }
-  -- require("tokyonight").load()
   vim.cmd.colorscheme "tokyonight-moon"
 
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
-  -- LSP popup menu
-  --vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
-  --vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
-  --vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#636da6" })
 
   vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#4fd6be" })
   vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#ffc777" })
@@ -112,6 +98,7 @@ return {
     config = catppuccin_config,
     enabled = false,
   },
+
   {
     "folke/tokyonight.nvim",
     lazy = false,
