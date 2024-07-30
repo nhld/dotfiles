@@ -9,6 +9,8 @@ local keys = {
   },
 }
 
+local fmt = { "prettierd", "prettier", stop_after_first = true }
+
 local config = function()
   require("conform").setup {
     formatters = {
@@ -23,20 +25,20 @@ local config = function()
       },
     },
     formatters_by_ft = {
-      javascript = { "prettierd", "prettier" },
-      javascriptreact = { "prettierd", "prettier" },
-      typescript = { "prettierd", "prettier" },
-      typescriptreact = { "prettierd", "prettier" },
-      vue = { "prettierd", "prettier" },
-      css = { "prettierd", "prettier" },
-      scss = { "prettierd", "prettier" },
-      less = { "prettierd", "prettier" },
+      javascript = fmt,
+      javascriptreact = fmt,
+      typescript = fmt,
+      typescriptreact = fmt,
+      vue = fmt,
+      css = fmt,
+      scss = fmt,
+      less = fmt,
       html = { "prettier" }, --NOTE: prettierd cause error with .ejs
-      jsonc = { "prettierd", "prettier" },
-      yaml = { "prettierd", "prettier" },
-      markdown = { "prettierd", "prettier" },
-      ["markdown.mdx"] = { "prettierd", "prettier" },
-      json = { "prettierd", "prettier" },
+      jsonc = fmt,
+      yaml = fmt,
+      markdown = fmt,
+      ["markdown.mdx"] = fmt,
+      json = fmt,
       lua = { "stylua" },
       sh = { "shfmt" },
       zsh = { "shfmt" },
