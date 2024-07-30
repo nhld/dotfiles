@@ -21,7 +21,11 @@ opt.scrolloff = 10
 opt.laststatus = 3
 
 opt.mouse = "a"
-opt.clipboard = "unnamedplus"
+
+vim.schedule(function()
+  vim.opt.clipboard = "unnamedplus"
+end)
+
 opt.undofile = true
 
 opt.updatetime = 200
