@@ -21,6 +21,7 @@ local config = function()
       "toml",
       "bash",
       "yaml",
+      "query",
     },
     auto_install = true,
     highlight = {
