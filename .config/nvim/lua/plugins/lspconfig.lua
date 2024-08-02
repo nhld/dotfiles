@@ -24,6 +24,7 @@ local config = function()
       },
     },
     vtsls = {},
+    emmet_language_server = {},
   }
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -51,6 +52,8 @@ local config = function()
       offsetEncoding = { "utf-16" }, -- prevent the offset encoding warning
     },
   }
+
+  lspconfig.emmet_language_server.setup {}
 
   lspconfig.vtsls.setup {
     settings = {
