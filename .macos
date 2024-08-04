@@ -1,11 +1,12 @@
 #!/bin/zsh
 
-# If not ran on macOS, exit
-if [ "$(uname -s)" != "Darwin" ]; then
-  exit 0
-fi
+# This script sets some macOS defaults
 
-# Set some macOS defaults
+# Yoinked from https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+# Visit the link for more settings
+
+# If not ran on macOS, exit
+[ "$(uname -s)" != "Darwin" ] && exit 0
 
 # Close any open system settings panels
 osascript -e 'tell application "System Settings" to quit'
@@ -20,15 +21,20 @@ while true; do
   kill -0 "$$" || exit
 done 2>/dev/null &
 
-## General
+########## General ##########
 
 # Disable sound on boot
 sudo nvram SystemAudioVolume=" "
 
 # Always show scroll bar
-default write NSGlobalDomain AppleShowScrollBars -string "Always"
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 
-## Typing
+########## Typing ##########
+
+# Disable Apple's press and hold for VSCodium and VSCode only
+# defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
+defaults write -app VSCodium ApplePressAndHoldEnabled -bool false
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
 # Disable automatic capitalization
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
@@ -43,17 +49,17 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-## Screenshots
+########## Screenshots ##########
 
 # Set screenshots to jpg and no shadow
 defaults write com.apple.screencapture type -string "jpg"
 defaults write com.apple.screencapture disable-shadow -bool true
 
 # Save screenshots to ~/Screenshots
-mkdir -p ~/Screenshots
+[ ! -d "$HOME/Screenshots" ] && mkdir "$HOME/Screenshots"
 defaults write com.apple.screencapture location -string "~/Screenshots"
 
-## Finder
+########## Finder ##########
 
 # New finder open user folder
 defaults write com.apple.finder NewWindowTarget -string "PfLo"
@@ -88,13 +94,10 @@ chflags nohidden ~/Library
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-## Dock
+############ Dock ##########
 
 # Use scale effect
 defaults write com.apple.dock mineffect -string "scale"
-
-# Don't show recent app in dock
-defaults write com.apple.dock show-recents -bool false
 
 ## Don’t group windows by application in Mission Control
 # (i.e. use the old Exposé behavior instead)
@@ -105,6 +108,7 @@ defaults write com.apple.dock mru-spaces -bool false
 
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
+
 # Remove the animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -float 0
 
@@ -117,16 +121,16 @@ defaults write com.apple.dock showhidden -bool true
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
-## TextEdit
+########## TextEdit ##########
 
 # Use plain text mode for new TextEdit documents
 defaults write com.apple.TextEdit RichText -int 0
+
 # Open and save files as UTF-8 in TextEdit
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
-## Kill apps to take effect
-
+# Kill apps to take effect
 for app in "Activity Monitor" \
   "Dock" \
   "Finder"; do
