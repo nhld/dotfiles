@@ -55,7 +55,21 @@ local config = function()
 
   lspconfig.emmet_language_server.setup {}
 
+  local function organize_imports()
+    local params = {
+      command = "typescript.organizeImports",
+      arguments = { vim.api.nvim_buf_get_name(0) },
+    }
+    vim.lsp.buf.execute_command(params)
+  end
+
   lspconfig.vtsls.setup {
+    commands = {
+      OrganizeImports = {
+        organize_imports,
+        description = "Organize TS Imports",
+      },
+    },
     settings = {
       complete_function_calls = true,
       vtsls = {
