@@ -7,7 +7,7 @@ local config = function()
     html = { filetypes = { "html", "twig", "hbs", "ejs" } },
     cssls = {},
     jsonls = {},
-    bashls = { filetypes = { "sh", "zsh", "bash" } },
+    bashls = {},
     lua_ls = {
       Lua = {
         runtime = { version = "LUAJIT" },
