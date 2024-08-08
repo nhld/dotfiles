@@ -53,7 +53,6 @@ local config = function()
     },
   }
 
-  lspconfig.emmet_language_server.setup {}
 
   local function organize_imports()
     local params = {
