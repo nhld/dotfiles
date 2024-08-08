@@ -64,10 +64,6 @@ local catppuccin_config = function()
   vim.cmd.colorscheme "catppuccin-mocha"
 
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
-
-  vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
-  vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
-  vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
 end
 
 local tokyonight_config = function()
@@ -83,10 +79,6 @@ local tokyonight_config = function()
   vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#4fd6be" })
   vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#ffc777" })
   vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#ff757f" })
-  -- illuminate word highlight
-  vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
-  vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
-  vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
 end
 
 return {
