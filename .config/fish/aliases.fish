@@ -32,6 +32,10 @@ if type -q lazygit
     alias lg lazygit
 end
 
+if type -q lazydocker
+    alias lzd lazydocker
+end
+
 if type -q eza
     alias ll "eza -l --icons --total-size --no-user -o"
     alias lla "ll -a"
