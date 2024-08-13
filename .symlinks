@@ -1,0 +1,37 @@
+#!/bin/zsh
+
+echo "Creating symlinks..."
+
+dotfiles_dir="$DOTFILES"
+target_dir="$XDG_CONFIG_HOME"
+created_count=0
+total_count=0
+
+[ ! -d "$dotfiles_dir" ] && echo "Directory $dotfiles_dir does not exist. Exiting..." && exit 1
+
+[ ! -d "$target_dir" ] && mkdir "$target_dir"
+
+for dir_path in "$dotfiles_dir"/*; do
+  dir_name=$(basename "$dir_path")
+  ((total_count++))
+
+  if [ -d "$dir_path" ]; then
+    if [ ! -e "$target_dir/$dir_name" ]; then
+      ln -sfn "$dir_path" "$target_dir/$dir_name"
+      if [ $? -eq 0 ]; then
+        ((created_count++))
+        echo "Symlink created for $dir_name."
+      else
+        echo "Failed to create symlink for $dir_name."
+      fi
+    else
+      echo "$dir_name already exists. ->"
+    fi
+  else
+    echo "Skipping $dir_name: Not a directory."
+  fi
+done
+
+echo
+echo "Created ($created_count/$total_count) symlinks."
+echo
