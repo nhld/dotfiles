@@ -23,6 +23,11 @@ local config = function()
       filtered_items = {
         visible = true,
       },
+      window = {
+        mappings = {
+          ["\\"] = "close_window",
+        },
+      },
     },
     window = {
       width = 45,
@@ -49,7 +54,7 @@ local config = function()
     },
   }
 
-  vim.keymap.set("n", "<C-b>", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neotree" })
+  vim.keymap.set("n", "<C-b>", "<cmd>Neotree reveal<CR>", { desc = "Show Neotree" })
 end
 
 return {

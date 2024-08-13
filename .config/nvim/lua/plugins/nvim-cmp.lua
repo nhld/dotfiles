@@ -22,7 +22,7 @@ local config = function()
       completeopt = "menu,menuone,noinsert" .. (true and "" or ",noselect"),
     },
     performance = {
-      max_view_entries = 10,
+      max_view_entries = 20,
     },
 
     mapping = cmp.mapping.preset.insert {
@@ -30,7 +30,7 @@ local config = function()
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      -- ["/"] = cmp.mapping.close(),
+      ["\\"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping.confirm { select = true },
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
@@ -67,7 +67,7 @@ local config = function()
       },
     },
     sources = {
-      { name = "nvim_lsp" },
+      { name = "nvim_lsp", max_item_count = 100 },
       { name = "luasnip" },
       { name = "path" },
       { name = "buffer" },
@@ -84,6 +84,7 @@ local config = function()
           latex_symbols = "[LaTeX]",
         })[entry.source.name]
         return vim_item
+        -- return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
       end,
     },
 
@@ -142,5 +143,6 @@ return {
     "rafamadriz/friendly-snippets",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-buffer",
+    "roobert/tailwindcss-colorizer-cmp.nvim",
   },
 }
