@@ -15,6 +15,8 @@ local function on_attach(client, bufnr)
   keymap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
   keymap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
   keymap("gD", vim.lsp.buf.declaration, "Goto Declaration")
+  keymap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+  keymap("<leader>rn", vim.lsp.buf.rename, "Rename")
 
   keymap("[e", function()
     vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
@@ -23,7 +25,7 @@ local function on_attach(client, bufnr)
     vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
   end, "Next error")
 
-  if client and client.server_capabilities.documentHighlightProvider then
+  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       buffer = bufnr,
       callback = vim.lsp.buf.document_highlight,
@@ -33,13 +35,21 @@ local function on_attach(client, bufnr)
       buffer = bufnr,
       callback = vim.lsp.buf.clear_references,
     })
+
+    vim.api.nvim_create_autocmd("LspDetach", {
+      callback = function(event2)
+        vim.lsp.buf.clear_references()
+        vim.api.nvim_clear_autocmds { buffer = event2.buf }
+      end,
+    })
   end
+
   local navic = require "nvim-navic"
-  if client.server_capabilities.documentSymbolProvider then
+  if client and client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
   end
 
-  if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
 end
