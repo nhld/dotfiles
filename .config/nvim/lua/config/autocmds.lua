@@ -13,10 +13,11 @@ vim.api.nvim_create_autocmd("FileType", {
     "startuptime",
     "checkhealth",
     "man",
+    "TelescopePrompt"
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = event.buf, silent = true })
+    vim.keymap.set("n", "q", "<cmd>q!<CR>", { buffer = event.buf, silent = true })
   end,
 })
 
