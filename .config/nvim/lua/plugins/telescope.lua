@@ -11,6 +11,7 @@ local config = function()
   }
 
   pcall(require("telescope").load_extension, "fzf")
+  pcall(require("telescope").load_extension, "yank_history")
 
   -- Telescope live_grep in git root
   -- Function to find the git root directory based on the current buffer's path
