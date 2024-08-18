@@ -10,7 +10,6 @@ vim.api.nvim_create_autocmd("FileType", {
     "lspinfo",
     "qf",
     "query",
-    "spectre_panel",
     "startuptime",
     "checkhealth",
     "man",
