@@ -13,17 +13,6 @@ local fmt = { "prettierd", "prettier", stop_after_first = true }
 
 local config = function()
   require("conform").setup {
-    formatters = {
-      prettier = { -- see https://github.com/stevearc/conform.nvim/issues/208
-        ---@diagnostic disable-next-line: unused-local
-        args = function(self, ctx)
-          if vim.endswith(ctx.filename, ".ejs") then
-            return { "--stdin-filepath", "$FILENAME", "--parser", "html" }
-          end
-          return { "--stdin-filepath", "$FILENAME" }
-        end,
-      },
-    },
     formatters_by_ft = {
       javascript = fmt,
       javascriptreact = fmt,
@@ -33,7 +22,7 @@ local config = function()
       css = fmt,
       scss = fmt,
       less = fmt,
-      html = fmt, --NOTE: prettierd cause error with .ejs
+      html = fmt,
       jsonc = fmt,
       yaml = fmt,
       markdown = fmt,

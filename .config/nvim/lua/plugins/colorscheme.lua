@@ -64,6 +64,13 @@ local catppuccin_config = function()
   vim.cmd.colorscheme "catppuccin-mocha"
 
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
+
+  vim.api.nvim_set_hl(0, "WinBar", { link = "EndOfBuffer" })
+  vim.api.nvim_set_hl(0, "TreesitterContext", { link = "EndOfBuffer" })
+  -- vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "#222436" })
+  -- vim.api.nvim_set_hl(0, "BufferLineSeparator", { bg = "#222436" })
+  -- vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", { bg = "#222436" })
+  vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#ffffff" })
 end
 
 local tokyonight_config = function()
@@ -74,11 +81,18 @@ local tokyonight_config = function()
   vim.cmd.colorscheme "tokyonight-moon"
 
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "yellow" })
-  vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#636da6" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { link = "Comment" })
 
   vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#4fd6be" })
   vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#ffc777" })
   vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#ff757f" })
+
+  vim.api.nvim_set_hl(0, "WinBar", { link = "EndOfBuffer" })
+  vim.api.nvim_set_hl(0, "TreesitterContext", { link = "EndOfBuffer" })
+  -- vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "#222436" })
+  -- vim.api.nvim_set_hl(0, "BufferLineSeparator", { bg = "#222436" })
+  -- vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", { bg = "#222436" })
+  vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#ffffff" })
 end
 
 return {

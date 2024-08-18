@@ -1,4 +1,4 @@
--- List of mini plugins: bufremove, ai, surround, hipatterns, icons
+-- List of mini plugins: bufremove, ai, surround, hipatterns, icons, indentscope
 return {
   {
     "echasnovski/mini.bufremove",
