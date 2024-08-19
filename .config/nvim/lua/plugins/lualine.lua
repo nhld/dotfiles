@@ -112,40 +112,7 @@ local config = function()
       lualine_z = {},
     },
     tabline = {},
-    winbar = {
-      lualine_c = {
-        {
-          "filetype",
-          icon_only = true,
-          color = {
-            bg = "NONE",
-          },
-          padding = {
-            left = 1,
-            right = 0,
-          },
-          cond = function()
-            return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-          end,
-        },
-        {
-          function()
-            local location = require("nvim-navic").get_location()
-            if location and location ~= "" then
-              return vim.fn.expand "%:t" .. " > " .. location
-            else
-              return vim.fn.expand "%:t"
-            end
-          end,
-          cond = function()
-            return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-          end,
-          color = { bg = "NONE", fg = "fff" },
-          padding = 0,
-        },
-      },
-      lualine_x = {},
-    },
+    winbar = {},
     inactive_winbar = {
       lualine_c = {
         {
@@ -158,9 +125,6 @@ local config = function()
             left = 1,
             right = 0,
           },
-          cond = function()
-            return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-          end,
         },
         { "filename", path = 1, color = { bg = "NONE" }, padding = 0 },
       },

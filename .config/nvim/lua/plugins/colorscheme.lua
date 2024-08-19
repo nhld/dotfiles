@@ -49,13 +49,6 @@ local catppuccin_config = function()
         enabled = true,
         indentscope_color = "",
       },
-      navic = {
-        enabled = false,
-        custom_bg = "NONE", -- "lualine" will set background to mantle
-      },
-      illuminate = {
-        enabled = false,
-        lsp = false,
       },
     },
   }

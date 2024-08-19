@@ -44,11 +44,6 @@ local function on_attach(client, bufnr)
     })
   end
 
-  local navic = require "nvim-navic"
-  if client and client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
-  end
-
   if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
