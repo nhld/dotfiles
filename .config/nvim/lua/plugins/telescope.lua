@@ -74,16 +74,16 @@ local config = function()
   map("<leader>ss", builtin.builtin, "[S]earch [S]elect Telescope")
   map("<leader>gf", builtin.git_files, "Search [G]it [F]iles")
   map("<leader>sf", builtin.find_files, "[S]earch [F]iles")
-  map("<leader>sh", builtin.help_tags, "[S]earch [H]elp")
+  map("<leader>st", builtin.help_tags, "[S]earch [H]elp")
   map("<leader>sw", builtin.grep_string, "[S]earch current [W]ord")
   map("<leader>sg", builtin.live_grep, "[S]earch by [G]rep")
   map("<leader>sG", ":LiveGrepGitRoot<cr>", "[S]earch by [G]rep on Git Root")
   map("<leader>sd", builtin.diagnostics, "[S]earch [D]iagnostics")
   map("<leader>sr", builtin.resume, "[S]earch [R]esume")
 
-  vim.keymap.set("n", "<leader>sn", function()
+  map("<leader>sn", function()
     builtin.find_files { cwd = vim.fn.stdpath "config" }
-  end, { desc = "[S]earch [N]eovim files" })
+  end, "[S]earch [N]eovim files")
 end
 
 return {
