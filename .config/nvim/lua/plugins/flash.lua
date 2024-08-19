@@ -7,24 +7,11 @@ local opts = {
     },
   },
 }
-
+-- stylua: ignore
 local keys = {
-  {
-    "ss",
-    mode = { "n", "x", "o" },
-    function()
-      require("flash").jump()
-    end,
-    desc = "Flash",
-  },
-  {
-    "r",
-    mode = "o",
-    function()
-      require("flash").treesitter_search()
-    end,
-    desc = "Treesitter Search",
-  },
+  { "SS", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter", },
+  { "ss", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash", },
+  { "r", mode = "o", function() require("flash").treesitter_search() end, desc = "Treesitter Search", },
 }
 
 return {
