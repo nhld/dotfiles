@@ -1,18 +1,5 @@
--- List of mini plugins: bufremove, ai, surround, hipatterns, icons, indentscope
+-- List of mini plugins: ai, surround, hipatterns, icons, indentscope
 return {
-  {
-    "echasnovski/mini.bufremove",
-    opts = {},
-    keys = {
-      {
-        "<leader>bd",
-        function()
-          require("mini.bufremove").delete(0, false)
-        end,
-        desc = "Delete current buffer",
-      },
-    },
-  },
   --  - va)  - [V]isually select [A]round [)]paren
   --  - yinq - [Y]ank [I]nside [N]ext [']quote
   --  - ci'  - [C]hange [I]nside [']quote
