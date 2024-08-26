@@ -21,4 +21,11 @@
   navigate = true
   side-by-side = true
   line-numbers = true
-  features = catppuccin-mocha
+  true-color = always
+  features = catppuccin-mocha decorations
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  ; file-decoration-style = none
+  hunk-header-decoration-style = cyan box ul
