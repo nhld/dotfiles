@@ -23,6 +23,16 @@ local config = function()
     },
     performance = {
       max_view_entries = 20,
+      debounce = 0,
+      throttle = 0,
+    },
+    window = {
+      completion = {
+        winhighlight = "Normal:Pmenu,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+      },
+      documentation = {
+        winhighlight = "Normal:Pmenu,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+      },
     },
 
     mapping = cmp.mapping.preset.insert {
