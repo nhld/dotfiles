@@ -77,6 +77,8 @@ local config = function()
     vim.lsp.buf.execute_command(params)
   end
 
+  vim.keymap.set("n", "<leader>oi", organize_imports, { desc = "Organize TS imports" })
+
   lspconfig.vtsls.setup {
     commands = {
       OrganizeImports = {
