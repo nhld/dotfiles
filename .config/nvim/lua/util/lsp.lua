@@ -1,27 +1,27 @@
 local M = {}
 
 local function on_attach(client, bufnr)
-  local function keymap(keys, func, desc, mode)
+  local function map(keys, func, desc, mode)
     mode = mode or "n"
     vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
   end
 
-  keymap("<C-h>", vim.lsp.buf.signature_help, "Signature Documentation", "i")
-  keymap("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
-  keymap("gr", require("telescope.builtin").lsp_references, "Goto References")
-  keymap("gI", require("telescope.builtin").lsp_implementations, "Goto Implementation")
-  keymap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type Definition")
-  keymap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
-  keymap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
-  keymap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-  keymap("gD", vim.lsp.buf.declaration, "Goto Declaration")
-  keymap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-  keymap("<leader>rn", vim.lsp.buf.rename, "Rename")
+  map("<C-h>", vim.lsp.buf.signature_help, "Signature Documentation", "i")
+  map("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
+  map("gr", require("telescope.builtin").lsp_references, "Goto References")
+  map("gI", require("telescope.builtin").lsp_implementations, "Goto Implementation")
+  map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type Definition")
+  map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+  map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+  map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+  map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+  map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+  map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
-  keymap("[e", function()
+  map("[e", function()
     vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
   end, "Previous error")
-  keymap("]e", function()
+  map("]e", function()
     vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
   end, "Next error")
 
@@ -52,8 +52,6 @@ end
 -- From here are extra highlights for lsp doc hover
 local md_namespace = vim.api.nvim_create_namespace "n/lsp_float"
 
---- Adds extra inline highlights to the given buffer.
----@param buf integer
 local function add_inline_highlights(buf)
   for l, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
     for pattern, hl_group in pairs {
@@ -80,11 +78,6 @@ local function add_inline_highlights(buf)
   end
 end
 
---- LSP handler that adds extra inline highlights, keymaps, and window options.
---- Code inspired from `noice`.
----@param handler fun(err: any, result: any, ctx: any, config: any): integer?, integer?
----@param focusable boolean
----@return fun(err: any, result: any, ctx: any, config: any)
 local function enhanced_float_handler(handler, focusable)
   return function(err, result, ctx, config)
     local bufnr, winnr = handler(
@@ -92,7 +85,8 @@ local function enhanced_float_handler(handler, focusable)
       result,
       ctx,
       vim.tbl_deep_extend("force", config or {}, {
-        --border = "rounded",
+        -- border = "rounded",
+        -- border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
         focusable = focusable,
         --max_height = math.floor(vim.o.lines * 0.5),
         --max_width = math.floor(vim.o.columns * 0.4),
