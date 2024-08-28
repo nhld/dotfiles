@@ -134,7 +134,16 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    { "williamboman/mason.nvim", opts = {} },
+    {
+      "williamboman/mason.nvim",
+      opts_extend = { "ensure_installed" },
+      opts = {
+        ensure_installed = {
+          "stylua",
+          "shfmt",
+        },
+      },
+    },
     { "williamboman/mason-lspconfig.nvim" },
     { "j-hui/fidget.nvim", opts = {} },
   },
