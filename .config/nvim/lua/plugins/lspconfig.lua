@@ -4,7 +4,7 @@ local config = function()
   local servers = {
     clangd = {},
     eslint = {},
-    html = { filetypes = { "html", "twig", "hbs", "ejs" } },
+    html = {},
     cssls = {},
     jsonls = {},
     bashls = {},
