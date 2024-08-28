@@ -159,6 +159,17 @@ local config = function()
     },
     extensions = {},
   }
+
+  local map = vim.keymap.set
+  map("n", "<A-1>", "<cmd>LualineBuffersJump! 1<cr>", { desc = "Go to buffer 1" })
+  map("n", "<A-2>", "<cmd>LualineBuffersJump! 2<cr>", { desc = "Go to buffer 2" })
+  map("n", "<A-3>", "<cmd>LualineBuffersJump! 3<cr>", { desc = "Go to buffer 3" })
+  map("n", "<A-4>", "<cmd>LualineBuffersJump! 4<cr>", { desc = "Go to buffer 4" })
+  map("n", "<A-5>", "<cmd>LualineBuffersJump! 5<cr>", { desc = "Go to buffer 5" })
+  map("n", "<A-6>", "<cmd>LualineBuffersJump! 6<cr>", { desc = "Go to buffer 6" })
+  map("n", "<A-7>", "<cmd>LualineBuffersJump! 7<cr>", { desc = "Go to buffer 7" })
+  map("n", "<A-8>", "<cmd>LualineBuffersJump! 8<cr>", { desc = "Go to buffer 8" })
+  map("n", "<A-9>", "<cmd>LualineBuffersJump! 9<cr>", { desc = "Go to buffer 9" })
 end
 
 return {
