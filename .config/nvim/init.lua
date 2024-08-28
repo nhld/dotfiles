@@ -20,6 +20,7 @@ require "config.autocmds"
 require "util.term"
 
 require("lazy").setup {
+  ui = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } },
   spec = {
     { import = "plugins" },
   },
