@@ -21,8 +21,8 @@ opt.splitbelow = true
 opt.signcolumn = "yes"
 opt.statuscolumn = [[%!v:lua.require'util.statuscol'.statuscolumn()]]
 opt.foldlevel = 99
+opt.foldexpr = "v:lua.require'util.statuscol'.foldexpr()"
 opt.foldmethod = "expr"
-opt.foldexpr = [[%!v:lua.require'util.statuscol'.foldexpr()]]
 opt.foldtext = ""
 opt.fillchars = require("config.icons").folds
 opt.list = true
@@ -36,6 +36,13 @@ opt.smartindent = true
 opt.wrap = true
 opt.linebreak = true
 opt.shortmess:append { I = true }
+opt.cursorline = true
+opt.cursorlineopt = "number"
+
+g.lazyvim_statuscolumn = {
+  folds_open = false,
+  folds_githl = true,
+}
 
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
