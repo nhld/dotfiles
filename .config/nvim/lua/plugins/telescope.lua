@@ -15,9 +15,11 @@ local config = function()
     },
   }
 
-  pcall(require("telescope").load_extension, "fzf")
-  pcall(require("telescope").load_extension, "ui-select")
-  pcall(require("telescope").load_extension, "yank_history")
+  local telescope = require "telescope"
+
+  pcall(telescope.load_extension, "fzf")
+  pcall(telescope.load_extension, "ui-select")
+  pcall(telescope.load_extension, "yank_history")
 
   local function find_git_root()
     local current_file = vim.api.nvim_buf_get_name(0)
@@ -54,14 +56,15 @@ local config = function()
 
   vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 
-  map("<leader>?", builtin.oldfiles, "[?] Find recently opened files")
-  map("<leader><space>", builtin.buffers, "[ ] Find existing buffers")
+  map("<leader>?", builtin.oldfiles, "Find recently opened files")
+  map("<leader><space>", builtin.buffers, "Find existing buffers")
+  map("<leader>sb", builtin.buffers, "Find existing buffers")
   map("<leader>/", function()
     builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
       winblend = 10,
       previewer = false,
     })
-  end, "[/] Fuzzily search in current buffer")
+  end, "Fuzzily search in current buffer")
 
   local function telescope_live_grep_open_files()
     builtin.live_grep {
@@ -70,20 +73,20 @@ local config = function()
     }
   end
 
-  map("<leader>s/", telescope_live_grep_open_files, "[S]earch [/] in Open Files")
-  map("<leader>ss", builtin.builtin, "[S]earch [S]elect Telescope")
-  map("<leader>gf", builtin.git_files, "Search [G]it [F]iles")
-  map("<leader>sf", builtin.find_files, "[S]earch [F]iles")
-  map("<leader>st", builtin.help_tags, "[S]earch [H]elp")
-  map("<leader>sw", builtin.grep_string, "[S]earch current [W]ord")
-  map("<leader>sg", builtin.live_grep, "[S]earch by [G]rep")
-  map("<leader>sG", ":LiveGrepGitRoot<cr>", "[S]earch by [G]rep on Git Root")
-  map("<leader>sd", builtin.diagnostics, "[S]earch [D]iagnostics")
-  map("<leader>sr", builtin.resume, "[S]earch [R]esume")
+  map("<leader>s/", telescope_live_grep_open_files, "Search [/] in Open Files")
+  map("<leader>ss", builtin.builtin, "Search Select Telescope")
+  map("<leader>gf", builtin.git_files, "Search Git Files")
+  map("<leader>sf", builtin.find_files, "Search Files")
+  map("<leader>st", builtin.help_tags, "Search Help")
+  map("<leader>sw", builtin.grep_string, "Search current Word")
+  map("<leader>sg", builtin.live_grep, "Search by Grep")
+  map("<leader>sG", ":LiveGrepGitRoot<cr>", "Search by Grep on Git Root")
+  map("<leader>sd", builtin.diagnostics, "Search Diagnostics")
+  -- map("<leader>sr", builtin.resume, "Search Resume")
 
   map("<leader>sn", function()
     builtin.find_files { cwd = vim.fn.stdpath "config" }
-  end, "[S]earch [N]eovim files")
+  end, "Search Neovim files")
 end
 
 return {
