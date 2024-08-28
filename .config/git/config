@@ -17,6 +17,12 @@
 [push]
   autoSetupRemote = true
 
+[merge]
+  confictstyle = diff3
+
+[diff]
+  colorMoved = default
+
 [delta]
   navigate = true
   side-by-side = true
@@ -27,5 +33,4 @@
 [delta "decorations"]
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
-  ; file-decoration-style = none
   hunk-header-decoration-style = cyan box ul
