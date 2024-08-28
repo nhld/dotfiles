@@ -1,4 +1,4 @@
-local function diff_source() ---@diagnostic disable-next-line: undefined-field
+local function diff_source()
   local gitsigns = vim.b.gitsigns_status_dict
   if gitsigns then
     return {
@@ -11,17 +11,6 @@ end
 
 local function lsp_info()
   local lsps = vim.lsp.get_clients { bufnr = vim.fn.bufnr() }
-  --[[ if lsps and #lsps > 0 then
-		-- local names = {}
-		-- for _, lsp in ipairs(lsps) do
-		-- 	table.insert(names, lsp.name)
-		-- end
-		-- --return string.format("%s %s", table.concat(names, ", "), icon)
-		--return string.format(" %s", table.concat(names, " "))
-		return " "
-	else
-		return " ?"
-	end ]]
   if lsps and #lsps > 0 then
     return "lsp"
   else
@@ -47,6 +36,20 @@ local function on_click_conform()
   vim.api.nvim_command "ConformInfo"
 end
 
+local function git_component()
+  local head = vim.b.gitsigns_head
+  if not head or head == "" then
+    return ""
+  end
+  return string.format(" %s", head)
+end
+
+local function position_component()
+  local line = vim.fn.line "."
+  local line_count = vim.api.nvim_buf_line_count(0)
+  local col = vim.fn.virtcol "."
+  return table.concat { "l:", string.format("%d/%d c:%2d", line, line_count, col) }
+end
 
 local function harpoon_component()
   local hp_list = require("harpoon"):list()
@@ -75,6 +78,15 @@ local function harpoon_component()
   return table.concat(output, " ")
 end
 
+local function filepath_component()
+  local path = vim.fn.expand "%:."
+  local components = {}
+  for component in string.gmatch(path, "[^/]+") do
+    table.insert(components, component)
+  end
+  return table.concat(components, " > ")
+end
+
 local config = function()
   require("lualine").setup {
     options = {
@@ -99,7 +111,7 @@ local config = function()
     sections = {
       lualine_a = { "mode" },
       lualine_b = {
-        { "branch", icon = "" },
+        { git_component },
       },
       lualine_c = {
         {
@@ -107,14 +119,16 @@ local config = function()
           source = diff_source,
           symbols = require("config.icons").git_diffs,
         },
-        { "filename", path = 3 },
-      },
-      lualine_x = {
+        { "filename" },
+        { "filetype", icon_only = true, padding = 0 },
         {
           "diagnostics",
           update_in_insert = true,
           symbols = require("config.icons").lsp_signs,
         },
+      },
+      lualine_x = {
+        { harpoon_component },
         "encoding",
         "filetype",
         {
@@ -125,22 +139,29 @@ local config = function()
           get_formatters,
           on_click = on_click_conform,
         },
-        { "progress" },
-        { "location" },
       },
-      lualine_y = {},
-      lualine_z = {},
-    },
-    inactive_sections = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = { "filename" },
-      lualine_x = { "location" },
-      lualine_y = {},
+      lualine_y = {
+        { position_component },
+      },
       lualine_z = {},
     },
     tabline = {},
-    winbar = {},
+    winbar = {
+      lualine_c = { { filepath_component }, { "filetype", icon_only = true, padding = 0 } },
+      lualine_x = {
+        {
+          "buffers",
+          show_filename_only = true,
+          hide_filename_extension = true,
+          show_modified_status = true,
+          mode = 1,
+          max_length = vim.o.columns * 2 / 3,
+          symbols = {
+            alternate_file = "➜",
+          },
+        },
+      },
+    },
     inactive_winbar = {
       lualine_c = {
         {
