@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "startuptime",
     "checkhealth",
     "man",
-    "TelescopePrompt"
+    "TelescopePrompt",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -74,4 +74,53 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
+})
+
+local startup_group = vim.api.nvim_create_augroup("startup", { clear = false })
+
+local function mark_buffer_persistent(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  vim.b[bufnr].persistent = true
+end
+
+vim.api.nvim_create_autocmd("BufRead", {
+  group = startup_group,
+  pattern = "*",
+  callback = function(args)
+    vim.api.nvim_create_autocmd({ "InsertEnter", "BufModifiedSet" }, {
+      buffer = args.buf,
+      once = true,
+      callback = function()
+        mark_buffer_persistent(args.buf)
+      end,
+    })
+  end,
+})
+
+local function close_non_persistent_buffers()
+  local current_buf = vim.api.nvim_get_current_buf()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[bufnr].buflisted and bufnr ~= current_buf and not vim.b[bufnr].persistent then
+      vim.api.nvim_buf_delete(bufnr, { force = false })
+    end
+  end
+end
+
+vim.keymap.set("n", "<leader>bc", close_non_persistent_buffers, {
+  silent = true,
+  desc = "Close all untouched buffers",
+})
+
+local function close_all_buffers_except_current()
+  local current_buf = vim.api.nvim_get_current_buf()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if buf ~= current_buf and vim.api.nvim_buf_is_valid(buf) then
+      pcall(vim.api.nvim_buf_delete, buf, { force = false })
+    end
+  end
+end
+
+vim.keymap.set("n", "<leader>bq", close_all_buffers_except_current, {
+  silent = true,
+  desc = "Close all buffers except current",
 })
