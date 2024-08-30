@@ -2,7 +2,7 @@ local keys = {
   {
     "<leader>f",
     function()
-      require("conform").format { async = true, lsp_fallback = true }
+      require("conform").format { async = true, lsp_format = "fallback" }
     end,
     mode = "",
     desc = "Format buffer",
@@ -11,8 +11,12 @@ local keys = {
 
 local fmt = { "prettierd", "prettier", stop_after_first = true }
 
-local config = function()
-  require("conform").setup {
+return {
+  "stevearc/conform.nvim",
+  event = { "BufReadPre", "BufNewFile"},
+  cmd = { "ConformInfo" },
+  keys = keys,
+  opts = {
     formatters_by_ft = {
       javascript = fmt,
       javascriptreact = fmt,
@@ -35,18 +39,16 @@ local config = function()
       fish = { "fish_indent" },
       go = { "gofumpt", "goimports-reviser", "goimports" },
     },
-    format_on_save = {
-      timeout_ms = 500,
-      lsp_fallback = true,
-    },
-    notify_on_error = true,
-  }
-end
-
-return {
-  "stevearc/conform.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-  cmd = { "ConformInfo" },
-  keys = keys,
-  config = config,
+    default_format_opts = { lsp_format = "fallback" },
+    format_on_save = function()
+      if not vim.g.autoformat then
+        return
+      end
+      return { timeout_ms = 500 }
+    end,
+    notify_on_error = false,
+  },
+  init = function()
+    vim.g.autoformat = true
+  end,
 }

@@ -1,12 +1,3 @@
-local opts = {
-  jump = { nohlsearch = true },
-  search = {
-    exclude = {
-      "cmp_menu",
-      "flash_prompt",
-    },
-  },
-}
 -- stylua: ignore
 local keys = {
   { "SS", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter", },
@@ -16,7 +7,14 @@ local keys = {
 
 return {
   "folke/flash.nvim",
-  event = "VeryLazy",
-  opts = opts,
   keys = keys,
+  opts = {
+    jump = { nohlsearch = true },
+    search = {
+      exclude = {
+        "cmp_menu",
+        "flash_prompt",
+      },
+    },
+  },
 }

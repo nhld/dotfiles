@@ -1,18 +1,21 @@
-local opts = {
-  signs = require("config.icons").git_signs,
-  current_line_blame_opts = {
-    virt_text_pos = "right_align",
-    delay = 300,
-  },
-  current_line_blame = true,
-  attach_to_untracked = true,
-  on_attach = function(bufnr)
-    local gitsigns = require "gitsigns"
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
+return {
+  "lewis6991/gitsigns.nvim",
+  event = { "BufReadPre", "BufNewFile" },
+  opts = {
+    signs = require("config.icons").git_signs,
+    current_line_blame_opts = {
+      virt_text_pos = "right_align",
+      delay = 300,
+    },
+    current_line_blame = true,
+    attach_to_untracked = true,
+    on_attach = function(bufnr)
+      local gitsigns = require "gitsigns"
+      local function map(mode, l, r, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+      end
     -- stylua: ignore start
     map("n", "]c", function() if vim.wo.diff then vim.cmd.normal { "]c", bang = true } else gitsigns.nav_hunk "next" end end, { desc = "Jump to next git change" })
     map("n", "[c", function() if vim.wo.diff then vim.cmd.normal { "[c", bang = true } else gitsigns.nav_hunk "prev" end end, { desc = "Jump to previous git change" })
@@ -23,12 +26,7 @@ local opts = {
     map("n", "<leader>gd", function() gitsigns.diffthis "@" end, { desc = "git Diff against last commit" })
     map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Toggle git show blame line" })
     map("n", "<leader>td", gitsigns.toggle_deleted, { desc = "Toggle git show Deleted" })
-    -- stylua: ignore end
-  end,
-}
-
-return {
-  "lewis6991/gitsigns.nvim",
-  event = "BufReadPre",
-  opts = opts,
+      -- stylua: ignore end
+    end,
+  },
 }
