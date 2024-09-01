@@ -37,7 +37,8 @@ if type -q lazydocker
 end
 
 if type -q eza
-    alias ll "eza -l --icons --total-size --no-user -o"
+    alias ls "eza --sort=extension --group-directories-first"
+    alias ll "ls -l --icons --total-size --no-user -o"
     alias lla "ll -a"
     alias llt "ll --tree --level=2 -a"
     alias lld "ll -D"
