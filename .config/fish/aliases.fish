@@ -5,27 +5,29 @@ if type -q nvim
     alias nv nvim
     alias vim nvim
     alias nn "nvim $NOTES_DIR/$(date +"%Y%m%d%H%M.md")"
+    alias yt "nvim ~/Learning/youtube.csv"
+    alias task "nvim ~/Documents/tasks.md"
 end
 
 alias g git
-alias ga 'git add'
-alias gb 'git branch'
-alias gc 'git commit --verbose'
-alias gcm 'git commit -m'
-alias gco 'git checkout'
-alias gf 'git fetch'
-alias gl 'git log'
-alias gm 'git merge'
-alias gp 'git push'
-alias gst 'git status'
+alias ga "git add"
+alias gb "git branch"
+alias gc "git commit --verbose"
+alias gcm "git commit -m"
+alias gco "git checkout"
+alias gf "git fetch"
+alias gl "git log"
+alias gm "git merge"
+alias gp "git push"
+alias gst "git status"
 
-alias .. 'cd ..'
+alias .. "cd .."
 alias rr "rm -rf"
 alias sf "source $XDG_CONFIG_HOME/fish/config.fish"
 
 if type -q z
-    alias dl 'z $HOME/Downloads'
-    alias dt 'z $HOME/Desktop'
+    alias dl "z $HOME/Downloads"
+    alias dt "z $HOME/Desktop"
 end
 
 if type -q lazygit
