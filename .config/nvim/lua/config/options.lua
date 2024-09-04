@@ -26,7 +26,7 @@ opt.foldmethod = "expr"
 opt.foldtext = ""
 opt.fillchars = require("config.icons").folds
 opt.list = true
-opt.listchars = { trail = "⋅", nbsp = "␣", eol = "↲", tab = "  ↦" }
+opt.listchars = { trail = "⋅", nbsp = "␣", tab = "  ↦" } -- eol = "↲",
 opt.showbreak = "↳"
 opt.inccommand = "split"
 opt.tabstop = 2
