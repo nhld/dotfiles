@@ -91,7 +91,11 @@ end
 
 return {
   "nvim-telescope/telescope.nvim",
-  event = "VeryLazy",
+  keys = {
+    { "<leader>sf" },
+    { "<leader>sn" },
+    { "<leader>sg" },
+  },
   config = config,
   branch = "0.1.x",
   dependencies = {
