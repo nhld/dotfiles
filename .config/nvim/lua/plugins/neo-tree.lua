@@ -1,5 +1,14 @@
-local config = function()
-  require("neo-tree").setup {
+return {
+  "nvim-neo-tree/neo-tree.nvim",
+  version = "*",
+  cmd = "Neotree",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+  },
+  keys = {
+    { "<C-b>", "<cmd>Neotree<cr>", desc = "Open Neotree" },
+  },
+  opts = {
     sources = {
       "filesystem",
       "buffers",
@@ -26,6 +35,7 @@ local config = function()
       window = {
         mappings = {
           ["\\"] = "close_window",
+          ["Z"] = "expand_all_nodes",
         },
       },
     },
@@ -52,18 +62,5 @@ local config = function()
         end,
       },
     },
-  }
-
-  vim.keymap.set("n", "<C-b>", "<cmd>Neotree reveal<CR>", { desc = "Show Neotree" })
-end
-
-return {
-  "nvim-neo-tree/neo-tree.nvim",
-  version = "*",
-  cmd = "Neotree",
-  dependencies = {
-    "MunifTanjim/nui.nvim",
   },
-  keys = { "<C-b>" },
-  config = config,
 }

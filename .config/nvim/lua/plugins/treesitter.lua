@@ -101,6 +101,7 @@ end
 
 return {
   "nvim-treesitter/nvim-treesitter",
+  version = false,
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",

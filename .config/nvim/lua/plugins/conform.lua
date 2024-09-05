@@ -9,11 +9,11 @@ local keys = {
   },
 }
 
-local fmt = { "prettierd", "prettier", stop_after_first = true }
+local fmt = { "prettier", "prettierd", stop_after_first = true }
 
 return {
   "stevearc/conform.nvim",
-  event = { "BufReadPre", "BufNewFile"},
+  event = { "BufReadPre", "BufNewFile" },
   cmd = { "ConformInfo" },
   keys = keys,
   opts = {
