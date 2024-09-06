@@ -7,7 +7,7 @@ target_dir="$XDG_CONFIG_HOME"
 created_count=0
 total_count=0
 
-[ ! -d "$dotfiles_dir" ] && echo "Directory $dotfiles_dir does not exist. Exiting..." && exit 1
+[ ! -d "$dotfiles_dir" ] && echo "Directory $dotfiles_dir does not exist. Exiting..." && exit 0
 
 [ ! -d "$target_dir" ] && mkdir "$target_dir"
 
