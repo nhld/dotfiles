@@ -1,0 +1,16 @@
+name: lua formatting
+on:
+  pull_request: ~
+  push: ~
+  workflow_dispatch:
+jobs:
+  stylua-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: stylua check
+        uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check .
