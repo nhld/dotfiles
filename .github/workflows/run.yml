@@ -1,0 +1,19 @@
+name: run
+
+on:
+  pull_request: ~
+  push: ~
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set execute permissions for required scripts
+        run: |
+          chmod +x ./.macos
+          chmod +x ./.install
+          chmod +x ./.symlinks
+          chmod +x ./run.sh
+      - name: Execute run script
+        run: ./run.sh
