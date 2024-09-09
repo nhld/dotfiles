@@ -1,75 +1,66 @@
-local has_words_before = function()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-end
-
 local config = function()
   local cmp = require "cmp"
   local luasnip = require "luasnip"
   local icons = require("config.icons").symbol_kinds
   luasnip.config.setup {}
   require("luasnip.loaders.from_vscode").lazy_load()
+  local winhighlight = "Normal:Pmenu,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None"
 
   cmp.setup {
-    preselect = true and cmp.PreselectMode.Item or cmp.PreselectMode.None,
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
       end,
     },
     completion = {
-      completeopt = "menu,menuone,noinsert" .. (true and "" or ",noselect"),
+      completeopt = "menu,menuone,noinsert,noselect",
     },
+    preselect = cmp.PreselectMode.None,
     performance = {
       max_view_entries = 20,
-      debounce = 0,
-      throttle = 0,
+      -- debounce = 0,
+      -- throttle = 0,
     },
     window = {
       completion = {
-        winhighlight = "Normal:Pmenu,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+        winhighlight = winhighlight,
       },
       documentation = {
-        winhighlight = "Normal:Pmenu,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+        winhighlight = winhighlight,
       },
     },
-
-    mapping = cmp.mapping.preset.insert {
-      ["<C-n>"] = cmp.mapping.select_next_item(),
-      ["<C-p>"] = cmp.mapping.select_prev_item(),
+    mapping = {
+      ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = false }, { "i", "c" }),
+      ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+      ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["\\"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm { select = true },
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          if #cmp.get_entries() == 1 then
-            cmp.confirm { select = true }
-          else
+      ["<Tab>"] = {
+        i = function(_)
+          if cmp.visible() then
             cmp.select_next_item()
+          else
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
           end
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.complete()
-          if #cmp.get_entries() == 1 then
-            cmp.confirm { select = true }
+        end,
+      },
+      ["<S-Tab>"] = {
+        i = function(_)
+          if cmp.visible() then
+            if #cmp.get_entries() == 1 then
+              cmp.confirm { select = true }
+            else
+              cmp.select_prev_item()
+            end
+          else
+            cmp.complete()
+            if #cmp.get_entries() == 1 then
+              cmp.confirm { select = true }
+            end
           end
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
+        end,
+      },
     },
     view = {
       entries = {
@@ -77,29 +68,33 @@ local config = function()
       },
     },
     sources = {
-      { name = "nvim_lsp", max_item_count = 100 },
+      {
+        name = "nvim_lsp",
+        -- max_item_count = 100
+      },
       { name = "luasnip" },
       { name = "path" },
       { name = "buffer" },
     },
     sorting = require "cmp.config.default"().sorting,
     formatting = {
-      format = function(entry, vim_item)
-        vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
-        vim_item.menu = ({
-          buffer = "[Buffer]",
-          nvim_lsp = "[LSP]",
-          luasnip = "[LuaSnip]",
-          nvim_lua = "[Lua]",
-          latex_symbols = "[LaTeX]",
-        })[entry.source.name]
-        return vim_item
-        -- return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+      format = function(entry, item)
+        if icons[item.kind] then
+          item.kind = string.format("%s %s", icons[item.kind], item.kind)
+        end
+        -- item.menu = entry.source.name
+        local widths = { abbr = 40, menu = 30 }
+        for key, width in pairs(widths) do
+          if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+            item[key] = string.format("%s%s", vim.fn.strcharpart(item[key], 0, width - 1), "…")
+          end
+        end
+        -- return item
+        return require("tailwindcss-colorizer-cmp").formatter(entry, item)
       end,
     },
 
     cmp.setup.cmdline(":", {
-      enabled = true,
       completion = {
         completeopt = "menu,menuone,noinsert,noselect",
       },
@@ -115,6 +110,22 @@ local config = function()
                 cmp.confirm { select = true }
               else
                 cmp.select_next_item()
+              end
+            else
+              cmp.complete()
+              if #cmp.get_entries() == 1 then
+                cmp.confirm { select = true }
+              end
+            end
+          end,
+        },
+        ["<S-Tab>"] = {
+          c = function(_)
+            if cmp.visible() then
+              if #cmp.get_entries() == 1 then
+                cmp.confirm { select = true }
+              else
+                cmp.select_prev_item()
               end
             else
               cmp.complete()
@@ -142,7 +153,8 @@ local config = function()
 end
 
 return {
-  "hrsh7th/nvim-cmp",
+  "yioneko/nvim-cmp",
+  branch = "perf",
   config = config,
   event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
@@ -150,7 +162,6 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
-    "rafamadriz/friendly-snippets",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-buffer",
     "roobert/tailwindcss-colorizer-cmp.nvim",
