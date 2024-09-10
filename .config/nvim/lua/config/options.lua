@@ -35,9 +35,10 @@ opt.expandtab = true
 opt.smartindent = true
 opt.wrap = true
 opt.linebreak = true
-opt.shortmess:append { I = true }
+opt.shortmess = { I = true }
 opt.cursorline = true
 opt.cursorlineopt = "number"
+opt.colorcolumn = { "80", "120" }
 
 g.lazyvim_statuscolumn = {
   folds_open = false,

@@ -14,8 +14,8 @@ M.git_diffs = {
 }
 
 M.git_signs = {
-  add = { text = "┃" },
-  change = { text = "┃" },
+  add = { text = "│" }, -- "│""┃"
+  change = { text = "│" },
   delete = { text = "_" },
   topdelete = { text = "‾" },
   changedelete = { text = "~" },
@@ -64,7 +64,8 @@ M.symbol_kinds = {
   Interface = " ",
   Key = " ",
   Keyword = " ",
-  Method = "󰊕 ",
+  -- Method = "󰊕",
+  Method = "󰆧 ",
   Module = " ",
   Namespace = "󰦮 ",
   Null = " ",
@@ -81,7 +82,8 @@ M.symbol_kinds = {
   TypeParameter = " ",
   Unit = " ",
   Value = " ",
-  Variable = "󰀫 ",
+  -- Variable = "󰀫",
+  Variable = "󰂡 ",
 }
 
 return M
