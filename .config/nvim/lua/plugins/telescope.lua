@@ -96,6 +96,7 @@ return {
     { "<leader>sn" },
     { "<leader>sg" },
   },
+  cmd = "Telescope",
   config = config,
   branch = "0.1.x",
   dependencies = {
