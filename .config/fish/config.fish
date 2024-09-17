@@ -10,10 +10,6 @@ if test -d (brew --prefix)"/share/fish/vendor_completions.d"
     set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
 end
 
-source $XDG_CONFIG_HOME/fish/aliases.fish
-source "$HOME/.cargo/env.fish"
-
-
 if type -q fnm
     fnm env --use-on-cd | source
 end
@@ -29,3 +25,6 @@ end
 if type -q fzf
     fzf --fish | source
 end
+
+source $XDG_CONFIG_HOME/fish/aliases.fish
+source "$HOME/.cargo/env.fish"

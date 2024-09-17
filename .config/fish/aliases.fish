@@ -28,6 +28,7 @@ alias sf "source $XDG_CONFIG_HOME/fish/config.fish"
 if type -q z
     alias dl "z $HOME/Downloads"
     alias dt "z $HOME/Desktop"
+    alias cd z
 end
 
 if type -q lazygit
@@ -39,7 +40,7 @@ if type -q lazydocker
 end
 
 if type -q eza
-    alias ls "eza --sort=extension --group-directories-first"
+    alias ls "eza --sort=extension --group-directories-first --icons --all"
     alias ll "ls -l --icons --total-size --no-user -o"
     alias lla "ll -a"
     alias llt "ll --tree --level=2 -a"
