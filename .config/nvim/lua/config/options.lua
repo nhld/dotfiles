@@ -39,6 +39,7 @@ opt.shortmess = { I = true }
 opt.cursorline = true
 opt.cursorlineopt = "number"
 opt.colorcolumn = { "80", "120" }
+opt.swapfile = false
 
 g.lazyvim_statuscolumn = {
   folds_open = false,
