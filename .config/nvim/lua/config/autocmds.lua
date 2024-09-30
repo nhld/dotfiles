@@ -124,3 +124,10 @@ vim.keymap.set("n", "<leader>bq", close_all_buffers_except_current, {
   silent = true,
   desc = "Close all buffers except current",
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "oil",
+  callback = function()
+    vim.opt_local.colorcolumn = ""
+  end,
+})
