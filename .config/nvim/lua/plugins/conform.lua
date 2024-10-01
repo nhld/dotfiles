@@ -1,19 +1,17 @@
-local keys = {
-  {
-    "<leader>f",
-    function()
-      require("conform").format { async = true, lsp_format = "fallback" }
-    end,
-    mode = "",
-    desc = "Format buffer",
-  },
-}
-
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre", "LspAttach" },
   cmd = { "ConformInfo" },
-  keys = keys,
+  keys = {
+    {
+      "<leader>f",
+      function()
+        require("conform").format { async = true, lsp_format = "fallback" }
+      end,
+      mode = "",
+      desc = "Format buffer",
+    },
+  },
   opts = {
     formatters_by_ft = {
       css = { "stylelint" },
@@ -28,9 +26,6 @@ return {
     },
     default_format_opts = { lsp_format = "fallback" },
     format_on_save = function(bufnr)
-      if not vim.g.format_on_save then
-        return
-      end
       local res = { timeout_ms = 500 }
       local filetype = vim.bo[bufnr].filetype
       if
@@ -45,18 +40,4 @@ return {
     end,
     notify_on_error = false,
   },
-  init = function()
-    vim.g.format_on_save = true
-    vim.keymap.set("n", "<leader>fm", ":lua ToggleFormatOnSave()<CR>", { noremap = true, silent = true, desc = "Toggle format on save" })
-
-    function ToggleFormatOnSave()
-      if vim.g.format_on_save then
-        vim.g.format_on_save = false
-        print "Format on save OFF"
-      else
-        vim.g.format_on_save = true
-        print "Format on save ON"
-      end
-    end
-  end,
 }
