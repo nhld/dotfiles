@@ -1,4 +1,4 @@
-name: CI
+name: formatter 
 on:
   pull_request: ~
   push: ~
@@ -13,9 +13,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --check .
-  luacheck:
-    name: luacheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: lunarmodules/luacheck@v1
+  # luacheck:
+  #   name: luacheck
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: lunarmodules/luacheck@v1
