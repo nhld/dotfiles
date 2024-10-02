@@ -1,10 +1,10 @@
-name: lint everything 
+name: linter 
 on:
   pull_request: ~
   push: ~
 jobs:
   linter:
-    name: lint everything 
+    name: super linter 
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
