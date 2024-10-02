@@ -1,5 +1,6 @@
 [include]
   path = ~/dotfiles/.config/git/catppuccin.gitconfig
+  path = ~/dotfiles/.config/git/config.local
 
 [core]
   editor = nvim
@@ -25,7 +26,7 @@
 
 [delta]
   navigate = true
-  side-by-side = true
+  side-by-side = false 
   line-numbers = true
   true-color = always
   features = catppuccin-mocha decorations
