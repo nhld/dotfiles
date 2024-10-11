@@ -131,3 +131,13 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.colorcolumn = ""
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "checkhealth",
+  callback = function()
+    vim.opt_local.colorcolumn = ""
+    vim.opt_local.number = false
+    vim.opt_local.rnu = false
+    vim.b.miniindentscope_disable = true
+  end,
+})
