@@ -12,6 +12,7 @@ return {
         ensure_installed = {
           "stylua",
           "shfmt",
+          "fish_indent",
         },
       },
     },
@@ -21,11 +22,28 @@ return {
   },
   opts = {
     servers = {
-      clangd = {},
-      eslint = {},
+      clangd = {
+        settings = {
+          cmd = {
+            "clangd",
+            "--clang-tidy",
+            "--header-insertion=iwyu",
+            "--completion-style=detailed",
+            "--fallback-style=none",
+            "--function-arg-placeholders=false",
+          },
+        },
+      },
       html = {},
       cssls = {},
-      jsonls = {},
+      jsonls = {
+        settings = {
+          json = {
+            validate = { enable = true },
+            format = { enable = true },
+          },
+        },
+      },
       bashls = {},
       lua_ls = {
         settings = {
@@ -74,6 +92,13 @@ return {
         },
       },
       emmet_language_server = {},
+      eslint = {
+        settings = {
+          workingDirectories = { mode = "auto" },
+          format = false,
+        },
+      },
+      dprint = {},
       gopls = {
         root_dir = function(fname)
           return require("lspconfig/util").root_pattern("go.work", "go.mod", ".git")(fname) or vim.fn.getcwd()
