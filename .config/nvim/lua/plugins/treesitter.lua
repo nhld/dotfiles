@@ -1,29 +1,33 @@
 local config = function()
   require("nvim-treesitter.configs").setup {
     ensure_installed = {
+      "bash",
       "c",
-      "cpp",
-      "go",
-      "lua",
-      "python",
-      "tsx",
-      "javascript",
-      "typescript",
-      "vimdoc",
-      "vim",
-      "html",
-      "json",
       "css",
-      "markdown",
-      "markdown_inline",
+      "cpp",
+      "diff",
+      "dockerfile",
       "fish",
       "gitcommit",
-      "toml",
-      "bash",
-      "yaml",
+      "git_config",
+      "go",
+      "html",
+      "json",
+      "javascript",
+      "lua",
+      "markdown",
+      "markdown_inline",
       "query",
+      "python",
+      "scss",
+      "tsx",
+      "typescript",
+      "toml",
+      "vim",
+      "vimdoc",
+      "yaml",
     },
-    auto_install = true,
+    auto_install = false,
     highlight = {
       enable = true,
       additional_vim_regex_highlighting = false,
@@ -31,7 +35,6 @@ local config = function()
         if not vim.bo[buf].modifiable then
           return false
         end
-
         local max_filesize = 200 * 1024 -- 200 KB
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
@@ -40,9 +43,6 @@ local config = function()
       end,
     },
     indent = { enable = true },
-    folding = {
-      enable = true,
-    },
     incremental_selection = {
       enable = true,
       keymaps = {
@@ -50,6 +50,15 @@ local config = function()
         node_incremental = "<c-space>",
         scope_incremental = false,
         node_decremental = "<M-space>",
+      },
+    },
+    textobjects = {
+      move = {
+        enable = true,
+        goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+        goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+        goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+        goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
       },
     },
   }
@@ -70,11 +79,10 @@ return {
       },
       keys = {
         {
-          "[c",
+          "[g",
           function()
-            -- Jump to previous change when in diffview.
             if vim.wo.diff then
-              return "[c"
+              return "[g"
             else
               vim.schedule(function()
                 require("treesitter-context").go_to_context()
@@ -89,5 +97,6 @@ return {
     },
   },
   build = ":TSUpdate",
+  cmd = { "TSInstall", "TSUpdate" },
   config = config,
 }
