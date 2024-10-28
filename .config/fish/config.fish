@@ -6,10 +6,6 @@ end
 fish_vi_key_bindings
 set -U fish_greeting
 
-if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-    set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
-end
-
 if type -q fnm
     fnm env --use-on-cd | source
 end
@@ -24,6 +20,16 @@ end
 
 if type -q fzf
     fzf --fish | source
+end
+
+if test "$os" = Darwin
+    if test -d (brew --prefix)"/share/fish/completions"
+        set -p fish_complete_path (brew --prefix)/share/fish/completions
+    end
+    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+        set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+    end
+
 end
 
 source $XDG_CONFIG_HOME/fish/aliases.fish
