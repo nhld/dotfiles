@@ -1,6 +1,6 @@
 return {
   "stevearc/conform.nvim",
-  event = { "BufWritePre", "LspAttach" },
+  event = { "BufWritePre" },
   cmd = { "ConformInfo" },
   keys = {
     {
@@ -19,6 +19,15 @@ return {
       lua = { "stylua" },
       sh = { "shfmt" },
       zsh = { "shfmt" },
+      html = { "prettier" },
+      css = { "prettier" },
+      javascript = { "prettier" },
+      typescript = { "prettier" },
+      javascriptreact = { "prettier" },
+      typescriptreact = { "prettier" },
+      json = { "prettier" },
+      jsonc = { "prettier" },
+      markdown = { "prettier" },
     },
     default_format_opts = { lsp_format = "fallback" },
     format_on_save = { timeout_ms = 500 },
