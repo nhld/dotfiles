@@ -82,17 +82,7 @@ local config = function()
       },
       lualine_z = {},
     },
-    inactive_winbar = {
-      lualine_c = {
-        {
-          "filetype",
-          icon_only = true,
-          color = { bg = "NONE" },
-          padding = { left = 1, right = 0 },
-        },
-        { "filename", path = 1, color = { bg = "NONE" }, padding = 0 },
-      },
-    },
+    inactive_winbar = {},
   }
 
   local map = vim.keymap.set
