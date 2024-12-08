@@ -24,7 +24,7 @@ local function on_attach(client, bufnr)
     vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
   end, "Next error")
 
-  if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       buffer = bufnr,
       callback = vim.lsp.buf.document_highlight,
@@ -43,7 +43,7 @@ local function on_attach(client, bufnr)
     })
   end
 
-  if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
 end

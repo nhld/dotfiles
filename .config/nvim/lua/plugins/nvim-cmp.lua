@@ -3,7 +3,9 @@ local config = function()
   local luasnip = require "luasnip"
   local icons = require("config.icons").symbol_kinds
   luasnip.config.setup {}
-  require("luasnip.loaders.from_vscode").lazy_load()
+  require("luasnip.loaders.from_vscode").lazy_load {
+    paths = vim.fn.stdpath "config" .. "/snippets",
+  }
   local winhighlight = "Normal:Pmenu,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None"
 
   cmp.setup {
@@ -72,7 +74,15 @@ local config = function()
         name = "nvim_lsp",
         -- max_item_count = 100
       },
-      { name = "luasnip" },
+      {
+        name = "luasnip",
+        entry_filter = function()
+          local ctx = require "cmp.config.context"
+          local in_string = ctx.in_syntax_group "String" or ctx.in_treesitter_capture "string"
+          local in_comment = ctx.in_syntax_group "Comment" or ctx.in_treesitter_capture "comment"
+          return not in_string and not in_comment
+        end,
+      },
       { name = "path" },
       {
         name = "buffer",
@@ -164,6 +174,7 @@ local config = function()
         { name = "buffer" },
       },
     }),
+    vim.keymap.set("s", "<BS>", "<C-O>s"),
   }
 end
 
