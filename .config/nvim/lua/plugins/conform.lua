@@ -28,9 +28,13 @@ return {
       json = { "prettier" },
       jsonc = { "prettier" },
       markdown = { "prettier" },
+      ["_"] = { "trim_whitespace", "trim_newlines" },
     },
     default_format_opts = { lsp_format = "fallback" },
     format_on_save = { timeout_ms = 500 },
     notify_on_error = false,
   },
+  init = function()
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+  end,
 }
