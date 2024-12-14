@@ -12,14 +12,13 @@ local config = function()
       ["ui-select"] = {
         require("telescope.themes").get_dropdown(),
       },
+      fzf = {},
     },
   }
 
-  local telescope = require "telescope"
-
-  pcall(telescope.load_extension, "fzf")
-  pcall(telescope.load_extension, "ui-select")
-  pcall(telescope.load_extension, "yank_history")
+  pcall(require("telescope").load_extension, "fzf")
+  pcall(require("telescope").load_extension, "ui-select")
+  pcall(require("telescope").load_extension, "yank_history")
 
   local function find_git_root()
     local current_file = vim.api.nvim_buf_get_name(0)
@@ -58,7 +57,6 @@ local config = function()
 
   map("<leader>?", builtin.oldfiles, "Find recently opened files")
   map("<leader><space>", builtin.buffers, "Find existing buffers")
-  map("<leader>sb", builtin.buffers, "Find existing buffers")
   map("<leader>/", function()
     builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
       winblend = 10,
@@ -82,7 +80,6 @@ local config = function()
   map("<leader>sg", builtin.live_grep, "Search by Grep")
   map("<leader>sG", ":LiveGrepGitRoot<cr>", "Search by Grep on Git Root")
   map("<leader>sd", builtin.diagnostics, "Search Diagnostics")
-  -- map("<leader>sr", builtin.resume, "Search Resume")
 
   map("<leader>sn", function()
     builtin.find_files { cwd = vim.fn.stdpath "config" }
@@ -92,9 +89,9 @@ end
 return {
   "nvim-telescope/telescope.nvim",
   keys = {
-    { "<leader>sf" },
-    { "<leader>sn" },
-    { "<leader>sg" },
+    { "<leader>sf", desc = "Search Files" },
+    { "<leader>sn", desc = "Search Nvim Conf Files" },
+    { "<leader>sg", desc = "Search by Grep" },
   },
   cmd = "Telescope",
   config = config,
