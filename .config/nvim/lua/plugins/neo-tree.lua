@@ -6,7 +6,7 @@ return {
     "MunifTanjim/nui.nvim",
   },
   keys = {
-    { "<C-b>", "<cmd>Neotree<cr>", desc = "Open Neotree" },
+    { "<leader>nt", "<cmd>Neotree<cr>", desc = "Open Neotree" },
   },
   opts = {
     sources = {
@@ -35,7 +35,7 @@ return {
       window = {
         mappings = {
           ["\\"] = "close_window",
-          ["Z"] = "expand_all_nodes",
+          ["z"] = "expand_all_nodes",
         },
       },
     },
