@@ -32,6 +32,9 @@ return {
             "--fallback-style=none",
             "--function-arg-placeholders=false",
           },
+          init_options = {
+            fallbackFlags = { "-std=c++17" },
+          },
         },
       },
       html = {},
