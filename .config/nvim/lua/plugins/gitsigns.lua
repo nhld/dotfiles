@@ -7,7 +7,7 @@ return {
       virt_text_pos = "right_align",
       delay = 300,
     },
-    current_line_blame = true,
+    current_line_blame = false,
     attach_to_untracked = true,
     on_attach = function(bufnr)
       local gitsigns = require "gitsigns"
