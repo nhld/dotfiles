@@ -1,0 +1,18 @@
+# Font
+font-size = 19
+bold-is-bright = true
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+quit-after-last-window-closed = true
+cursor-style = block
+mouse-hide-while-typing = true
+cursor-style-blink = false
+window-padding-balance = true
+term = xterm-ghostty
+
+# MacOS
+macos-window-shadow = false
+macos-option-as-alt = true
+window-colorspace = display-p3
