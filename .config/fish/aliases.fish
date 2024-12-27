@@ -32,6 +32,7 @@ if type -q z
 end
 
 if type -q lazygit
+    alias lazygit "TERM=xterm-256color command lazygit"
     alias lg lazygit
 end
 
