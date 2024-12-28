@@ -1,0 +1,5 @@
+macos-window-shadow = false
+macos-option-as-alt = true
+window-colorspace = display-p3
+quit-after-last-window-closed = true
+mouse-hide-while-typing = true
