@@ -26,12 +26,12 @@
 
 [delta]
   navigate = true
-  side-by-side = false 
+  side-by-side = false
   line-numbers = true
   true-color = always
   features = catppuccin-mocha decorations
 
 [delta "decorations"]
-  commit-decoration-style = bold yellow box ul
-  file-style = bold yellow ul
+  commit-decoration-style = yellow box ul
+  file-style = yellow ul
   hunk-header-decoration-style = cyan box ul
