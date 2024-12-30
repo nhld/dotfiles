@@ -5,10 +5,18 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
+copy-on-select = clipboard
+confirm-close-surface = false
+
 cursor-style = block
 cursor-style-blink = false
+
 window-padding-balance = true
 term = xterm-ghostty
 
+adjust-underline-position = 6
+adjust-underline-thickness = 20%
+
+theme = catppuccin-mocha
 
 config-file = ?config-macos
