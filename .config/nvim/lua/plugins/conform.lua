@@ -21,14 +21,22 @@ return {
       zsh = { "shfmt" },
       html = { "prettier" },
       css = { "prettier" },
-      javascript = { "prettier" },
-      typescript = { "prettier" },
-      javascriptreact = { "prettier" },
-      typescriptreact = { "prettier" },
+      javascript = { "dprint", "prettierd", "prettier", stop_after_first = true },
+      typescript = { "dprint", "prettierd", "prettier", stop_after_first = true },
+      javascriptreact = { "dprint" },
+      typescriptreact = { "dprint" },
       json = { "prettier" },
       jsonc = { "prettier" },
       markdown = { "prettier" },
       ["_"] = { "trim_whitespace", "trim_newlines" },
+      python = { "black" },
+    },
+    formatters = {
+      dprint = {
+        condition = function(_, ctx)
+          return vim.fs.find({ "dprint.json", ".dprint.jsonc" }, { path = ctx.filename, upward = true })[1]
+        end,
+      },
     },
     default_format_opts = { lsp_format = "fallback" },
     format_on_save = { timeout_ms = 500 },
