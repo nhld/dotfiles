@@ -39,10 +39,17 @@ return {
       },
     },
     default_format_opts = { lsp_format = "fallback" },
-    format_on_save = { timeout_ms = 500 },
+    format_on_save = function()
+      if vim.g.formatonsave then
+        return { timeout_ms = 500 }
+      else
+        return nil
+      end
+    end,
     notify_on_error = false,
   },
   init = function()
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    vim.g.formatonsave = true
   end,
 }
