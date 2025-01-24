@@ -24,25 +24,6 @@ local function on_attach(client, bufnr)
     vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
   end, "Next error")
 
-  -- if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-  --   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  --     buffer = bufnr,
-  --     callback = vim.lsp.buf.document_highlight,
-  --   })
-  --
-  --   vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-  --     buffer = bufnr,
-  --     callback = vim.lsp.buf.clear_references,
-  --   })
-  --
-  --   vim.api.nvim_create_autocmd("LspDetach", {
-  --     callback = function(event2)
-  --       vim.lsp.buf.clear_references()
-  --       vim.api.nvim_clear_autocmds { buffer = event2.buf }
-  --     end,
-  --   })
-  -- end
-
   if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
@@ -64,20 +45,6 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
-local show_handler = vim.diagnostic.handlers.virtual_text.show
-assert(show_handler)
-local hide_handler = vim.diagnostic.handlers.virtual_text.hide
-
-vim.diagnostic.handlers.virtual_text = {
-  show = function(ns, bufnr, diagnostics, opts)
-    table.sort(diagnostics, function(diag1, diag2)
-      return diag1.severity > diag2.severity
-    end)
-    return show_handler(ns, bufnr, diagnostics, opts)
-  end,
-  hide = hide_handler,
-}
 
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "Configure LSP keymaps",
