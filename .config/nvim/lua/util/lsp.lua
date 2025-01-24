@@ -25,7 +25,7 @@ local function on_attach(client, bufnr)
   end, "Next error")
 
   if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
   end
 end
 
