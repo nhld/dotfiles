@@ -13,6 +13,8 @@ map("n", "<C-d>", "<C-d>zz", { desc = "Scroll downwards" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Scroll upwards" })
 map("n", "n", "nzzzv", { desc = "Next result" })
 map("n", "N", "Nzzzv", { desc = "Previous result" })
+map("n", "j", [[(v:count > 1 ? 'm`' . v:count : 'g') . 'j']], { expr = true })
+map("n", "k", [[(v:count > 1 ? 'm`' . v:count : 'g') . 'k']], { expr = true })
 
 map("n", "<leader>so", ":split<CR>", { desc = "Split horizontally" })
 map("n", "<leader>si", ":vsplit<CR>", { desc = "Split vertically" })
