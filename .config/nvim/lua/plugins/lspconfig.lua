@@ -60,7 +60,7 @@ return {
               },
             },
             telemetry = { enable = false },
-            diagnostics = { disable = { "missing-fields" } },
+            -- diagnostics = { disable = { "missing-fields" } },
             completion = { callSnippet = "Replace" },
           },
         },
@@ -72,7 +72,7 @@ return {
             enableMoveToFileCodeAction = true,
             autoUseWorkspaceTsdk = true,
             experimental = {
-              maxInlayHintLength = 30,
+              -- maxInlayHintLength = 30,
               completion = {
                 enableServerSideFuzzyMatch = true,
               },
