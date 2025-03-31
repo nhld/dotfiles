@@ -180,6 +180,7 @@ end
 
 return {
   "yioneko/nvim-cmp",
+  enabled = false,
   branch = "perf",
   config = config,
   event = { "InsertEnter", "CmdlineEnter" },
