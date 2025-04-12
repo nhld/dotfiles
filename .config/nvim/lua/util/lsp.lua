@@ -18,10 +18,10 @@ local function on_attach(client, bufnr)
   map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
   map("[e", function()
-    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+    vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR }
   end, "Previous error")
   map("]e", function()
-    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+    vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR }
   end, "Next error")
 
   if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
