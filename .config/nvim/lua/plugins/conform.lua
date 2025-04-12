@@ -21,24 +21,22 @@ return {
       zsh = { "shfmt" },
       html = { "prettier" },
       css = { "prettier" },
-      javascript = { "dprint", "prettierd", "prettier", stop_after_first = true },
-      typescript = { "dprint", "prettierd", "prettier", stop_after_first = true },
-      javascriptreact = { "dprint" },
-      typescriptreact = { "dprint" },
+      -- javascript = { "dprint", "prettierd", "prettier", stop_after_first = true },
+      -- typescript = { "dprint", "prettierd", "prettier", stop_after_first = true },
+      javascript = { "prettier", name = "dprint", timeout_ms = 500, lsp_format = "fallback" },
+      javascriptreact = { "prettier", name = "dprint", timeout_ms = 500, lsp_format = "fallback" },
+      -- javascriptreact = { "dprint" },
+      -- typescriptreact = { "dprint" },
+      typescript = { "prettier", name = "dprint", timeout_ms = 500, lsp_format = "fallback" },
+      typescriptreact = { "prettier", name = "dprint", timeout_ms = 500, lsp_format = "fallback" },
       json = { "prettier" },
       jsonc = { "prettier" },
       markdown = { "prettier" },
       ["_"] = { "trim_whitespace", "trim_newlines" },
       python = { "black" },
+      cpp = { name = "clangd", timeout_ms = 500, lsp_format = "prefer" },
+      c = { name = "clangd", timeout_ms = 500, lsp_format = "prefer" },
     },
-    formatters = {
-      dprint = {
-        condition = function(_, ctx)
-          return vim.fs.find({ "dprint.json", ".dprint.jsonc" }, { path = ctx.filename, upward = true })[1]
-        end,
-      },
-    },
-    default_format_opts = { lsp_format = "fallback" },
     format_on_save = function()
       if vim.g.formatonsave then
         return { timeout_ms = 500 }
@@ -47,6 +45,7 @@ return {
       end
     end,
     notify_on_error = false,
+    notify_no_formatters = true,
   },
   init = function()
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
