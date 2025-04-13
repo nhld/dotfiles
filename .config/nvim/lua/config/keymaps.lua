@@ -42,9 +42,7 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 
 map({ "n", "v", "s", "i" }, "<C-s>", "<Esc><cmd>w<cr>", { desc = "Save" })
 
-map("n", "[b", "<cmd>bprev<cr>", { desc = "Go to previous buffer" })
 map("n", "<s-tab>", "<cmd>bprev<cr>", { desc = "Go to previous buffer" })
-map("n", "]b", "<cmd>bnext<cr>", { desc = "Go to next buffer" })
 map("n", "<tab>", "<cmd>bnext<cr>", { desc = "Go to next buffer" })
 map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete current buffer" })
 map("n", "<leader>bf", "<cmd>bfirst<cr>", { desc = "Go to first buffer" })
