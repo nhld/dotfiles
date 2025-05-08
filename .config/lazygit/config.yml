@@ -1,17 +1,19 @@
-git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
-notARepository: "quit"
-gui:
-  sidePanelWidth: 0.2
-  scrollPastBottom: false
-  commitLength:
-    show: true
-  showFileTree: true
-  showIcons: true
-os:
-  editPreset: nvim
-border: rounded
-nerdFontsVersion: "3"
-reporting: "off"
+# git:
+#   paging:
+#     colorArg: always
+#     pager: delta --dark --paging=never
+# notARepository: "quit"
+# gui:
+#   sidePanelWidth: 0.2
+#   scrollPastBottom: false
+#   commitLength:
+#     show: true
+#   showFileTree: true
+#   showIcons: true
+# os:
+#   editPreset: nvim
+# border: rounded
+# nerdFontsVersion: "3"
+# reporting: "off"
+# preview:
+#   wrap: false
