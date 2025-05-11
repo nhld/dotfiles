@@ -13,6 +13,9 @@ return {
     },
   },
   opts = {
+    formatters = {
+      prettier = { require_cwd = true },
+    },
     formatters_by_ft = {
       bash = { "shfmt" },
       fish = { "fish_indent" },
@@ -31,8 +34,8 @@ return {
       typescriptreact = { "prettier", name = "dprint", timeout_ms = 500, lsp_format = "fallback" },
       -- json = { "prettier" },
       -- jsonc = { "prettier" },
-      json = { "prettier", stop_on_first = true, name = "dprint", timeout_ms = 500 },
-      jsonc = { "prettier", stop_on_first = true, name = "dprint", timeout_ms = 500 },
+      json = { "prettier", name = "dprint", timeout_ms = 500, lsp_format = "fallback" },
+      jsonc = { "prettier", name = "dprint", timeout_ms = 500, lsp_format = "fallback" },
       markdown = { "prettier" },
       ["_"] = { "trim_whitespace", "trim_newlines" },
       python = { "black" },
