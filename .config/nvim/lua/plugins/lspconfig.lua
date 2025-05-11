@@ -16,7 +16,7 @@ return {
         },
       },
     },
-    "yioneko/nvim-vtsls",
+    { "yioneko/nvim-vtsls", ft = { "typescript", "javascript", "typescriptreact", "javascriptreact" } },
     "williamboman/mason-lspconfig.nvim",
     { "j-hui/fidget.nvim", opts = {} },
   },
