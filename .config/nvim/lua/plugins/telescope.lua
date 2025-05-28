@@ -92,6 +92,7 @@ return {
     { "<leader>sf", desc = "Search Files" },
     { "<leader>sn", desc = "Search Nvim Conf Files" },
     { "<leader>sg", desc = "Search by Grep" },
+    { "<leader><leader>", desc="Current Opening Buffers"}
   },
   cmd = "Telescope",
   config = config,
