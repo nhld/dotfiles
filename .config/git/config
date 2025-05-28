@@ -24,6 +24,9 @@
 [diff]
   colorMoved = default
 
+[url "git@github.com:"]
+  insteadOf = "gh:"
+
 [delta]
   navigate = true
   side-by-side = false
