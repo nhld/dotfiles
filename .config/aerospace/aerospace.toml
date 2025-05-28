@@ -9,6 +9,26 @@ default-root-container-orientation = 'auto'
 key-mapping.preset = 'qwerty'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'terminal'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'activity monitor'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = "com.mitchellh.ghostty"
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = "io.ungoogled-software.ungoogled-chromium"
+run = 'move-node-to-workspace 1'
+
 [gaps]
 inner.horizontal = 10
 inner.vertical =   10
