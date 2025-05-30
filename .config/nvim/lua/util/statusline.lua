@@ -164,9 +164,10 @@ local function diff_source()
 end
 
 function M.diff_status_component()
-  vim.api.nvim_set_hl(0, "GitSignsAddx", { fg = "#4fd6be", bg = "#181825" })
-  vim.api.nvim_set_hl(0, "GitSignsChangex", { fg = "#ffc777", bg = "#181825" })
-  vim.api.nvim_set_hl(0, "GitSignsDeletex", { fg = "#ff757f", bg = "#181825" })
+  -- bg = "#181825" if no transparent
+  vim.api.nvim_set_hl(0, "GitSignsAddx", { fg = "#4fd6be" })
+  vim.api.nvim_set_hl(0, "GitSignsChangex", { fg = "#ffc777" })
+  vim.api.nvim_set_hl(0, "GitSignsDeletex", { fg = "#ff757f" })
   local diff = diff_source()
   if not diff then
     return ""
