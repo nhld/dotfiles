@@ -35,7 +35,7 @@ return {
       python = { "black" },
       cpp = { name = "clangd", timeout_ms = 500, lsp_format = "fallback" },
       c = { name = "clangd", timeout_ms = 500, lsp_format = "fallback" },
-      ruby = { "rubocop", name = "rubylsp", timeout_ms = 500, lsp_format = "fallback" },
+      ruby = { "rubocop", name = "ruby-lsp", timeout_ms = 500, lsp_format = "fallback" },
     },
     format_on_save = function()
       if vim.g.formatonsave then

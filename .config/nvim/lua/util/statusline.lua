@@ -94,8 +94,8 @@ local statusline_hls = {}
 function M.get_or_create_hl(hl)
   local hl_name = "Statusline" .. hl
   if not statusline_hls[hl] then
-    local bg_hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
-    local fg_hl = vim.api.nvim_get_hl(0, { name = hl })
+    -- local bg_hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
+    -- local fg_hl = vim.api.nvim_get_hl(0, { name = hl })
     -- vim.api.nvim_set_hl(0, hl_name, { bg = ("#%06x"):format(bg_hl.bg), fg = ("#%06x"):format(fg_hl.fg) })
     statusline_hls[hl] = true
   end
