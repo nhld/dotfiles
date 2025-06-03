@@ -7,13 +7,17 @@ local function on_attach(client, bufnr)
   end
 
   local telescope_builtin = require "telescope.builtin"
-  map("gd", telescope_builtin.lsp_definitions, "Goto Definition")
+
+  if client:supports_method(vim.lsp.protocol.Methods.textDocument_definition) then
+    map("gd", telescope_builtin.lsp_definitions, "Goto Definition")
+    map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+  end
+
   map("gr", telescope_builtin.lsp_references, "Goto References")
   map("gI", telescope_builtin.lsp_implementations, "Goto Implementation")
   map("<leader>D", telescope_builtin.lsp_type_definitions, "Type Definition")
   map("<leader>ds", telescope_builtin.lsp_document_symbols, "Document Symbols")
   map("<leader>ws", telescope_builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
-  map("gD", vim.lsp.buf.declaration, "Goto Declaration")
   map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
   map("[e", function()
@@ -31,9 +35,10 @@ local function on_attach(client, bufnr)
     local blink_window = require "blink.cmp.completion.windows.menu"
     local blink = require "blink.cmp"
 
+  if client:supports_method(vim.lsp.protocol.Methods.textDocument_signatureHelp) then
     map("<C-k>", function()
-      if blink_window.win:is_open() then
-        blink.hide()
+      if require("blink.cmp.completion.windows.menu").win:is_open() then
+        require("blink.cmp").hide()
       end
 
       vim.lsp.buf.signature_help()
