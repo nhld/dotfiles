@@ -1,6 +1,6 @@
 return {
   "saghen/blink.cmp",
-  event = "InsertEnter",
+  event = { "InsertEnter", "CmdlineEnter" },
   version = "*",
   opts = {
     keymap = { preset = "default" },
@@ -26,6 +26,10 @@ return {
 
   snippets = { preset = "luasnip" },
   appearance = {
-    kind_icons = require("config.icons").symbol_kinds,
+    -- kind_icons = require("config.icons").symbol_kinds,
   },
+  config = function(_, opts)
+    require("blink.cmp").setup(opts)
+    vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
+  end,
 }
