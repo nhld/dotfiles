@@ -41,6 +41,10 @@ map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
 map({ "n", "v", "s", "i" }, "<C-s>", "<Esc><cmd>w<cr>", { desc = "Save" })
+map({ "n", "v", "s", "i" }, "<leader><S-s>", function()
+  vim.g.skip_formatting = true
+  return "<esc><cmd>w<cr>"
+end, { desc = "Save without formatting", expr = true })
 
 map("n", "<s-tab>", "<cmd>bprev<cr>", { desc = "Go to previous buffer" })
 map("n", "<tab>", "<cmd>bnext<cr>", { desc = "Go to next buffer" })

@@ -38,11 +38,16 @@ return {
       ruby = { "rubocop", name = "ruby-lsp", timeout_ms = 500, lsp_format = "fallback" },
     },
     format_on_save = function()
-      if vim.g.formatonsave then
-        return { timeout_ms = 500 }
-      else
+      if vim.g.skip_formatting then
+        vim.g.skip_formatting = false
         return nil
       end
+
+      if not vim.g.formatonsave then
+        return nil
+      end
+
+      return {}
     end,
     notify_on_error = false,
     notify_no_formatters = true,
