@@ -1,5 +1,4 @@
--- Install with
--- mac: brew install llvm
+-- brew install llvm
 
 ---@type vim.lsp.Config
 return {
