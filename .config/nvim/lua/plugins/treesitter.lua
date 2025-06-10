@@ -26,10 +26,11 @@ local config = function()
       "vim",
       "vimdoc",
       "yaml",
+      "ruby",
     },
     auto_install = false,
-    highlight = { enable = true },
-    indent = { enable = true },
+    highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
+    indent = { enable = true, disable = { "ruby" } },
     incremental_selection = {
       enable = true,
       keymaps = {
