@@ -33,7 +33,7 @@ run = 'move-node-to-workspace 1'
 inner.horizontal = 10
 inner.vertical =   10
 outer.left =       10
-outer.bottom =     10
+outer.bottom =     50
 outer.top =        10
 outer.right =      10
 
@@ -41,10 +41,10 @@ outer.right =      10
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
+ctrl-h = 'focus left'
+ctrl-j = 'focus down'
+ctrl-k = 'focus up'
+ctrl-l = 'focus right'
 
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
