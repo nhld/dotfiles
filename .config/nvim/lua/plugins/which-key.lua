@@ -3,7 +3,7 @@ return {
   event = "VeryLazy",
   opts = {
     triggers = {
-      { "<auto>", mode = "nxso" }, -- disable in terminal
+      { "<auto>", mode = "nxso" },
     },
   },
 }
