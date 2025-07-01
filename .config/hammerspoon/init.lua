@@ -1,3 +1,4 @@
+-- luacheck: globals hs
 -- Enhanced Battery-Optimized Mouse Control
 -- alt + hjkl for movement with diagonal support, alt + f for left click
 local baseSpeed = 2
@@ -44,11 +45,11 @@ local function getDirection()
 end
 
 -- Force cursor visibility when moving
-local function ensureCursorVisible()
-  -- hs.mouse.absolutePosition(hs.mouse.absolutePosition())
-  -- Alternative method if the above doesn't work:
-  hs.eventtap.event.newMouseEvent(hs.eventtap.event.types.mouseMoved, hs.mouse.absolutePosition()):post()
-end
+-- local function ensureCursorVisible()
+-- hs.mouse.absolutePosition(hs.mouse.absolutePosition())
+-- Alternative method if the above doesn't work:
+-- hs.eventtap.event.newMouseEvent(hs.eventtap.event.types.mouseMoved, hs.mouse.absolutePosition()):post()
+-- end
 
 -- Move mouse
 local function smoothMove()
