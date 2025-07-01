@@ -10,24 +10,28 @@ key-mapping.preset = 'qwerty'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'finder'
+if.app-id = 'com.apple.Finder'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'terminal'
+if.app-id = 'com.apple.Terminal'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'activity monitor'
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'steam'
 run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
 run = 'move-node-to-workspace 4'
-
-[[on-window-detected]]
-if.app-id = "io.ungoogled-software.ungoogled-chromium"
-run = 'move-node-to-workspace 1'
 
 [gaps]
 inner.horizontal = 10
