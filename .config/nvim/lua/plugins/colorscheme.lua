@@ -29,7 +29,9 @@ return {
       miscs = {},
     },
     integrations = {
+      fidget = true,
       flash = false,
+      blink_cmp = true,
       cmp = true,
       gitsigns = true,
       treesitter = true,
