@@ -14,8 +14,11 @@ opt.mouse = "a"
 vim.schedule(function()
   opt.clipboard = "unnamedplus"
 end)
+
 opt.updatetime = 200
 opt.timeoutlen = 300
+opt.ttimeoutlen = 10
+
 opt.splitright = true
 opt.splitbelow = true
 opt.signcolumn = "yes"
