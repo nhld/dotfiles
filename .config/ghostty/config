@@ -1,15 +1,29 @@
 # Font
-font-size = 19
+font-size = 17
 bold-is-bright = true
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
+# Font style
+font-family = MonoLisa Nerd Font Mono
+font-family-italic = Cartograph CF
+font-style-italic = Demi Bold Italic
+font-family-bold-italic = Cartograph CF
+font-style-bold-italic = Demi Bold Italic
+
+adjust-cell-width = -5%
+adjust-cell-height = 20%
+
 copy-on-select = clipboard
 confirm-close-surface = false
 
+adjust-cursor-height = 20%
 cursor-style = block
 cursor-style-blink = false
+shell-integration-features = no-cursor
+# cursor-invert-fg-bg = true
+cursor-text = "#11111b"
 
 window-padding-balance = true
 term = xterm-ghostty
@@ -18,5 +32,6 @@ adjust-underline-position = 6
 adjust-underline-thickness = 20%
 
 theme = catppuccin-mocha
+background-opacity = 0.95
 
 config-file = ?config-macos
