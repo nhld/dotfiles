@@ -10,7 +10,12 @@ key-mapping.preset = 'qwerty'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [[on-window-detected]]
-if.app-id = 'com.apple.Finder'
+# if.app-id = 'com.apple.Finder'
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.TV'
 run = 'layout floating'
 
 [[on-window-detected]]
