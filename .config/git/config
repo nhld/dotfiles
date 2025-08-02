@@ -19,7 +19,7 @@
   autoSetupRemote = true
 
 [merge]
-  confictstyle = diff3
+  conflictstyle = diff3
 
 [diff]
   colorMoved = default
