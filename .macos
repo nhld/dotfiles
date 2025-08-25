@@ -1,25 +1,69 @@
 #!/bin/zsh
 
-# This script sets some macOS defaults
+# macOS System Configuration Script with Security Hardening
+# Exit on error, undefined variables, and pipe failures
+set -euo pipefail
+
+# Enable logging
+LOG_FILE="$HOME/dotfiles-macos.log"
+exec > >(tee -a "$LOG_FILE")
+exec 2>&1
+
+echo "=== macOS Configuration Started: $(date) ==="
+echo "Log file: $LOG_FILE"
+
+# Validation functions
+validate_macos() {
+    if [ "$(uname -s)" != "Darwin" ]; then
+        echo "❌ Error: This script can only run on macOS"
+        exit 0
+    fi
+    echo "✅ macOS detected: $(sw_vers -productVersion)"
+}
+
+# Run validation
+validate_macos
 
 # Yoinked from https://github.com/mathiasbynens/dotfiles/blob/main/.macos
 # Visit the link for more settings
 
-# If not ran on macOS, exit
-[ "$(uname -s)" != "Darwin" ] && exit 0
-
 # Close any open system settings panels
-osascript -e 'tell application "System Settings" to quit'
+echo "🔧 Closing System Settings..."
+if ! osascript -e 'tell application "System Settings" to quit' 2>/dev/null; then
+    echo "⚠️  Warning: Could not close System Settings (may not be running)"
+fi
 
-# Ask for the administrator password upfront
-sudo -v
+# Function to run defaults commands with error handling
+run_defaults() {
+    local domain="$1"
+    local key="$2" 
+    local value="$3"
+    local type="${4:-}"
+    
+    if [ -n "$type" ]; then
+        if defaults write "$domain" "$key" "$type" "$value"; then
+            echo "✅ Set $domain.$key = $value ($type)"
+        else
+            echo "⚠️  Warning: Failed to set $domain.$key"
+        fi
+    else
+        if defaults write "$domain" "$key" "$value"; then
+            echo "✅ Set $domain.$key = $value"
+        else
+            echo "⚠️  Warning: Failed to set $domain.$key"
+        fi
+    fi
+}
 
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
-while true; do
-  sudo -n true
-  sleep 60
-  kill -0 "$$" || exit
-done 2>/dev/null &
+# Ask for the administrator password upfront only when needed
+echo "🔐 Some settings require administrator privileges..."
+if ! sudo -n true 2>/dev/null; then
+    sudo -v
+    if [ $? -ne 0 ]; then
+        echo "❌ Error: Administrator privileges required"
+        exit 1
+    fi
+fi
 
 ########## General ##########
 
