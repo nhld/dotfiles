@@ -1,34 +1,93 @@
 #!/bin/bash
 
+# Dotfiles Installation Script with Security Hardening
+# Exit on error, undefined variables, and pipe failures
+set -euo pipefail
+
+# Enable logging
+LOG_FILE="$HOME/dotfiles-install.log"
+exec > >(tee -a "$LOG_FILE")
+exec 2>&1
+
+echo "=== Dotfiles Installation Started: $(date) ==="
+echo "Log file: $LOG_FILE"
+
+# Validation functions
+validate_macos() {
+    if [ "$(uname -s)" != "Darwin" ]; then
+        echo "❌ Error: macOS required for this installation"
+        exit 1
+    fi
+}
+
+verify_homebrew_installation() {
+    if ! command -v brew &> /dev/null; then
+        echo "❌ Error: Homebrew installation failed or not in PATH"
+        exit 1
+    fi
+    echo "✅ Homebrew verified: $(brew --version | head -n1)"
+}
+
+# Run validation
+validate_macos
+
 if test ! "$(which brew)"; then
-  echo "Installing Homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "📦 Installing Homebrew..."
+  
+  # More secure installation with verification
+  HOMEBREW_INSTALLER="/tmp/homebrew-install.sh"
+  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh > "$HOMEBREW_INSTALLER"
+  
+  # Basic validation of the installer (check if it looks like a shell script)
+  if ! head -n1 "$HOMEBREW_INSTALLER" | grep -q "^#!/"; then
+    echo "❌ Error: Downloaded Homebrew installer doesn't appear to be a valid script"
+    rm -f "$HOMEBREW_INSTALLER"
+    exit 1
+  fi
+  
+  /bin/bash "$HOMEBREW_INSTALLER"
+  rm -f "$HOMEBREW_INSTALLER"
 
   ZPROFILE="$DOTFILES/zsh/.zprofile"
   [ ! -f "$ZPROFILE" ] && echo "eval $(/opt/homebrew/bin/brew shellenv)" >>"$ZPROFILE"
 
   eval "$(/opt/homebrew/bin/brew shellenv)"
-  echo "Done"
+  
+  # Verify installation
+  verify_homebrew_installation
+  echo "✅ Homebrew installation completed"
 else
-  echo "Homebrew is already installed"
+  echo "✅ Homebrew is already installed"
+  verify_homebrew_installation
 fi
 
-echo "Updating Homebrew"
-brew update
-brew upgrade
-echo "Done"
+echo "🔄 Updating Homebrew..."
+if ! brew update; then
+    echo "⚠️  Warning: Homebrew update failed, continuing anyway"
+fi
+
+if ! brew upgrade; then
+    echo "⚠️  Warning: Homebrew upgrade failed, continuing anyway"
+fi
+echo "✅ Homebrew update completed"
 
 BREWFILE="$HOME/dotfiles/.brewfile"
 
 if [ -f "$BREWFILE" ]; then
-  echo "Installing formulae and casks"
-  brew bundle --file="$BREWFILE"
-  echo "Done"
+  echo "📋 Installing formulae and casks from $BREWFILE..."
+  if brew bundle --file="$BREWFILE"; then
+    echo "✅ Package installation completed"
+  else
+    echo "❌ Error: Package installation failed"
+    exit 1
+  fi
 else
-  echo "Brewfile not found"
+  echo "❌ Error: Brewfile not found at $BREWFILE"
+  exit 1
 fi
 
-echo "Cleaning up"
+echo "🧹 Cleaning up Homebrew cache..."
 brew cleanup
 
-echo "Done."
+echo "✅ Installation completed successfully: $(date)"
+echo "=== Dotfiles Installation Finished ==="
