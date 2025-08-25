@@ -1,37 +1,110 @@
 #!/bin/zsh
 
-echo "Creating symlinks..."
+# Dotfiles Symlink Creation Script with Safety Checks
+# Exit on error, undefined variables, and pipe failures
+set -euo pipefail
+
+# Enable logging
+LOG_FILE="$HOME/dotfiles-symlinks.log"
+exec > >(tee -a "$LOG_FILE")
+exec 2>&1
+
+echo "=== Symlink Creation Started: $(date) ==="
+echo "Log file: $LOG_FILE"
+
+# Dry run mode support
+DRY_RUN=false
+if [ "${1:-}" = "--dry-run" ]; then
+    DRY_RUN=true
+    echo "🔍 Running in dry-run mode (no changes will be made)"
+fi
+
+# Backup function
+backup_existing_configs() {
+    local backup_dir="$HOME/.config.backup.$(date +%Y%m%d_%H%M%S)"
+    if [ -d "$XDG_CONFIG_HOME" ] && [ "$(ls -A "$XDG_CONFIG_HOME")" ]; then
+        echo "💾 Backing up existing configs to: $backup_dir"
+        if [ "$DRY_RUN" = false ]; then
+            cp -r "$XDG_CONFIG_HOME" "$backup_dir"
+            echo "✅ Backup completed"
+        else
+            echo "🔍 Would backup: $XDG_CONFIG_HOME -> $backup_dir"
+        fi
+    fi
+}
+
+echo "🔗 Creating symlinks..."
 
 dotfiles_dir="$DOTFILES"
 target_dir="$XDG_CONFIG_HOME"
 created_count=0
 total_count=0
+skipped_count=0
 
-[ ! -d "$dotfiles_dir" ] && echo "Directory $dotfiles_dir does not exist. Exiting..." && exit 0
+# Validation
+if [ -z "${DOTFILES:-}" ]; then
+    echo "❌ Error: DOTFILES environment variable not set"
+    exit 1
+fi
 
-[ ! -d "$target_dir" ] && mkdir "$target_dir"
+if [ ! -d "$dotfiles_dir" ]; then
+    echo "❌ Error: Directory $dotfiles_dir does not exist"
+    exit 1
+fi
+
+echo "📂 Source: $dotfiles_dir"
+echo "📂 Target: $target_dir"
+
+# Backup existing configs
+backup_existing_configs
+
+# Create target directory
+if [ ! -d "$target_dir" ]; then
+    echo "📁 Creating target directory: $target_dir"
+    if [ "$DRY_RUN" = false ]; then
+        mkdir -p "$target_dir"
+    fi
+fi
 
 for dir_path in "$dotfiles_dir"/*; do
+  # Skip if no files match the glob
+  [ ! -e "$dir_path" ] && continue
+  
   dir_name=$(basename "$dir_path")
   ((total_count++))
 
   if [ -d "$dir_path" ]; then
     if [ ! -e "$target_dir/$dir_name" ]; then
-      ln -sfn "$dir_path" "$target_dir/$dir_name"
-      if [ $? -eq 0 ]; then
+      if [ "$DRY_RUN" = true ]; then
+        echo "🔍 Would create symlink: $dir_path -> $target_dir/$dir_name"
         ((created_count++))
-        echo "Symlink created for $dir_name."
       else
-        echo "Failed to create symlink for $dir_name."
+        if ln -sfn "$dir_path" "$target_dir/$dir_name"; then
+          ((created_count++))
+          echo "✅ Symlink created: $dir_name"
+        else
+          echo "❌ Failed to create symlink for $dir_name"
+        fi
       fi
     else
-      echo "$dir_name already exists. ->"
+      echo "⚠️  $dir_name already exists, skipping"
+      ((skipped_count++))
     fi
   else
-    echo "Skipping $dir_name: Not a directory."
+    echo "⏭️  Skipping $dir_name: Not a directory"
+    ((skipped_count++))
   fi
 done
 
 echo
-echo "Created ($created_count/$total_count) symlinks."
-echo
+echo "📊 Summary:"
+echo "  ✅ Created: $created_count/$total_count symlinks"
+echo "  ⚠️  Skipped: $skipped_count items"
+
+if [ $created_count -gt 0 ]; then
+    echo "✅ Symlink creation completed successfully"
+else
+    echo "ℹ️  No new symlinks were created"
+fi
+
+echo "=== Symlink Creation Finished: $(date) ==="
