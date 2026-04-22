@@ -21,7 +21,8 @@ fi
 
 # Backup function
 backup_existing_configs() {
-    local backup_dir="$HOME/.config.backup.$(date +%Y%m%d_%H%M%S)"
+    local backup_dir
+    backup_dir="$HOME/.config.backup.$(date +%Y%m%d_%H%M%S)"
     if [ -d "$XDG_CONFIG_HOME" ] && [ "$(ls -A "$XDG_CONFIG_HOME")" ]; then
         echo "💾 Backing up existing configs to: $backup_dir"
         if [ "$DRY_RUN" = false ]; then
