@@ -71,16 +71,16 @@ for dir_path in "$dotfiles_dir"/*; do
   [ ! -e "$dir_path" ] && continue
   
   dir_name=$(basename "$dir_path")
-  ((total_count++))
+  total_count=$((total_count + 1))
 
   if [ -d "$dir_path" ]; then
     if [ ! -e "$target_dir/$dir_name" ]; then
       if [ "$DRY_RUN" = true ]; then
         echo "🔍 Would create symlink: $dir_path -> $target_dir/$dir_name"
-        ((created_count++))
+        created_count=$((created_count + 1))
       else
         if ln -sfn "$dir_path" "$target_dir/$dir_name"; then
-          ((created_count++))
+          created_count=$((created_count + 1))
           echo "✅ Symlink created: $dir_name"
         else
           echo "❌ Failed to create symlink for $dir_name"
@@ -88,11 +88,11 @@ for dir_path in "$dotfiles_dir"/*; do
       fi
     else
       echo "⚠️  $dir_name already exists, skipping"
-      ((skipped_count++))
+      skipped_count=$((skipped_count + 1))
     fi
   else
     echo "⏭️  Skipping $dir_name: Not a directory"
-    ((skipped_count++))
+    skipped_count=$((skipped_count + 1))
   fi
 done
 

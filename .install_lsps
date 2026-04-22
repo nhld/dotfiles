@@ -1,9 +1,69 @@
 #!/bin/bash
 
-npm i -g @vtsls/language-server
-npm i -g stylelint-lsp
-npm i -g vscode-langservers-extracted
-npm i -g bash-language-server
-# dprint
-# llvm
-# lua-language-server
+# Language Server Installation Script
+# Exit on error, undefined variables, and pipe failures
+set -euo pipefail
+
+# Enable logging
+LOG_FILE="$HOME/dotfiles-lsps.log"
+exec > >(tee -a "$LOG_FILE")
+exec 2>&1
+
+echo "=== Language Server Installation Started: $(date) ==="
+echo "Log file: $LOG_FILE"
+
+# Check if npm is available
+if ! command -v npm >/dev/null 2>&1; then
+    echo "❌ Error: npm is not installed or not in PATH"
+    echo "Please install Node.js and npm first"
+    exit 1
+fi
+
+echo "📦 Using npm: $(npm --version)"
+echo "📦 Using node: $(node --version)"
+
+# Language servers to install
+declare -a lsps=(
+    "@vtsls/language-server"
+    "stylelint-lsp" 
+    "vscode-langservers-extracted"
+    "bash-language-server"
+)
+
+installed_count=0
+failed_count=0
+
+echo "🚀 Installing language servers..."
+
+for lsp in "${lsps[@]}"; do
+    echo "📦 Installing $lsp..."
+    if npm install -g "$lsp"; then
+        echo "✅ Successfully installed: $lsp"
+        ((installed_count++))
+    else
+        echo "❌ Failed to install: $lsp"
+        ((failed_count++))
+    fi
+done
+
+# Additional tools that need manual installation
+echo ""
+echo "📋 Additional tools requiring manual installation:"
+echo "  • dprint: Install via 'brew install dprint' or from https://dprint.dev"
+echo "  • llvm: Install via 'brew install llvm'"
+echo "  • lua-language-server: Install via 'brew install lua-language-server'"
+
+echo ""
+echo "📊 Installation Summary:"
+echo "  ✅ Installed: $installed_count language servers"
+echo "  ❌ Failed: $failed_count language servers"
+
+echo "=== Language Server Installation Finished: $(date) ==="
+
+if [ $failed_count -eq 0 ]; then
+    echo "✅ All language servers installed successfully"
+    exit 0
+else
+    echo "⚠️  Some language servers failed to install"
+    exit 1
+fi
