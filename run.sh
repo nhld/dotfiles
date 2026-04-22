@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Dotfiles Master Installation Script
 # Exit on error, undefined variables, and pipe failures

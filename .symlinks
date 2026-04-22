@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Dotfiles Symlink Creation Script with Safety Checks
 # Exit on error, undefined variables, and pipe failures
