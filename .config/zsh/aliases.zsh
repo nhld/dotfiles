@@ -31,6 +31,14 @@ alias grh='git fetch origin
 git reset --hard origin/$(git branch --show-current)
 '
 
+# Claude
+alias cld='claude'
+alias cldu='claude update'
+alias ccn='cld -n'
+alias ccr='cld --resume'
+alias o46='claude --model claude-opus-4-6'
+alias o45='claude --model claude-opus-4-5'
+
 command -v eza >/dev/null 2>&1 && alias ls='eza --sort=extension --group-directories-first --icons --all'
 command -v lazygit >/dev/null 2>&1 && alias lg='lazygit' && alias lazygit="TERM=xterm-256color command lazygit"
 command -v z >/dev/null 2>&1 && alias cd='z'
