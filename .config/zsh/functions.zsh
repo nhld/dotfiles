@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function mkd() {
-  mkdir -p "$@" && cd "$_" || exit
+  mkdir -p "$@" && builtin cd "$_" || exit
 }

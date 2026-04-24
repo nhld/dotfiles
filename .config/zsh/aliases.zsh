@@ -24,12 +24,8 @@ alias gbD='git branch | grep -v "^\*" | xargs git branch -D'
 alias gbd='git branch | grep -v "^\*" | xargs git branch -d'
 alias gs='git stash'
 alias gsp='git stash pop'
-alias grs='git fetch origin
-git reset --soft origin/$(git branch --show-current)
-'
-alias grh='git fetch origin
-git reset --hard origin/$(git branch --show-current)
-'
+alias grs='git fetch origin && git reset --soft origin/$(git branch --show-current)'
+alias grh='git fetch origin && git reset --hard origin/$(git branch --show-current)'
 
 # Claude
 alias cld='claude'
