@@ -22,6 +22,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
+  group = augroup "term_settings",
   callback = function()
     vim.wo.number = false
     vim.wo.relativenumber = false

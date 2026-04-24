@@ -56,7 +56,7 @@ local config = function()
   vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 
   map("<leader>?", builtin.oldfiles, "Find recently opened files")
-  map("<leader><space>", builtin.buffers, "Find existing buffers")
+  map("<leader><leader>", builtin.buffers, "Find existing buffers")
   map("<leader>/", function()
     builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
       winblend = 10,

@@ -64,7 +64,6 @@ M.symbol_kinds = {
   Interface = " ",
   Key = " ",
   Keyword = " ",
-  -- Method = "󰊕",
   Method = "󰆧 ",
   Module = " ",
   Namespace = "󰦮 ",

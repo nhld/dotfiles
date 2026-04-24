@@ -3,8 +3,7 @@ return {
   event = "VeryLazy",
   config = function()
     local miniai = require "mini.ai"
-
-    return {
+    miniai.setup {
       n_lines = 300,
       custom_textobjects = {
         f = miniai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),

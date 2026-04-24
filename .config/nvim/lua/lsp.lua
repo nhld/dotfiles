@@ -6,18 +6,20 @@ local function on_attach(client, bufnr)
     vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
   end
 
-  local telescope_builtin = require "telescope.builtin"
+  local ok, telescope_builtin = pcall(require, "telescope.builtin")
 
-  if client:supports_method(vim.lsp.protocol.Methods.textDocument_definition) then
-    map("gd", telescope_builtin.lsp_definitions, "Goto Definition")
-    map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+  if ok then
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_definition) then
+      map("gd", telescope_builtin.lsp_definitions, "Goto Definition")
+      map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+    end
+
+    map("gr", telescope_builtin.lsp_references, "Goto References")
+    map("gI", telescope_builtin.lsp_implementations, "Goto Implementation")
+    map("<leader>D", telescope_builtin.lsp_type_definitions, "Type Definition")
+    map("<leader>ds", telescope_builtin.lsp_document_symbols, "Document Symbols")
+    map("<leader>ws", telescope_builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
   end
-
-  map("gr", telescope_builtin.lsp_references, "Goto References")
-  map("gI", telescope_builtin.lsp_implementations, "Goto Implementation")
-  map("<leader>D", telescope_builtin.lsp_type_definitions, "Type Definition")
-  map("<leader>ds", telescope_builtin.lsp_document_symbols, "Document Symbols")
-  map("<leader>ws", telescope_builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
   map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
   map("[e", function()
@@ -46,21 +48,17 @@ local function on_attach(client, bufnr)
   if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
     local inlay_hints_group = vim.api.nvim_create_augroup("nv/toggle_inlay_hints", { clear = false })
 
-    if vim.g.inlay_hints then
-      vim.defer_fn(function()
-        local mode = vim.api.nvim_get_mode().mode
-        vim.lsp.inlay_hint.enable(mode == "n" or mode == "v", { bufnr = bufnr })
-      end, 500)
-    end
+    vim.defer_fn(function()
+      local mode = vim.api.nvim_get_mode().mode
+      vim.lsp.inlay_hint.enable(mode == "n" or mode == "v", { bufnr = bufnr })
+    end, 500)
 
     vim.api.nvim_create_autocmd("InsertEnter", {
       group = inlay_hints_group,
       desc = "Enable inlay hints",
       buffer = bufnr,
       callback = function()
-        if vim.g.inlay_hints then
-          vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
-        end
+        vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
       end,
     })
 
@@ -69,16 +67,14 @@ local function on_attach(client, bufnr)
       desc = "Disable inlay hints",
       buffer = bufnr,
       callback = function()
-        if vim.g.inlay_hints then
-          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-        end
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
       end,
     })
   end
 
   if client:supports_method(vim.lsp.protocol.Methods.textDocument_signatureHelp) then
     map("<C-k>", function()
-      if require("blink.cmp.completion.windows.menu").win:is_open() then
+      if require("blink.cmp").is_visible() then
         require("blink.cmp").hide()
       end
 
@@ -88,16 +84,12 @@ local function on_attach(client, bufnr)
 
   if client.name == "eslint" then
     vim.keymap.set("n", "<leader>ce", function()
-      if not client then
-        return
-      end
-
       client:request(vim.lsp.protocol.Methods.workspace_executeCommand, {
         command = "eslint.applyAllFixes",
         arguments = {
           {
             uri = vim.uri_from_bufnr(bufnr),
-            version = vim.lsp.util.buf_versions[bufnr],
+            version = vim.lsp.util._buf_versions[bufnr],
           },
         },
       }, nil, bufnr)
@@ -109,7 +101,7 @@ vim.diagnostic.config {
   virtual_text = true,
   signs = true,
   underline = true,
-  update_in_insert = true,
+  update_in_insert = false,
   severity_sort = true,
   float = {
     source = "if_many",

@@ -1,5 +1,9 @@
 local M = {}
 
+vim.api.nvim_set_hl(0, "GitSignsAddx", { fg = "#4fd6be" })
+vim.api.nvim_set_hl(0, "GitSignsChangex", { fg = "#ffc777" })
+vim.api.nvim_set_hl(0, "GitSignsDeletex", { fg = "#ff757f" })
+
 function M.mode_component()
   -- Note that: \19 = ^S and \22 = ^V.
   local mode_to_str = {
@@ -94,12 +98,13 @@ local statusline_hls = {}
 function M.get_or_create_hl(hl)
   local hl_name = "Statusline" .. hl
   if not statusline_hls[hl] then
-    -- local bg_hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
-    -- local fg_hl = vim.api.nvim_get_hl(0, { name = hl })
-    -- vim.api.nvim_set_hl(0, hl_name, { bg = ("#%06x"):format(bg_hl.bg), fg = ("#%06x"):format(fg_hl.fg) })
+    local bg_hl = vim.api.nvim_get_hl(0, { name = "StatusLine" })
+    local fg_hl = vim.api.nvim_get_hl(0, { name = hl })
+    if bg_hl.bg and fg_hl.fg then
+      vim.api.nvim_set_hl(0, hl_name, { bg = ("#%06x"):format(bg_hl.bg), fg = ("#%06x"):format(fg_hl.fg) })
+    end
     statusline_hls[hl] = true
   end
-
   return hl_name
 end
 
@@ -164,10 +169,6 @@ local function diff_source()
 end
 
 function M.diff_status_component()
-  -- bg = "#181825" if no transparent
-  vim.api.nvim_set_hl(0, "GitSignsAddx", { fg = "#4fd6be" })
-  vim.api.nvim_set_hl(0, "GitSignsChangex", { fg = "#ffc777" })
-  vim.api.nvim_set_hl(0, "GitSignsDeletex", { fg = "#ff757f" })
   local diff = diff_source()
   if not diff then
     return ""
