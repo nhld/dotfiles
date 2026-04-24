@@ -2,6 +2,9 @@ name: linter
 on:
   pull_request: ~
   push: ~
+permissions:
+  contents: read
+  statuses: write
 jobs:
   linter:
     name: super linter
@@ -9,8 +12,10 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: run linter
-        uses: github/super-linter/slim@v4
+        uses: super-linter/super-linter/slim@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_JSCPD: false
