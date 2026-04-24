@@ -5,6 +5,7 @@ end
 
 fish_vi_key_bindings
 set -U fish_greeting
+set -gx NOTES_DIR "$HOME/Documents/obsidian-vaults-local/notes"
 
 if type -q fnm
     fnm env --use-on-cd | source
@@ -22,7 +23,7 @@ if type -q fzf
     fzf --fish | source
 end
 
-if test "$os" = Darwin
+if test (uname) = Darwin
     if test -d (brew --prefix)"/share/fish/completions"
         set -p fish_complete_path (brew --prefix)/share/fish/completions
     end
@@ -33,4 +34,4 @@ if test "$os" = Darwin
 end
 
 source $XDG_CONFIG_HOME/fish/aliases.fish
-source "$HOME/.cargo/env.fish"
+test -f "$HOME/.cargo/env.fish" && source "$HOME/.cargo/env.fish"
