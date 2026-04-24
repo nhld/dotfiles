@@ -18,7 +18,7 @@ SUDO_PROMPT="$(tput setaf 2 bold)Password: $(tput sgr0)" && export SUDO_PROMPT
 export MANPAGER='nvim +Man!'
 
 # Ripgrep.
-export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/.ripgreprc"
+export RIPGREP_CONFIG_PATH="$HOME/dotfiles/.config/.ripgreprc"
 
 # fzf setup.
 export FZF_DEFAULT_OPTS="--color=fg:#f8f8f2,bg:#0e1419,hl:#e11299,fg+:#f8f8f2,bg+:#44475a,hl+:#e11299,info:#f1fa8c,prompt:#50fa7b,pointer:#ff79c6,marker:#ff79c6,spinner:#a4ffff,header:#6272a4 \
