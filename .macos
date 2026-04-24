@@ -16,7 +16,7 @@ echo "Log file: $LOG_FILE"
 validate_macos() {
     if [ "$(uname -s)" != "Darwin" ]; then
         echo "❌ Error: This script can only run on macOS"
-        exit 0
+        exit 1
     fi
     echo "✅ macOS detected: $(sw_vers -productVersion)"
 }

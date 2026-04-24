@@ -48,7 +48,7 @@ if test ! "$(which brew)"; then
   /bin/bash "$HOMEBREW_INSTALLER"
   rm -f "$HOMEBREW_INSTALLER"
 
-  ZPROFILE="$DOTFILES/zsh/.zprofile"
+  ZPROFILE="$HOME/dotfiles/zsh/.zprofile"
   [ ! -f "$ZPROFILE" ] && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$ZPROFILE"
 
   eval "$(/opt/homebrew/bin/brew shellenv)"
