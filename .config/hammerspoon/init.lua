@@ -44,13 +44,6 @@ local function getDirection()
   return dirX, dirY
 end
 
--- Force cursor visibility when moving
--- local function ensureCursorVisible()
--- hs.mouse.absolutePosition(hs.mouse.absolutePosition())
--- Alternative method if the above doesn't work:
--- hs.eventtap.event.newMouseEvent(hs.eventtap.event.types.mouseMoved, hs.mouse.absolutePosition()):post()
--- end
-
 -- Move mouse
 local function smoothMove()
   local pos = hs.mouse.absolutePosition()
@@ -58,8 +51,6 @@ local function smoothMove()
     x = pos.x + movement.dx,
     y = pos.y + movement.dy,
   }
-
-  -- ensureCursorVisible()
 
   -- Accelerate every few frames
   movement.frameCount = movement.frameCount + 1

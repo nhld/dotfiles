@@ -1,5 +1,3 @@
-after-login-command = []
-after-startup-command = []
 start-at-login = false
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -10,7 +8,6 @@ key-mapping.preset = 'qwerty'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [[on-window-detected]]
-# if.app-id = 'com.apple.Finder'
 if.app-name-regex-substring = 'finder'
 run = 'layout floating'
 
