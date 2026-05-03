@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Language Server Installation Script
-# Exit on error, undefined variables, and pipe failures
 set -euo pipefail
 
-# Enable logging
 LOG_FILE="$HOME/dotfiles-lsps.log"
 exec > >(tee -a "$LOG_FILE")
 exec 2>&1
@@ -12,20 +9,17 @@ exec 2>&1
 echo "=== Language Server Installation Started: $(date) ==="
 echo "Log file: $LOG_FILE"
 
-# Check if npm is available
 if ! command -v npm >/dev/null 2>&1; then
     echo "❌ Error: npm is not installed or not in PATH"
-    echo "Please install Node.js and npm first"
     exit 1
 fi
 
 echo "📦 Using npm: $(npm --version)"
 echo "📦 Using node: $(node --version)"
 
-# Language servers to install
-declare -a lsps=(
-    "@vtsls/language-server"
-    "stylelint-lsp" 
+declare -a npm_lsps=(
+    "@typescript/native-preview"
+    "stylelint-lsp"
     "vscode-langservers-extracted"
     "bash-language-server"
 )
@@ -33,9 +27,9 @@ declare -a lsps=(
 installed_count=0
 failed_count=0
 
-echo "🚀 Installing language servers..."
+echo "🚀 Installing npm language servers..."
 
-for lsp in "${lsps[@]}"; do
+for lsp in "${npm_lsps[@]}"; do
     echo "📦 Installing $lsp..."
     if npm install -g "$lsp"; then
         echo "✅ Successfully installed: $lsp"
@@ -46,12 +40,27 @@ for lsp in "${lsps[@]}"; do
     fi
 done
 
-# Additional tools that need manual installation
+echo ""
+echo "🚀 Installing Go language servers..."
+
+if command -v go >/dev/null 2>&1; then
+    if go install golang.org/x/tools/gopls@latest; then
+        echo "✅ Successfully installed: gopls"
+        installed_count=$((installed_count + 1))
+    else
+        echo "❌ Failed to install: gopls"
+        failed_count=$((failed_count + 1))
+    fi
+else
+    echo "⚠️  go not found, skipping gopls"
+fi
+
 echo ""
 echo "📋 Additional tools requiring manual installation:"
-echo "  • dprint: Install via 'brew install dprint' or from https://dprint.dev"
-echo "  • llvm: Install via 'brew install llvm'"
-echo "  • lua-language-server: Install via 'brew install lua-language-server'"
+echo "  • lua-language-server: brew install lua-language-server"
+echo "  • ruby-lsp:            brew install ruby-lsp"
+echo "  • clangd:              brew install llvm"
+echo "  • dprint:              brew install dprint"
 
 echo ""
 echo "📊 Installation Summary:"
