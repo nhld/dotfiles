@@ -1,3 +1,6 @@
+# If not running interactively, stop here.
+[[ $- != *i* ]] && return
+
 # XDG base directories.
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -26,5 +29,11 @@ export FZF_DEFAULT_OPTS="--color=fg:#f8f8f2,bg:#0e1419,hl:#e11299,fg+:#f8f8f2,bg
 --marker=▎ \
 --bind=alt-s:toggle"
 
-# If not running interactively, stop here.
-[[ $- != *i* ]] && return
+HISTCONTROL=erasedups:ignoreboth
+HISTSIZE=99999
+HISTFILESIZE=99999
+HISTIGNORE='exit:ls'
+shopt -s histappend
+
+GPG_TTY=$(tty)
+export GPG_TTY
