@@ -7,6 +7,7 @@ return {
   },
   keys = {
     { "<leader>nt", "<cmd>Neotree<cr>", desc = "Open Neotree" },
+    { "<leader>ng", "<cmd>Neotree git_status<cr>", desc = "Git Status" },
   },
   opts = {
     sources = {
